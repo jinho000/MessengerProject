@@ -2,13 +2,84 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="GameServer2.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerHelper.cpp">
+      <Filter>ServerHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenSocket.cpp">
+      <Filter>Socket\ListenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSocket.cpp">
+      <Filter>Socket\ClientSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionSocket.cpp">
+      <Filter>Socket\SessionSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="pch">
+      <UniqueIdentifier>{30af8cd5-8b36-4540-982e-b6d15107e9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerHelper">
+      <UniqueIdentifier>{ed9ee5d7-3a2d-4916-a975-3a6cfdd4c000}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Socket">
-      <UniqueIdentifier>{04132bb8-15b6-4da9-a71a-cb031f803c83}</UniqueIdentifier>
+      <UniqueIdentifier>{e2a8c078-0e6b-4062-a951-ad6ea0d16a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SocketHelper">
-      <UniqueIdentifier>{e00fc262-e72b-490f-aa3d-3e93ea9aba55}</UniqueIdentifier>
+    <Filter Include="Socket\ClientSocket">
+      <UniqueIdentifier>{6e200485-7ff1-4668-a863-23e3ab082c45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Socket\ListenSocket">
+      <UniqueIdentifier>{1f22a344-10d6-4588-b0b0-5909f3a2c7b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket\SessionSocket">
+      <UniqueIdentifier>{2486ec7b-bc35-44f3-8541-de39fb8cb604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{6cd2553b-b760-4938-8aa6-d4955ee5e610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerIOCP">
+      <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{86d3c3ff-00af-47db-a6e9-4687a1227e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOData">
+      <UniqueIdentifier>{06abdfda-f99a-4c00-a5b0-f8ae419bd1d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerHelper.h">
+      <Filter>ServerHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>Socket\ListenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSocket.h">
+      <Filter>Socket\ClientSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionSocket.h">
+      <Filter>Socket\SessionSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Server</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

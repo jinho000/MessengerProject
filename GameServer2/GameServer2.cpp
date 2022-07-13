@@ -1,8 +1,13 @@
-﻿#include <iostream>
+﻿#include "pch.h"
+#include "Server.h"
+
+using namespace std;
+
 
 int main()
 {
-    
-    std::cout << "Test\n";
+    Server::StartServer();
+
+    return 0;
 }
 
