@@ -23,6 +23,9 @@
     <ClCompile Include="Server.cpp">
       <Filter>Server</Filter>
     </ClCompile>
+    <ClCompile Include="IOCP.cpp">
+      <Filter>IOCP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -46,14 +49,17 @@
     <Filter Include="Global">
       <UniqueIdentifier>{6cd2553b-b760-4938-8aa6-d4955ee5e610}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerIOCP">
-      <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Server">
       <UniqueIdentifier>{86d3c3ff-00af-47db-a6e9-4687a1227e62}</UniqueIdentifier>
     </Filter>
     <Filter Include="IOData">
       <UniqueIdentifier>{06abdfda-f99a-4c00-a5b0-f8ae419bd1d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SessionManager">
+      <UniqueIdentifier>{c72dbc98-bbb1-4206-865a-db14035cd02c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCP">
+      <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +86,12 @@
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="IOCP.h">
+      <Filter>IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="using.h">
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
