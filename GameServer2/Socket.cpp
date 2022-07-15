@@ -43,15 +43,17 @@ Socket::Socket(int _port, std::string _IP, IPPROTO _protocol)
 	}
 }
 
-Socket::Socket(SOCKET _socket, SOCKADDR_IN _address)
-	: m_socket(_socket)
-	, m_address(_address)
+Socket::Socket()
+	: m_address({})
+	, m_port(0)
 	, m_protocol(IPPROTO::IPPROTO_TCP)
 {
-	char buff[255];
-	inet_ntop(AF_INET, &m_address.sin_addr, buff, sizeof(buff));
-	m_IP = std::string(buff);
-	m_port = ntohs(m_address.sin_port);
+	m_socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO::IPPROTO_TCP, NULL, NULL, WSA_FLAG_OVERLAPPED);
+	if (INVALID_SOCKET == m_socket)
+	{
+		ServerHelper::PrintLastError("create socket error");
+		return;
+	}
 }
 
 Socket::~Socket()

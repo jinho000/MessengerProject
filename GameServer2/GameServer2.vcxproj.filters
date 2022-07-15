@@ -26,6 +26,12 @@
     <ClCompile Include="IOCP.cpp">
       <Filter>IOCP</Filter>
     </ClCompile>
+    <ClCompile Include="SessionManager.cpp">
+      <Filter>SessionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionSocketPool.cpp">
+      <Filter>SessionSocketPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -61,6 +67,9 @@
     <Filter Include="IOCP">
       <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SessionSocketPool">
+      <UniqueIdentifier>{46f7694a-3956-4905-b092-acda37dfb807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -92,6 +101,15 @@
     </ClInclude>
     <ClInclude Include="using.h">
       <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionManager.h">
+      <Filter>SessionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionSocketPool.h">
+      <Filter>SessionSocketPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

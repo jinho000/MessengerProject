@@ -33,6 +33,8 @@ void IOCP::WorkThread()
 		LPOVERLAPPED	overlapped;
 		BOOL result = GetQueuedCompletionStatus(m_completionPort, &transferredBytes, &completionKey, &overlapped, INFINITE);
 
+		// 클라이언트가 강제종료시 result = false, transferredBytes = 0
+		// 클라이언트가 정상종료시 result = true,  transferredBytes = 0
 		if (result == FALSE)
 		{
 			ServerHelper::PrintLastError("GetQueuedCompletionStauts Error");
@@ -45,6 +47,7 @@ void IOCP::WorkThread()
 
 		// 비동기 입출력 결과 처리
 		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+
 		(*pIOCallback)(transferredBytes, overlapped);
 
 	}

@@ -11,7 +11,7 @@ protected:
 
 public:
 	Socket(int port, std::string _IP, IPPROTO _protocol);
-	Socket(SOCKET _socket, SOCKADDR_IN _address);
+	Socket(); // session socket에서 사용
 	virtual ~Socket() = 0;
 
 	Socket(const Socket& _other) = delete;
@@ -19,7 +19,7 @@ public:
 	Socket& operator=(const Socket& _other) = delete;
 	Socket& operator=(const Socket&& _other) = delete;
 
-private:
+protected:
 	void CloseSocket();
 
 protected:

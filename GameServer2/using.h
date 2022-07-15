@@ -1,3 +1,3 @@
 #pragma once
 
-using IOCompletionCallback = std::function<void(DWORD transferredBytes, LPOVERLAPPED IOData)>;
+using IOCompletionCallback = std::function<void(DWORD _transferredBytes, LPOVERLAPPED _IOData)>;
