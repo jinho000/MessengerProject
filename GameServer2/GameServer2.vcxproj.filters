@@ -32,6 +32,9 @@
     <ClCompile Include="SessionSocketPool.cpp">
       <Filter>SessionSocketPool</Filter>
     </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Singleton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -69,6 +72,9 @@
     </Filter>
     <Filter Include="SessionSocketPool">
       <UniqueIdentifier>{46f7694a-3956-4905-b092-acda37dfb807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Singleton">
+      <UniqueIdentifier>{ae60dd30-16f7-41c0-97a9-1cd8c424d5f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="SessionSocketPool.h">
       <Filter>SessionSocketPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Singleton</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

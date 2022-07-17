@@ -1,24 +1,15 @@
 #pragma once
+#include "Singleton.h"
 
+class SessionManger;
 class SessionSocket;
-class SessionManager
+class SessionManager : public Singleton<SessionManager>
 {
-private: // member var
-	static SessionManager* pInstance;
+	friend class Singleton;
 
 private: // default
 	SessionManager();
 	~SessionManager();
-
-	SessionManager(const SessionManager& _other) = delete;
-	SessionManager(SessionManager&& _other) = delete;
-	SessionManager& operator=(const SessionManager& _other) = delete;
-	SessionManager& operator=(const SessionManager&& _other) = delete;
-
-public: // member Func
-	static void CreateInstance();
-	static void Destroy();
-	static SessionManager* GetInst();
 
 private:
 	std::list<SessionSocket*>	m_socketList;
