@@ -1,16 +1,16 @@
 #pragma once
 
-class SessionSocket;
+class TCPSession;
 struct IOCompletionData
 {
     OVERLAPPED	    overlapped;
     char		    buffer[255];
     int			    bufferSize;
     WSABUF		    wsabuf;
-    SessionSocket*  pSessionSocket;
+    TCPSession&     tcpSession;
 
-    IOCompletionData(SessionSocket* _pSessionSocket)
-        : pSessionSocket(_pSessionSocket)
+    IOCompletionData(TCPSession& _tcpSession)
+        : tcpSession(_tcpSession)
     {
         bufferSize = 255;
         wsabuf.buf = buffer;

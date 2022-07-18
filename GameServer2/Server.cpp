@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "Server.h"
 #include "IOCP.h"
-#include "SessionSocketPool.h"
 #include "SessionManager.h"
+#include "ConfigManager.h"
 #include "ListenSocket.h"
+#include "TCPListener.h"
+#include "TCPSessionPool.h"
 
 // 소켓정보 구조체
 struct SOCKETINFO
@@ -102,20 +104,19 @@ void Server::StartServer()
 {
     ServerHelper::WSAStart();
 
-    // CPU스레드 개수 * 2 - 1만큼 스레드 만들기
-    // 1개는 메인 스레드
-    SYSTEM_INFO sysinfo;
-    GetSystemInfo(&sysinfo);
-    int workerThreadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
-
-    IOCP::CreateInstance(1);
-    SessionSocketPool::CreateInstance(1);
+    IOCP::CreateInstance();
     SessionManager::CreateInstance();
+    TCPSessionPool::CreateInstance();
+
+    // config 설정 후 TCPListener 생성
+    ConfigManager::CreateInstance();
+    ConfigManager::GetInst()->LoadConfig();
+
+    TCPListener::CreateInstance();
 
     {
         // 리슨 서버 시작
-        ListenSocket listenSocket(SERVER_PORT, "127.0.0.1");
-        listenSocket.StartListen();
+        TCPListener::GetInst()->StartListen();
 
         while (true)
         {
@@ -131,8 +132,13 @@ void Server::StartServer()
         // 이 블록을 나갈때 리슨소켓을 닫음
     }
     
+    TCPListener::Destroy();
     SessionManager::Destroy();
-    SessionSocketPool::Destroy();
+
+    TCPSessionPool::Destroy();
+    ConfigManager::Destroy();
+
     IOCP::Destroy();
+
     ServerHelper::WSAEnd();
 }

@@ -9,16 +9,16 @@
       <Filter>ServerHelper</Filter>
     </ClCompile>
     <ClCompile Include="Socket.cpp">
-      <Filter>Socket</Filter>
+      <Filter>Network\Socket</Filter>
     </ClCompile>
     <ClCompile Include="ListenSocket.cpp">
-      <Filter>Socket\ListenSocket</Filter>
+      <Filter>Network\Socket\ListenSocket</Filter>
     </ClCompile>
     <ClCompile Include="ClientSocket.cpp">
-      <Filter>Socket\ClientSocket</Filter>
+      <Filter>Network\Socket\ClientSocket</Filter>
     </ClCompile>
     <ClCompile Include="SessionSocket.cpp">
-      <Filter>Socket\SessionSocket</Filter>
+      <Filter>Network\Socket\SessionSocket</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">
       <Filter>Server</Filter>
@@ -27,16 +27,22 @@
       <Filter>IOCP</Filter>
     </ClCompile>
     <ClCompile Include="SessionManager.cpp">
-      <Filter>SessionManager</Filter>
-    </ClCompile>
-    <ClCompile Include="SessionSocketPool.cpp">
-      <Filter>SessionSocketPool</Filter>
+      <Filter>Network\SessionManager</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
       <Filter>Singleton</Filter>
     </ClCompile>
     <ClCompile Include="ConfigManager.cpp">
       <Filter>ConfigManger</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPListener.cpp">
+      <Filter>Network\TCPListener</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSessionPool.cpp">
+      <Filter>Network\TCPSessionPool</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSession.cpp">
+      <Filter>Network\TCPSession</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,41 +52,47 @@
     <Filter Include="ServerHelper">
       <UniqueIdentifier>{ed9ee5d7-3a2d-4916-a975-3a6cfdd4c000}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Socket">
-      <UniqueIdentifier>{e2a8c078-0e6b-4062-a951-ad6ea0d16a14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Socket\ClientSocket">
-      <UniqueIdentifier>{6e200485-7ff1-4668-a863-23e3ab082c45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Socket\ListenSocket">
-      <UniqueIdentifier>{1f22a344-10d6-4588-b0b0-5909f3a2c7b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Socket\SessionSocket">
-      <UniqueIdentifier>{2486ec7b-bc35-44f3-8541-de39fb8cb604}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{6cd2553b-b760-4938-8aa6-d4955ee5e610}</UniqueIdentifier>
     </Filter>
     <Filter Include="Server">
       <UniqueIdentifier>{86d3c3ff-00af-47db-a6e9-4687a1227e62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOData">
-      <UniqueIdentifier>{06abdfda-f99a-4c00-a5b0-f8ae419bd1d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SessionManager">
-      <UniqueIdentifier>{c72dbc98-bbb1-4206-865a-db14035cd02c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="IOCP">
       <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SessionSocketPool">
-      <UniqueIdentifier>{46f7694a-3956-4905-b092-acda37dfb807}</UniqueIdentifier>
     </Filter>
     <Filter Include="Singleton">
       <UniqueIdentifier>{ae60dd30-16f7-41c0-97a9-1cd8c424d5f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="ConfigManger">
       <UniqueIdentifier>{4df26f24-fd1e-4fef-bea1-7f6befb35ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{f5d881cf-62a3-427d-bba0-30e21b7a34c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\TCPListener">
+      <UniqueIdentifier>{2c055888-510c-42f7-b451-c528b8cfb850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\TCPSession">
+      <UniqueIdentifier>{adca25fa-9bff-47f0-bf0c-2adbf6f19487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Socket">
+      <UniqueIdentifier>{e2a8c078-0e6b-4062-a951-ad6ea0d16a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Socket\ClientSocket">
+      <UniqueIdentifier>{6e200485-7ff1-4668-a863-23e3ab082c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Socket\ListenSocket">
+      <UniqueIdentifier>{1f22a344-10d6-4588-b0b0-5909f3a2c7b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Socket\SessionSocket">
+      <UniqueIdentifier>{2486ec7b-bc35-44f3-8541-de39fb8cb604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\SessionManager">
+      <UniqueIdentifier>{c72dbc98-bbb1-4206-865a-db14035cd02c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\TCPSessionPool">
+      <UniqueIdentifier>{fbd8b8ff-22cc-45f9-8bd7-23893a5e3e27}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,19 +103,19 @@
       <Filter>ServerHelper</Filter>
     </ClInclude>
     <ClInclude Include="Socket.h">
-      <Filter>Socket</Filter>
+      <Filter>Network\Socket</Filter>
     </ClInclude>
     <ClInclude Include="ListenSocket.h">
-      <Filter>Socket\ListenSocket</Filter>
+      <Filter>Network\Socket\ListenSocket</Filter>
     </ClInclude>
     <ClInclude Include="ClientSocket.h">
-      <Filter>Socket\ClientSocket</Filter>
+      <Filter>Network\Socket\ClientSocket</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="SessionSocket.h">
-      <Filter>Socket\SessionSocket</Filter>
+      <Filter>Network\Socket\SessionSocket</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Server</Filter>
@@ -118,16 +130,22 @@
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="SessionManager.h">
-      <Filter>SessionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="SessionSocketPool.h">
-      <Filter>SessionSocketPool</Filter>
+      <Filter>Network\SessionManager</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Singleton</Filter>
     </ClInclude>
     <ClInclude Include="ConfigManager.h">
       <Filter>ConfigManger</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPListener.h">
+      <Filter>Network\TCPListener</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPSessionPool.h">
+      <Filter>Network\TCPSessionPool</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPSession.h">
+      <Filter>Network\TCPSession</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

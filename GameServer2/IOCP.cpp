@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "IOCP.h"
+#include "TCPListener.h"
+#include "SessionManager.h"
 
 IOCP* IOCP::pInstance = nullptr;
 
@@ -24,13 +26,25 @@ IOCP::IOCP()
 	// 지정된 개수만큼 스레드 만들기
 	for (int i = 0; i < m_threadCount; ++i)
 	{
-		std::thread worker(std::bind(&IOCP::WorkThread, ;
+		std::thread worker(std::bind(&IOCP::WorkThread, this));
 		m_workerThreadArry.push_back(std::move(worker));
 	}
 }
 
 IOCP::~IOCP()
 {
+	// IOCP에 연결되어있는 소켓이 모두 close된 후 스레드를 종료해야함
+	// 연결된 소켓들이 모두 종료될때까지 컨텍스트 스위칭
+	while (TCPListener::GetInst() != nullptr)
+	{
+		Sleep(1);
+	}
+
+	while (SessionManager::GetInst() != nullptr)
+	{
+		Sleep(1);
+	}
+
 	// 스레드 종료
 	for (size_t i = 0; i < m_workerThreadArry.size(); i++)
 	{
@@ -57,6 +71,7 @@ void IOCP::WorkThread()
 		// 클라이언트가 정상종료시 result = true,  transferredBytes = 0
 		if (result == FALSE)
 		{
+			// Completion Port에 AcceptEx로 소켓을 등록해둔채 종료하면 995 에러
 			ServerHelper::PrintLastError("GetQueuedCompletionStauts Error");
 			return;
 		}

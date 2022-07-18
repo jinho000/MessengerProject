@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "SessionManager.h"
-#include "SessionSocket.h"
 
 SessionManager::SessionManager()
 {
@@ -8,17 +7,20 @@ SessionManager::SessionManager()
 
 SessionManager::~SessionManager()
 {
-    while (m_socketList.empty() == false)
+    // 소켓이 클라이언트와 연결되어있는데 종료한경우?
+    while (m_connectedTCPSession.empty() == false)
     {
         // delete를 호출하는 스레드는 하나뿐이므로 락을걸지 않는다
-        SessionSocket* pSessionSocket = m_socketList.front(); m_socketList.pop_front();
-        delete pSessionSocket;
+        TCPSession* pTCPSession = m_connectedTCPSession.front(); m_connectedTCPSession.pop_front();
+        delete pTCPSession;
+        pTCPSession = nullptr;
     }
 }
 
-void SessionManager::AddSessionSocket(SessionSocket* _pSessionSocket)
+void SessionManager::AddTCPSession(TCPSession* _pTCPSession)
 {
     m_lock.lock();
-    m_socketList.push_back(_pSessionSocket);
+    m_connectedTCPSession.push_back(_pTCPSession);
     m_lock.unlock();
 }
+

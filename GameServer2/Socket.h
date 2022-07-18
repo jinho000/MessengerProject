@@ -22,10 +22,10 @@ public:
 protected:
 	void CloseSocket();
 
-protected:
 
 public:
-	IPPROTO GetProtocol() const { return m_protocol; }
+	// IPPROTO GetProtocol() const { return m_protocol; }
+
 	SOCKET GetSocket() const { return m_socket; }
 
 };

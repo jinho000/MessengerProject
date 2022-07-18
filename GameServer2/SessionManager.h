@@ -2,7 +2,7 @@
 #include "Singleton.h"
 
 class SessionManger;
-class SessionSocket;
+class TCPSession;
 class SessionManager : public Singleton<SessionManager>
 {
 	friend class Singleton;
@@ -12,11 +12,11 @@ private: // default
 	~SessionManager();
 
 private:
-	std::list<SessionSocket*>	m_socketList;
-	std::mutex					m_lock;
+	std::list<TCPSession*>	m_connectedTCPSession;
+	std::mutex				m_lock;
 
 public:
-	void AddSessionSocket(SessionSocket* _pSessionSocket);
+	void AddTCPSession(TCPSession* _pTCPSession);
 
 };
 

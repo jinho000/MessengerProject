@@ -3,7 +3,7 @@
 
 SessionSocket::SessionSocket()
 	: Socket()
-	, m_bUsed(false)
+	, m_bRegistIOCP(false)
 {
 	// 家南 可记 汲沥
 	
