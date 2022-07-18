@@ -1,24 +1,13 @@
 #pragma once
+#include "Singleton.h"
 
-
-class IOCP
+class IOCP : public Singleton<IOCP>
 {
-private: // member var
-	static IOCP* pInstance;
+	friend class Singleton;
 
 private:
 	IOCP();
 	~IOCP();
-
-	IOCP(const IOCP& _other) = delete;
-	IOCP(IOCP&& _other) = delete;
-	IOCP& operator=(const IOCP& _other) = delete;
-	IOCP& operator=(const IOCP&& _other) = delete;
-
-public:
-	static void CreateInstance(int _threadCount);
-	static void Destroy();
-	static IOCP* GetInst();
 
 private:
 	int							m_threadCount;
@@ -36,4 +25,3 @@ private:
 public:
 	void RegisterSocket(SOCKET _socket, IOCompletionCallback* _pIoCompletionCallback);
 };
-

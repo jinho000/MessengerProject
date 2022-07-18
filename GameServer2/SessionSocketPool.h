@@ -1,24 +1,14 @@
 #pragma once
+#include "Singleton.h"
 
 class SessionSocket;
-class SessionSocketPool
+class SessionSocketPool : public Singleton<SessionSocketPool>
 {
-private: // member var
-	static SessionSocketPool* pInstance;
+	friend class Singlton;
 
 private: // default
-	SessionSocketPool(int _initialSocketCount);
+	SessionSocketPool();
 	~SessionSocketPool();
-
-	SessionSocketPool(const SessionSocketPool& _other) = delete;
-	SessionSocketPool(SessionSocketPool&& _other) = delete;
-	SessionSocketPool& operator=(const SessionSocketPool& _other) = delete;
-	SessionSocketPool& operator=(const SessionSocketPool&& _other) = delete;
-
-public: // member Func
-	static void CreateInstance(int _initialSocketCount);
-	static void Destroy();
-	static SessionSocketPool* GetInst();
 
 private:
 	std::queue<SessionSocket*>	m_sessionSocketPool;
@@ -26,6 +16,7 @@ private:
 
 	enum
 	{
+		INITIAL_SOCKET_COUNT = 10,
 		RECREATE_SOCKET_COUNT = 10
 	};
 

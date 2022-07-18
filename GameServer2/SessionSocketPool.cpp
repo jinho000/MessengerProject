@@ -2,11 +2,9 @@
 #include "SessionSocketPool.h"
 #include "SessionSocket.h"
 
-SessionSocketPool* SessionSocketPool::pInstance = nullptr;
-
-SessionSocketPool::SessionSocketPool(int _initialSocketCount)
+SessionSocketPool::SessionSocketPool()
 {
-    CreateSessionSocket(_initialSocketCount);
+    CreateSessionSocket(INITIAL_SOCKET_COUNT);
 }
 
 SessionSocketPool::~SessionSocketPool()
@@ -17,28 +15,6 @@ SessionSocketPool::~SessionSocketPool()
         SessionSocket* pSessionSocket = m_sessionSocketPool.front(); m_sessionSocketPool.pop();
         delete pSessionSocket;
     }
-}
-
-void SessionSocketPool::CreateInstance(int _initialSocketCount)
-{
-    if (pInstance != nullptr)
-        return;
-
-    pInstance = new SessionSocketPool(_initialSocketCount);
-}
-
-void SessionSocketPool::Destroy()
-{
-    if (pInstance != nullptr)
-    {
-        delete pInstance;
-        pInstance = nullptr;
-    }
-}
-
-SessionSocketPool* SessionSocketPool::GetInst()
-{
-    return pInstance;
 }
 
 void SessionSocketPool::CreateSessionSocket(int _count)
@@ -57,6 +33,7 @@ SessionSocket* SessionSocketPool::GetSessionSocket()
     {
         CreateSessionSocket(RECREATE_SOCKET_COUNT);
     }
+
     SessionSocket* pSessionSocket = m_sessionSocketPool.front(); 
 
     m_lock.lock();

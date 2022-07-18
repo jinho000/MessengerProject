@@ -7,6 +7,26 @@ IOCP::IOCP()
 	: m_threadCount(0)
 	, m_completionPort(NULL)
 {
+	// CPU개수 * 2 - 1만큼 스레드 만들기
+	// 1개는 메인 스레드
+	SYSTEM_INFO sysinfo;
+	GetSystemInfo(&sysinfo);
+
+	m_threadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
+	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, m_threadCount);
+
+	if (m_completionPort == NULL)
+	{
+		ServerHelper::PrintLastError("Create Completion Port Error");
+		return;
+	}
+
+	// 지정된 개수만큼 스레드 만들기
+	for (int i = 0; i < m_threadCount; ++i)
+	{
+		std::thread worker(std::bind(&IOCP::WorkThread, ;
+		m_workerThreadArry.push_back(std::move(worker));
+	}
 }
 
 IOCP::~IOCP()
@@ -47,54 +67,13 @@ void IOCP::WorkThread()
 
 		// 비동기 입출력 결과 처리
 		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+		assert(pIOCallback != nullptr);
 
 		(*pIOCallback)(transferredBytes, overlapped);
 
 	}
 }
 
-
-void IOCP::CreateInstance(int _threadCount)
-{
-	if (pInstance != nullptr)
-		return;
-
-	pInstance = new IOCP;
-	pInstance->m_threadCount = _threadCount;
-	pInstance->m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, pInstance->m_threadCount);
-
-	if (pInstance->m_completionPort == NULL)
-	{
-		ServerHelper::PrintLastError("Create Completion Port Error");
-		return;
-	}
-
-	// CPU개수 * 2 - 1만큼 스레드 만들기
-	// 1개는 메인 스레드
-	//SYSTEM_INFO sysinfo;
-	//GetSystemInfo(&sysinfo);
-
-	// 지정된 개수만큼 스레드 만들기
-	for (int i = 0; i < pInstance->m_threadCount; ++i)
-	{
-		std::thread worker(std::bind(&IOCP::WorkThread, pInstance));
-		pInstance->m_workerThreadArry.push_back(std::move(worker));
-	}
-}
-
-void IOCP::Destroy()
-{
-	if (pInstance != nullptr)
-	{
-		delete pInstance;
-		pInstance = nullptr;
-	}
-}
-
-IOCP* IOCP::GetInst()
-{
-	return pInstance;
-}
 
 void IOCP::RegisterSocket(SOCKET _socket, IOCompletionCallback* _pIoCompletionCallback)
 {

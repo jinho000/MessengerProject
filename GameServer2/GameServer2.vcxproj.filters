@@ -35,6 +35,9 @@
     <ClCompile Include="Singleton.cpp">
       <Filter>Singleton</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigManager.cpp">
+      <Filter>ConfigManger</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -75,6 +78,9 @@
     </Filter>
     <Filter Include="Singleton">
       <UniqueIdentifier>{ae60dd30-16f7-41c0-97a9-1cd8c424d5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConfigManger">
+      <UniqueIdentifier>{4df26f24-fd1e-4fef-bea1-7f6befb35ea5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigManager.h">
+      <Filter>ConfigManger</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
