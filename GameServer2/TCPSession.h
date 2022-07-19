@@ -27,4 +27,5 @@ public: // member Func
 	void SetClientAddress();
 	void RegistIOCP();
 	void RequestRecv();
+	void RequestSend();
 };

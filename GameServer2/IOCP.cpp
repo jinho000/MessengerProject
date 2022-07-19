@@ -33,19 +33,7 @@ IOCP::IOCP()
 
 IOCP::~IOCP()
 {
-	// IOCP에 연결되어있는 소켓이 모두 close된 후 스레드를 종료해야함
-	// 연결된 소켓들이 모두 종료될때까지 컨텍스트 스위칭
-	while (TCPListener::GetInst() != nullptr)
-	{
-		Sleep(1);
-	}
-
-	while (SessionManager::GetInst() != nullptr)
-	{
-		Sleep(1);
-	}
-
-	// 스레드 종료
+	// 비동기 완료작업 종료 요청
 	for (size_t i = 0; i < m_workerThreadArry.size(); i++)
 	{
 		// 스레드를 종료할때만 PostQueued 작업 요청

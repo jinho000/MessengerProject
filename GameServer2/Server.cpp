@@ -128,17 +128,16 @@ void Server::StartServer()
                 break;
             }
         }
-
-        // 이 블록을 나갈때 리슨소켓을 닫음
     }
     
+    IOCP::Destroy();
+
+    TCPSessionPool::Destroy();
     TCPListener::Destroy();
     SessionManager::Destroy();
 
-    TCPSessionPool::Destroy();
     ConfigManager::Destroy();
 
-    IOCP::Destroy();
 
     ServerHelper::WSAEnd();
 }

@@ -49,6 +49,7 @@ void TCPSession::RequestAsyncAccept()
 			return;
 		}
 	}
+
 }
 
 void TCPSession::SetClientAddress()
@@ -83,6 +84,10 @@ void TCPSession::RegistIOCP()
 void TCPSession::RequestRecv()
 {
 
+}
+
+void TCPSession::RequestSend()
+{
 }
 
 
