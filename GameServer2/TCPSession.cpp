@@ -2,10 +2,13 @@
 #include "TCPSession.h"
 #include "TCPListener.h"
 #include "IOCP.h"
+#include "TCPSessionPool.h"
+#include "SessionManager.h"
 
 TCPSession::TCPSession()
 	: m_sessionSocket()
 	, m_IOCompletionAccept(*this, IOTYPE::ACCEPT)
+	, m_IOCompletionDisconnect(*this, IOTYPE::DISCONNECT)
 	, m_IOCompletionRecv(*this, IOTYPE::RECV)
 	, m_IOCompletionSend(*this, IOTYPE::SEND)
 	, m_IOCompletionCallback(std::bind(&TCPSession::IOCompletionCallback, this, std::placeholders::_1, std::placeholders::_2))
@@ -18,10 +21,29 @@ TCPSession::~TCPSession()
 
 void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData* _IOData)
 {
-	// send, recv 贸府
-	if (_IOData->IOType == IOTYPE::RECV)
+	switch (_IOData->IOType)
 	{
-		// Recv 贸府
+	case IOTYPE::RECV:
+	{
+		// client 立加 辆丰 贸府
+		if (_transferredBytes == 0)
+		{
+			// 家南 辆丰
+			BOOL bResult = TransmitFile(m_sessionSocket.GetSocket(), 0, 0, 0
+				, &m_IOCompletionDisconnect.overlapped
+				, 0
+				, TF_DISCONNECT | TF_REUSE_SOCKET
+			);
+
+			if (FALSE == bResult && ERROR_IO_PENDING != WSAGetLastError())
+			{
+				ServerHelper::PrintLastError("TransmitFile error");
+			}
+
+			break;
+		}
+
+		// echo
 		m_IOCompletionRecv.buffer[_transferredBytes] = '\0';
 		std::cout << m_IOCompletionRecv.buffer << std::endl;
 
@@ -30,15 +52,35 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		data.resize(buffer.size() + 1, 0);
 		std::copy(buffer.begin(), buffer.end(), data.begin());
 		RequestSend(data);
-		
+
+		// Recv 贸府
+		// PacketHandler::GetInst()->Dispatch(_IOData->buffer);
+		// 
+		// HandleFunc df
+		// df(); 
+		// 
+		// 
 
 		RequestRecv();
+		break;
 	}
-	else
+	case IOTYPE::SEND:
 	{
-		// Send 贸府
-
+		break;
 	}
+	case IOTYPE::DISCONNECT:
+	{
+		// 技记 概聪历俊辑 波郴扁
+		SessionManager::GetInst()->PopTCPSession(this);
+
+		// 技记 钱俊 持扁 
+		TCPSessionPool::GetInst()->RetrieveTCPSession(this);
+		break;
+	}
+	default:
+		break;
+	}
+
 }
 
 

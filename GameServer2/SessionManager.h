@@ -12,11 +12,11 @@ private: // default
 	~SessionManager();
 
 private:
-	std::list<TCPSession*>	m_connectedTCPSession;
-	std::mutex				m_lock;
+	std::unordered_map<TCPSession*, TCPSession*>	m_connectedTCPSession;
+	std::mutex										m_lock;
 
 public:
 	void AddTCPSession(TCPSession* _pTCPSession);
-
+	void PopTCPSession(TCPSession* _key);
 };
 

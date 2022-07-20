@@ -11,19 +11,18 @@ void Server::StartServer()
 {
     ServerHelper::WSAStart();
 
-    IOCP::CreateInstance();
-    SessionManager::CreateInstance();
-    TCPSessionPool::CreateInstance();
-
-    // config 설정 후 TCPListener 생성
+    // 서버의 config 설정 후 다른 매니저 생성
     ConfigManager::CreateInstance();
     ConfigManager::GetInst()->LoadConfig();
 
+    IOCP::CreateInstance();
     TCPListener::CreateInstance();
+    SessionManager::CreateInstance();
 
     {
         // 리슨 서버 시작
         TCPListener::GetInst()->StartListen();
+        TCPSessionPool::CreateInstance();
 
         while (true)
         {
@@ -40,8 +39,8 @@ void Server::StartServer()
     IOCP::Destroy();
 
     TCPSessionPool::Destroy();
-    TCPListener::Destroy();
     SessionManager::Destroy();
+    TCPListener::Destroy();
 
     ConfigManager::Destroy();
 

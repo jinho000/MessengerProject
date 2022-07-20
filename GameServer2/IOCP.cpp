@@ -2,17 +2,12 @@
 #include "IOCP.h"
 #include "TCPListener.h"
 #include "SessionManager.h"
+#include "ConfigManager.h"
 
 IOCP::IOCP()
-	: m_threadCount(0)
+	: m_threadCount(ConfigManager::GetInst()->GetWorkerThreadCount())
 	, m_completionPort(NULL)
 {
-	// CPU개수 * 2 - 1만큼 스레드 만들기
-	// 1개는 메인 스레드
-	SYSTEM_INFO sysinfo;
-	GetSystemInfo(&sysinfo);
-
-	m_threadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
 	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, m_threadCount);
 
 	if (m_completionPort == NULL)
@@ -55,9 +50,8 @@ void IOCP::WorkThread()
 
 		// 클라이언트가 강제종료시 result = false, transferredBytes = 0
 		// 클라이언트가 정상종료시 result = true,  transferredBytes = 0
-		if (result == FALSE)
+		if (result == FALSE && transferredBytes != 0)
 		{
-			// Completion Port에 AcceptEx로 소켓을 등록해둔채 종료하면 995 에러
 			ServerHelper::PrintLastError("GetQueuedCompletionStauts Error");
 			return;
 		}
@@ -71,7 +65,6 @@ void IOCP::WorkThread()
 		assert(overlapped != nullptr);
 
 		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
-		//reinterpret_cast<IOCompletionData*> (_IOData)
 		IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
 		(*pIOCallback)(transferredBytes, ioCompletionData);
 

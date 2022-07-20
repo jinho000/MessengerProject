@@ -11,13 +11,6 @@ private: // member var
 	ListenSocket			m_listenSocket;
 	IOCompletionCallback	m_listenCompleteCallback;
 
-	std::unordered_map<TCPSession*, TCPSession*> m_acceptingTCPSession;
-
-	enum
-	{
-		InitialAcceptSocketCount = 10,
-	};
-
 private: 
 	TCPListener();
 	~TCPListener();
@@ -27,8 +20,6 @@ private:
 
 public:
 	SOCKET GetListenSocket() { return m_listenSocket.GetSocket(); }
-
 	void StartListen();
-
 };
 

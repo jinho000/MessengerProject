@@ -6,6 +6,7 @@ class TCPSession
 private: // member var
 	SessionSocket			m_sessionSocket;
 	IOCompletionData		m_IOCompletionAccept; 
+	IOCompletionData		m_IOCompletionDisconnect; 
 	IOCompletionData		m_IOCompletionRecv; 
 	IOCompletionData		m_IOCompletionSend; 
 
@@ -22,7 +23,7 @@ public: // default
 
 private:
 	void IOCompletionCallback(DWORD _transferredBytes, IOCompletionData* _IOData);
-	//void IO
+	
 
 public: // member Func
 	bool IsRecycleSession();

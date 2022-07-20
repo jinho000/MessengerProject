@@ -4,5 +4,6 @@ enum class IOTYPE
 {
 	SEND,
 	RECV,
-	ACCEPT
+	ACCEPT,
+	DISCONNECT
 };

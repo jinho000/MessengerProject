@@ -8,23 +8,15 @@ class TCPSessionPool : public Singleton<TCPSessionPool>
 	friend class Singleton;
 
 private: // member var
-	std::queue<TCPSession*>	m_TCPSessionPool;
-	std::mutex				m_lock;
-
-	enum 
-	{
-		INITIAL_SESSION_COUNT = 10,
-		RECREATE_SESSION_COUNT = 10
-	};
+	std::unordered_map<TCPSession*, TCPSession*>	m_TCPSessionPool;
+	std::mutex										m_lock;
 
 private:
 	TCPSessionPool();
 	~TCPSessionPool();
 
-	void CreateTCPSession(int _TCPSessionCount);
-
 public:
-	TCPSession* GetTCPSession();
+	void PopTCPSession(TCPSession* _pTCPSession);
 	void RetrieveTCPSession(TCPSession* _pTCPSession);
 
 };
