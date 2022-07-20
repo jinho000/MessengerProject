@@ -1,20 +1,47 @@
 #pragma once
 
+
+
 class TCPSession;
 struct IOCompletionData
 {
+    enum
+    {
+        IOBUFFER_SIZE = 255
+    };
+
     OVERLAPPED	    overlapped;
-    char		    buffer[255];
-    int			    bufferSize;
+    char		    buffer[IOBUFFER_SIZE];
     WSABUF		    wsabuf;
+    IOTYPE          IOType;
     TCPSession&     tcpSession;
 
-    IOCompletionData(TCPSession& _tcpSession)
-        : tcpSession(_tcpSession)
+    IOCompletionData(TCPSession& _tcpSession, IOTYPE _IOType)
+        : buffer()
+        , IOType(_IOType)
+        , tcpSession(_tcpSession)
     {
-        bufferSize = 255;
-        wsabuf.buf = buffer;
-        wsabuf.len = bufferSize;
         ZeroMemory(&overlapped, sizeof(overlapped));
+        
+        wsabuf.buf = buffer;
+        wsabuf.len = IOBUFFER_SIZE;
+    }
+
+    void Clear()
+    {
+        memset(buffer, 0x00, sizeof(buffer));
+        wsabuf.len = sizeof(buffer);
+        wsabuf.buf = buffer;
+    }
+
+    void SetBuffer(const std::vector<uint8_t>& _sendBuffer)
+    {
+        wsabuf.buf = buffer;
+        wsabuf.len = _sendBuffer.size();
+        
+        // 데이터 범위 체크 최대 255크기 까지
+        assert(wsabuf.len < IOBUFFER_SIZE);
+
+        std::copy(_sendBuffer.begin(), _sendBuffer.end(), buffer);
     }
 };

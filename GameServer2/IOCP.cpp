@@ -3,8 +3,6 @@
 #include "TCPListener.h"
 #include "SessionManager.h"
 
-IOCP* IOCP::pInstance = nullptr;
-
 IOCP::IOCP()
 	: m_threadCount(0)
 	, m_completionPort(NULL)
@@ -69,10 +67,13 @@ void IOCP::WorkThread()
 			break;
 
 		// 비동기 입출력 결과 처리
-		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
-		assert(pIOCallback != nullptr);
+		assert(completionKey != 0);
+		assert(overlapped != nullptr);
 
-		(*pIOCallback)(transferredBytes, overlapped);
+		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+		//reinterpret_cast<IOCompletionData*> (_IOData)
+		IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
+		(*pIOCallback)(transferredBytes, ioCompletionData);
 
 	}
 }

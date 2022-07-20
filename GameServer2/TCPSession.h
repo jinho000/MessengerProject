@@ -5,7 +5,10 @@ class TCPSession
 {
 private: // member var
 	SessionSocket			m_sessionSocket;
-	IOCompletionData		m_IOCompletionData;
+	IOCompletionData		m_IOCompletionAccept; 
+	IOCompletionData		m_IOCompletionRecv; 
+	IOCompletionData		m_IOCompletionSend; 
+
 	IOCompletionCallback	m_IOCompletionCallback;
 
 public: // default
@@ -18,7 +21,8 @@ public: // default
 	TCPSession& operator=(const TCPSession&& _other) = delete;
 
 private:
-	void IOCompletionCallback(DWORD _transferredBytes, LPOVERLAPPED _IOData);
+	void IOCompletionCallback(DWORD _transferredBytes, IOCompletionData* _IOData);
+	//void IO
 
 public: // member Func
 	bool IsRecycleSession();
@@ -27,5 +31,5 @@ public: // member Func
 	void SetClientAddress();
 	void RegistIOCP();
 	void RequestRecv();
-	void RequestSend();
+	void RequestSend(const std::vector<uint8_t>& _buffer);
 };

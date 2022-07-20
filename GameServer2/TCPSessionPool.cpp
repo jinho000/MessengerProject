@@ -35,21 +35,19 @@ TCPSession* TCPSessionPool::GetTCPSession()
         CreateTCPSession(RECREATE_SESSION_COUNT);
     }
 
-    TCPSession* pSessionSocket = m_TCPSessionPool.front();
+    TCPSession* pTCPSession = m_TCPSessionPool.front();
 
     m_lock.lock();
     m_TCPSessionPool.pop();
     m_lock.unlock();
 
-    return pSessionSocket;
+    return pTCPSession;
 }
 
 void TCPSessionPool::RetrieveTCPSession(TCPSession* _pTCPSession)
 {
     // 클라이언트와 접속이 끊어진 후 다시 재활용하는 TCP세션만 넣는다
     assert(_pTCPSession->IsRecycleSession() == true);
-
-    //_TCPSession->SetUsed();
 
     // accpet 요청 후 세션 풀에 넣는다
     m_lock.lock();

@@ -14,47 +14,38 @@ TCPListener::TCPListener()
 
 TCPListener::~TCPListener()
 {
-	// accpetEx 중인데 종료한경우?
-	while (m_acceptingTCPSession.empty() == false)
+	// accpetEx 중인데 종료한경우
+	// IOCP work스레드가 종료되어 accept상태에서 소켓이 빠져나와야한다
+	// accept중이었던 TCP세션을 여기서 종료
+	auto iter = m_acceptingTCPSession.begin();
+	while (iter != m_acceptingTCPSession.end())
 	{
 		// delete를 호출하는 스레드는 하나뿐이므로 락을걸지 않는다
-		TCPSession* pSessionSocket = m_acceptingTCPSession.front(); m_acceptingTCPSession.pop_front();
-		delete pSessionSocket;
-		pSessionSocket = nullptr;
+		delete iter->second;
+		iter->second = nullptr;
+
+		++iter;
 	}
 }
 
-void TCPListener::ListenCompleteCallback(DWORD _transferredBytes, LPOVERLAPPED _IOData)
+void TCPListener::ListenCompleteCallback(DWORD _transferredBytes, IOCompletionData* _IOData)
 {	
-	// 문제
-	// Completion Port에 AcceptEx로 소켓을 등록해둔채 종료하면 995 에러
-	
 	// 전달된 Overlapped 구조체를 IOCompletionData로 캐스팅 후 TCPSession 얻어오기
-	TCPSession& rfTcpSession = reinterpret_cast<IOCompletionData*> (_IOData)->tcpSession;
+	TCPSession& rfTcpSession = _IOData->tcpSession;
 	rfTcpSession.SetClientAddress();
 	rfTcpSession.RegistIOCP();
 	rfTcpSession.RequestRecv();
 
-	// 리스너에서 꺼내기 
-	auto iter = m_acceptingTCPSession.begin();
-	while (iter != m_acceptingTCPSession.end())
-	{
-		if (*iter == &rfTcpSession)
-		{
-			m_acceptingTCPSession.erase(iter);
-			break;
-		}
-
-		++iter;
-	}
+	// 관리하고있는 세션맵에서 꺼내기
+	m_acceptingTCPSession.erase(&rfTcpSession);
 
 	// 세션 매니저에 소켓 전달
 	SessionManager::GetInst()->AddTCPSession(&rfTcpSession);
 
-
 	// SessionPool에서 TCPSession을 받아 accept 요청
 	TCPSession* pTCPSession = TCPSessionPool::GetInst()->GetTCPSession();
 	pTCPSession->RequestAsyncAccept();
+	m_acceptingTCPSession.insert({ pTCPSession, pTCPSession });
 }
 
 void TCPListener::StartListen()
@@ -71,7 +62,7 @@ void TCPListener::StartListen()
 	{
 		TCPSession* pTCPSession = TCPSessionPool::GetInst()->GetTCPSession();
 		pTCPSession->RequestAsyncAccept();
-		m_acceptingTCPSession.push_back(pTCPSession);
+		m_acceptingTCPSession.insert({ pTCPSession, pTCPSession });
 	}
 
 }

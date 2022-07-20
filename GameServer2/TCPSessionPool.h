@@ -13,7 +13,7 @@ private: // member var
 
 	enum 
 	{
-		INITIAL_SESSION_COUNT = 1,
+		INITIAL_SESSION_COUNT = 10,
 		RECREATE_SESSION_COUNT = 10
 	};
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SessionManager.h"
+#include "TCPSession.h"
 
 SessionManager::SessionManager()
 {
