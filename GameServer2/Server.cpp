@@ -6,6 +6,7 @@
 #include "ListenSocket.h"
 #include "TCPListener.h"
 #include "TCPSessionPool.h"
+#include "PacketHandler.h"  
 
 void Server::StartServer()
 {
@@ -18,6 +19,7 @@ void Server::StartServer()
     IOCP::CreateInstance();
     TCPListener::CreateInstance();
     SessionManager::CreateInstance();
+    PacketHandler::CreateInstance();
 
     {
         // 리슨 서버 시작
@@ -38,6 +40,7 @@ void Server::StartServer()
     
     IOCP::Destroy();
 
+    PacketHandler::Destroy();
     TCPSessionPool::Destroy();
     SessionManager::Destroy();
     TCPListener::Destroy();

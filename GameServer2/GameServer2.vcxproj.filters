@@ -43,6 +43,9 @@
     <ClCompile Include="TCPSession.cpp">
       <Filter>Network\TCPSession</Filter>
     </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>PacketHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -92,6 +95,9 @@
     </Filter>
     <Filter Include="Network\TCPSessionPool">
       <UniqueIdentifier>{fbd8b8ff-22cc-45f9-8bd7-23893a5e3e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler">
+      <UniqueIdentifier>{6b900ece-06de-46e7-a09e-e58f55c646b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="TCPSession.h">
       <Filter>Network\TCPSession</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>PacketHandler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

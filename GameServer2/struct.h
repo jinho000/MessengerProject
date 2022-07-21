@@ -5,13 +5,8 @@
 class TCPSession;
 struct IOCompletionData
 {
-    enum
-    {
-        IOBUFFER_SIZE = 255
-    };
-
     OVERLAPPED	    overlapped;
-    char		    buffer[IOBUFFER_SIZE];
+    char		    buffer[static_cast<int>(IO::IOBUFFER_SIZE)];
     WSABUF		    wsabuf;
     IOTYPE          IOType;
     TCPSession&     tcpSession;
@@ -24,7 +19,7 @@ struct IOCompletionData
         ZeroMemory(&overlapped, sizeof(overlapped));
         
         wsabuf.buf = buffer;
-        wsabuf.len = IOBUFFER_SIZE;
+        wsabuf.len = static_cast<int>(IO::IOBUFFER_SIZE);
     }
 
     void Clear()
@@ -40,7 +35,7 @@ struct IOCompletionData
         wsabuf.len = static_cast<ULONG>(_sendBuffer.size());
         
         // 데이터 범위 체크 최대 255크기 까지
-        assert(wsabuf.len < IOBUFFER_SIZE);
+        assert(wsabuf.len < static_cast<int>(IO::IOBUFFER_SIZE));
 
         std::copy(_sendBuffer.begin(), _sendBuffer.end(), buffer);
     }

@@ -4,6 +4,7 @@
 #include "IOCP.h"
 #include "TCPSessionPool.h"
 #include "SessionManager.h"
+#include "PacketHandler.h"
 
 TCPSession::TCPSession()
 	: m_sessionSocket()
@@ -44,20 +45,29 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		}
 
 		// echo
-		m_IOCompletionRecv.buffer[_transferredBytes] = '\0';
-		std::cout << m_IOCompletionRecv.buffer << std::endl;
+		//m_IOCompletionRecv.buffer[_transferredBytes] = '\0';
+		//std::cout << m_IOCompletionRecv.buffer << std::endl;
+		//std::string buffer(m_IOCompletionRecv.buffer);
+		//std::vector<uint8_t> data;
+		//data.resize(buffer.size() + 1, 0);
+		//std::copy(buffer.begin(), buffer.end(), data.begin());
+		//RequestSend(data);
 
 		std::string buffer(m_IOCompletionRecv.buffer);
 		std::vector<uint8_t> data;
 		data.resize(buffer.size() + 1, 0);
 		std::copy(buffer.begin(), buffer.end(), data.begin());
-		RequestSend(data);
 
-		// Recv 처리
-		// PacketHandler::GetInst()->Dispatch(_IOData->buffer);
-		// 
-		// 
-
+		// 데이터가 패킷의 사이즈만큼 왔는지 확인
+		if (true)
+		{
+			// 데이터가 패킷의 사이즈만큼 온 경우
+			// PacketHandler::GetInst()->Dispatch(m_recvBuffer);	
+			// 
+			
+		}
+		
+		// recv 다시 요청
 		RequestRecv();
 		break;
 	}

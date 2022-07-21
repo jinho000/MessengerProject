@@ -58,10 +58,5 @@ int main()
 
     workerThread.join();
 
-    delete clientSocket;
-    ServerHelper::WSAEnd();
-    
-
     return 0;
 }
-

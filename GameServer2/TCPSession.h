@@ -11,6 +11,8 @@ private: // member var
 	IOCompletionData		m_IOCompletionSend; 
 
 	IOCompletionCallback	m_IOCompletionCallback;
+	
+	std::vector<uint8_t>	m_recvBuffer;
 
 public: // default
 	TCPSession();
