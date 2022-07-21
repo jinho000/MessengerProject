@@ -3,7 +3,12 @@
 
 enum class PACKET_TYPE
 {
-	TEST_PACKET
+	RECV_PACKET,
+	SEND_PACKET,
+	MOVE,
+	ATTACK,
+	BUY,
+
 };
 
 class PacketBase
@@ -13,13 +18,23 @@ protected:
 	UINT					m_packetSize;
 
 	std::vector<uint8_t>	m_IOBuffer;
-	UINT					m_offset;
 	
 public: // default
 	PacketBase(PACKET_TYPE _packetType);
+	PacketBase(PACKET_TYPE _packetType, std::vector<uint8_t>& _IOBuffer);
 	virtual ~PacketBase() = 0;
+
+public:
+	virtual void Serialize() {};
+	virtual void Deserialize() {};
 
 public:
 	const std::vector<uint8_t>& GetBuffer() { m_IOBuffer; }
 
 };
+
+// Packet p(force, test);
+// session.send(p);
+// 
+// PacketHandler::GetInst()->
+//

@@ -160,19 +160,11 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RecvPacket.h">
+    <ClInclude Include="RecvTestPacket.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="SendPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="SendRecvPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TestPacket.h">
+    <ClInclude Include="SendTestPacket.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -188,19 +180,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RecvPacket.cpp">
+    <ClCompile Include="RecvTestPacket.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SendPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="SendRecvPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="TestPacket.cpp">
+    <ClCompile Include="SendTestPacket.cpp">
       <SubType>
       </SubType>
     </ClCompile>

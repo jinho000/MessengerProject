@@ -10,17 +10,11 @@
     <Filter Include="Packet\PacketBase">
       <UniqueIdentifier>{6495e845-8cec-469f-9870-d6e56bac9fef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\SendPacket">
-      <UniqueIdentifier>{c4f0be05-b3f8-4418-90a3-63c66777b419}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet\RecvPacket">
-      <UniqueIdentifier>{22033f3d-fc93-4179-8e08-ce6a5a976060}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet\SendRecvPacket">
-      <UniqueIdentifier>{68ea5de6-538b-4fa2-98aa-1c34703ea325}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet\TestPacket">
+    <Filter Include="Packet\RecvTestPacket">
       <UniqueIdentifier>{c538b247-0e36-4775-b8d3-21df4f6b78a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\SendTestPacket">
+      <UniqueIdentifier>{ac571a55-1ee8-4720-b3b1-c821867ea1c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,17 +24,11 @@
     <ClCompile Include="PacketBase.cpp">
       <Filter>Packet\PacketBase</Filter>
     </ClCompile>
-    <ClCompile Include="SendPacket.cpp">
-      <Filter>Packet\SendPacket</Filter>
+    <ClCompile Include="RecvTestPacket.cpp">
+      <Filter>Packet\RecvTestPacket</Filter>
     </ClCompile>
-    <ClCompile Include="RecvPacket.cpp">
-      <Filter>Packet\RecvPacket</Filter>
-    </ClCompile>
-    <ClCompile Include="SendRecvPacket.cpp">
-      <Filter>Packet\SendRecvPacket</Filter>
-    </ClCompile>
-    <ClCompile Include="TestPacket.cpp">
-      <Filter>Packet\TestPacket</Filter>
+    <ClCompile Include="SendTestPacket.cpp">
+      <Filter>Packet\SendTestPacket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,17 +38,11 @@
     <ClInclude Include="PacketBase.h">
       <Filter>Packet\PacketBase</Filter>
     </ClInclude>
-    <ClInclude Include="SendPacket.h">
-      <Filter>Packet\SendPacket</Filter>
+    <ClInclude Include="RecvTestPacket.h">
+      <Filter>Packet\RecvTestPacket</Filter>
     </ClInclude>
-    <ClInclude Include="RecvPacket.h">
-      <Filter>Packet\RecvPacket</Filter>
-    </ClInclude>
-    <ClInclude Include="SendRecvPacket.h">
-      <Filter>Packet\SendRecvPacket</Filter>
-    </ClInclude>
-    <ClInclude Include="TestPacket.h">
-      <Filter>Packet\TestPacket</Filter>
+    <ClInclude Include="SendTestPacket.h">
+      <Filter>Packet\SendTestPacket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
