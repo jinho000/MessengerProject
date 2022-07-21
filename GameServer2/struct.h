@@ -37,7 +37,7 @@ struct IOCompletionData
     void SetBuffer(const std::vector<uint8_t>& _sendBuffer)
     {
         wsabuf.buf = buffer;
-        wsabuf.len = _sendBuffer.size();
+        wsabuf.len = static_cast<ULONG>(_sendBuffer.size());
         
         // 데이터 범위 체크 최대 255크기 까지
         assert(wsabuf.len < IOBUFFER_SIZE);

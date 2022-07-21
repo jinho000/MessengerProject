@@ -7,6 +7,14 @@
 ListenSocket::ListenSocket(int _serverPort, std::string _serverIP)
 	: Socket(_serverPort, _serverIP, IPPROTO::IPPROTO_TCP)
 {
+	// 家南俊 林家眉拌 官牢靛
+	if (SOCKET_ERROR == bind(m_socket, (const sockaddr*)&m_address, sizeof(m_address)))
+	{
+		CloseSocket();
+		ServerHelper::PrintLastError("socket bind error");
+		return;
+	}
+
 	// 府郊家南 可记 汲沥
 	BOOL on = TRUE;
 	int result = setsockopt(m_socket, SOL_SOCKET, SO_CONDITIONAL_ACCEPT, reinterpret_cast<const char*>(&on), sizeof(on));

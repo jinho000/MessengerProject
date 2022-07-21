@@ -56,9 +56,6 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// Recv Ã³¸®
 		// PacketHandler::GetInst()->Dispatch(_IOData->buffer);
 		// 
-		// HandleFunc df
-		// df(); 
-		// 
 		// 
 
 		RequestRecv();

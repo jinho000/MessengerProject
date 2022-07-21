@@ -1,7 +1,5 @@
-﻿#include "pch.h"
-#include "Server.h"
-
-using namespace std;
+#include <iostream>
+#include <GameServer2/Server.h>
 
 int main()
 {
@@ -9,8 +7,7 @@ int main()
     //_CrtSetBreakAlloc(250);
 
     Server::StartServer();
-    
+
 
     return EXIT_SUCCESS;
 }
-

@@ -21,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</ProjectGuid>
-    <RootNamespace>GameServer2</RootNamespace>
+    <ProjectGuid>{5d4a11e4-d5a0-47bd-bb73-ad6a4ad92c11}</ProjectGuid>
+    <RootNamespace>ServerApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,9 +120,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,9 +134,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,90 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClientSocket.cpp" />
-    <ClCompile Include="ConfigManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ListenSocket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="ServerHelper.cpp" />
-    <ClCompile Include="IOCP.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="SessionManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="SessionSocket.cpp" />
-    <ClCompile Include="Singleton.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Socket.cpp" />
-    <ClCompile Include="TCPListener.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="TCPSession.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="TCPSessionPool.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ProjectReference Include="..\GameServer2\GameServer2.vcxproj">
+      <Project>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClientSocket.h" />
-    <ClInclude Include="ConfigManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ListenSocket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="ServerHelper.h" />
-    <ClInclude Include="IOCP.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="SessionManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="SessionSocket.h" />
-    <ClInclude Include="Singleton.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Socket.h" />
-    <ClInclude Include="enum.h" />
-    <ClInclude Include="TCPListener.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TCPSession.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TCPSessionPool.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="using.h" />
-    <ClInclude Include="struct.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

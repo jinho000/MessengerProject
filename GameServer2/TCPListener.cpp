@@ -19,6 +19,7 @@ TCPListener::~TCPListener()
 void TCPListener::ListenCompleteCallback(DWORD _transferredBytes, IOCompletionData* _IOData)
 {	
 	// 전달된 Overlapped 구조체를 IOCompletionData로 캐스팅 후 TCPSession 얻어오기
+	// 들어온 클라이언트에 대한 세팅 처리
 	TCPSession& rfTcpSession = _IOData->tcpSession;
 	rfTcpSession.SetClientAddress();
 	rfTcpSession.RegistIOCP();

@@ -9,7 +9,7 @@ ClientSocket::ClientSocket(int _serverPort, std::string _serverIP, IPPROTO _prot
 
 bool ClientSocket::ConnectServer()
 {
-	if (m_protocol == IPPROTO::IPPROTO_UDP)
+	if (m_protocol != IPPROTO::IPPROTO_TCP)
 		return false;
 
 	if (SOCKET_ERROR == connect(m_socket, reinterpret_cast<sockaddr*>(&m_address), sizeof(m_address)))

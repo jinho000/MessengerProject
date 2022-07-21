@@ -33,14 +33,6 @@ Socket::Socket(int _port, std::string _IP, IPPROTO _protocol)
 		ServerHelper::PrintLastError("socket inet_pton error");
 		return;
 	}
-
-	// 소켓에 주소체계 바인드
-	if (SOCKET_ERROR == bind(m_socket, (const sockaddr*)&m_address, sizeof(m_address)))
-	{
-		CloseSocket();
-		ServerHelper::PrintLastError("socket bind error");
-		return;
-	}
 }
 
 Socket::Socket()
