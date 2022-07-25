@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{512da543-56d2-427c-b897-a6ac53f3f773}</ProjectGuid>
-    <RootNamespace>ClientTest</RootNamespace>
+    <RootNamespace>ImguiClient</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,25 +139,73 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClientTest.cpp" />
+    <ClCompile Include="ChatWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ImguiClient.cpp" />
     <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="ImguiWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ImguiWindowManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="LoginWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChatWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ImguiClient.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
+    <ClInclude Include="ImguiWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ImguiWindowManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h" />
     <ClInclude Include="imgui_impl_win32.h" />
     <ClInclude Include="imgui_internal.h" />
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="LoginWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

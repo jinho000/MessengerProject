@@ -6,7 +6,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClientTest.cpp" />
+    <ClCompile Include="ImguiClient.cpp" />
     <ClCompile Include="imgui.cpp">
       <Filter>Imgui</Filter>
     </ClCompile>
@@ -30,7 +30,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="imconfig.h">
       <Filter>Imgui</Filter>
     </ClInclude>
@@ -55,5 +54,6 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="ImguiClient.h" />
   </ItemGroup>
 </Project>

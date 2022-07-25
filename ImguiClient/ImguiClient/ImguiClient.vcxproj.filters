@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Imgui">
+      <UniqueIdentifier>{14a7203c-11ad-4e0c-bfac-cf5d06449f83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImguiWindowManager">
+      <UniqueIdentifier>{db5fc566-47ff-4ddf-865f-fa27d5acd6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImguiWindow">
+      <UniqueIdentifier>{54ae5e35-d931-41c8-a033-2ae7bfff3a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImguiWindow\LoginWindow">
+      <UniqueIdentifier>{5193c914-d9d2-4404-a9e4-89cb7efa80f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImguiWindow\MainWindow">
+      <UniqueIdentifier>{ada537ae-7461-4011-91d8-63d498574712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User">
+      <UniqueIdentifier>{8e56ce7f-ff8f-4755-8223-c702933e766f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImguiWindow\ChatWindow">
+      <UniqueIdentifier>{af2f394c-b053-4ab8-b6a7-3726bc9430b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImguiClient.cpp" />
+    <ClCompile Include="imgui.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImguiWindowManager.cpp">
+      <Filter>ImguiWindowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImguiWindow.cpp">
+      <Filter>ImguiWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginWindow.cpp">
+      <Filter>ImguiWindow\LoginWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>ImguiWindow\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>User</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatWindow.cpp">
+      <Filter>ImguiWindow\ChatWindow</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imconfig.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImguiClient.h" />
+    <ClInclude Include="ImguiWindowManager.h">
+      <Filter>ImguiWindowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImguiWindow.h">
+      <Filter>ImguiWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginWindow.h">
+      <Filter>ImguiWindow\LoginWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <Filter>ImguiWindow\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>User</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatWindow.h">
+      <Filter>ImguiWindow\ChatWindow</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
