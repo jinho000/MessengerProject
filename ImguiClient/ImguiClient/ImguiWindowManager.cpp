@@ -15,7 +15,7 @@ ImguiWindowManager::ImguiWindowManager()
 
 ImguiWindowManager::~ImguiWindowManager()
 {
-	for (size_t i = 0; i < static_cast<int>(WINDOW_UI::MAIN) + 1; i++)
+	for (size_t i = 0; i < static_cast<int>(WINDOW_UI::END); i++)
 	{
 		delete m_imguiWindow[i];
 		m_imguiWindow[i] = nullptr;

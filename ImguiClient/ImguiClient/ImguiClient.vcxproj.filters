@@ -22,6 +22,12 @@
     <Filter Include="ImguiWindow\ChatWindow">
       <UniqueIdentifier>{af2f394c-b053-4ab8-b6a7-3726bc9430b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User\ChatRoom">
+      <UniqueIdentifier>{520ba8e9-73f1-4a79-8b13-4d36f5f63e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User\ChatFriend">
+      <UniqueIdentifier>{90cc7557-c1ab-4c3e-960c-70aa7314f784}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImguiClient.cpp" />
@@ -63,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="ChatWindow.cpp">
       <Filter>ImguiWindow\ChatWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatFriend.cpp">
+      <Filter>User\ChatFriend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="ChatWindow.h">
       <Filter>ImguiWindow\ChatWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatFriend.h">
+      <Filter>User\ChatFriend</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

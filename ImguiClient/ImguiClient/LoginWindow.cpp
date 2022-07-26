@@ -3,6 +3,7 @@
 #include "ImguiWindowManager.h"
 #include "User.h"
 #include "MainWindow.h"
+#include "ChatFriend.h"
 
 LoginWindow::LoginWindow()
 	: m_IDBuffer()
@@ -24,16 +25,33 @@ void LoginWindow::UpdateWindow()
 		// send m_IDBuffer
 
 
-		// 메인 윈도우에 세팅
-		MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
-
-
 		// recv
+		// 
 		// 유저 정보를 받는다
-		User* pLoginUser = new User;
+		// 채팅 정보를 받는다
+		std::string loginID = "userTest";
+		std::string name = "name";
+
+
+		std::vector<std::string> messageList;
+		messageList.push_back("message1");
+		messageList.push_back("message2");
+
+		std::vector<std::string> messageList2 = (messageList);
+
+
+		std::vector<ChatFriend*> chatFriendList;
+		chatFriendList.push_back(new ChatFriend("ID1", messageList));
+		chatFriendList.push_back(new ChatFriend("ID2", messageList2));
+		chatFriendList.push_back(new ChatFriend("ID3"));
+		chatFriendList.push_back(new ChatFriend("ID4"));
+
+		User* pLoginUser = new User(loginID, name, chatFriendList);
 		
 
-		// 채팅 정보를 받는다
+		// 메인 윈도우에 세팅
+		MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+		pMainWindow->SetLoginUser(pLoginUser);
 
 
 		// 로그인이 성공한 경우

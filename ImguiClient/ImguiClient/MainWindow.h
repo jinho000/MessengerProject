@@ -4,6 +4,7 @@
 #include "ChatWindow.h"
 
 #include <vector>
+#include <unordered_map>
 
 enum class MAIN_UI_TYPE
 {
@@ -15,18 +16,24 @@ enum class MAIN_UI_TYPE
 class MainWindow : public ImguiWindow
 {
 private: // member var
-	MAIN_UI_TYPE				m_mainUIType;
-	User*						m_loginUser;
-	std::vector<ChatWindow*>	m_chatWindow;
+	MAIN_UI_TYPE m_mainUIType;
+	User*		 m_pLoginUser;
+
+	std::vector<ChatWindow*> m_chatWindowList;
+
 
 public: // default
 	MainWindow();
 	~MainWindow();
 
+private:
+	void CreateChatWindow(int _count);
+
+
 public: // member Func
 	virtual void UpdateWindow() override;
 
-	void SetLoginUser(User* _pLoginUser) { m_loginUser = _pLoginUser; }
+	void SetLoginUser(User* _pLoginUser);
 
 };
 

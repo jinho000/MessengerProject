@@ -2,18 +2,17 @@
 #include <vector>
 #include <string>
 
-
+class ChatFriend;
 class User
 {
 private: // member var
-	std::string			m_ID;
+	std::string			m_loginID;
 	std::string			m_name;
 	
-	std::vector<User*>	m_friendList;
-	
+	std::vector<ChatFriend*>	m_chatFriendList;
 
 public: // default
-	User();
+	User(std::string _loginID, std::string _name, std::vector<ChatFriend*>& _chatFriendList);
 	~User();
 
 	User(const User& _other) = delete;
@@ -22,6 +21,7 @@ public: // default
 	User& operator=(const User&& _other) = delete;
 
 public: // member Func
-
+	const std::vector<ChatFriend*>& GetChatFriendList() const { return m_chatFriendList; }
+	const std::string GetUserName() { return m_name; }
 };
 
