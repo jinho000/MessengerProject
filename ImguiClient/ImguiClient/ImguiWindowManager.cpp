@@ -1,6 +1,7 @@
 #include "ImguiWindowManager.h"
 #include "LoginWindow.h"
 #include "MainWindow.h"
+#include "imgui.h"
 
 ImguiWindowManager* ImguiWindowManager::pInst = nullptr;
 

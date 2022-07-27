@@ -31,18 +31,25 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 
 #include <vector>
 
-class A
-{};
-
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPWSTR    lpCmdLine,
+    _In_ int       nCmdShow)
 {
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
     ::RegisterClassEx(&wc);
-    HWND hwnd = ::CreateWindow(wc.lpszClassName, _T("Dear ImGui DirectX11 Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    HWND hwnd = ::CreateWindow(wc.lpszClassName
+        , _T("Dear ImGui DirectX11 Example")
+        , WS_OVERLAPPEDWINDOW
+        , 0//변경한것
+        , 0//변경한것
+        , 1280
+        , 720
+        , NULL
+        , NULL
+        , wc.hInstance
+        , NULL);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -51,12 +58,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         ::UnregisterClass(wc.lpszClassName, wc.hInstance);
         return 1;
     }
-
     // Show the window
     {
+        //변경한것 SW_HIDE
         ::ShowWindow(hwnd, SW_SHOWDEFAULT);
+        //::ShowWindow(hwnd, SW_HIDE);
         ::UpdateWindow(hwnd);
     }
+
+    //추가한것
+    //SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 0, ULW_COLORKEY);
+    //SetWindowLong(hwnd, GWL_STYLE, WS_POPUP);
+    //SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    //여기까지
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -65,6 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    //io.ConfigViewportsNoAutoMerge = true; 
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();

@@ -1,16 +1,16 @@
 #pragma once
 #include <vector>
 #include <string>
-
+#include "ChatMessage.h"
 
 class ChatFriend
 {
 private: // member var
 	std::string 				m_chatFriendName;
-	std::vector<std::string>	m_messageList;
+	std::vector<ChatMessage>	m_messageList;
 
 public: // default
-	ChatFriend(const std::string& _chatFriendName, std::vector<std::string>& _messageList);
+	ChatFriend(const std::string& _chatFriendName, std::vector<ChatMessage>& _messageList);
 	ChatFriend(const std::string& _chatFriendName);
 	~ChatFriend() = default;
 
@@ -21,7 +21,7 @@ public: // default
 
 public: // member Func
 	const std::string& GetChatFriendName() { return m_chatFriendName; }
-	const std::vector<std::string>& GetMessageList() const { return m_messageList; }
+	const std::vector<ChatMessage>& GetMessageList() const { return m_messageList; }
 	
 };
 

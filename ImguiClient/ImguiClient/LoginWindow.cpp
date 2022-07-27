@@ -33,11 +33,11 @@ void LoginWindow::UpdateWindow()
 		std::string name = "name";
 
 
-		std::vector<std::string> messageList;
-		messageList.push_back("message1");
-		messageList.push_back("message2");
+		std::vector<ChatMessage> messageList;
+		messageList.push_back({ "userTest", "message1" });
+		messageList.push_back({ "ID1", "message2" });
 
-		std::vector<std::string> messageList2 = (messageList);
+		std::vector<ChatMessage> messageList2 = (messageList);
 
 
 		std::vector<ChatFriend*> chatFriendList;

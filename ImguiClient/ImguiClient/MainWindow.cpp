@@ -87,9 +87,9 @@ void MainWindow::UpdateWindow()
 
 				int selected = -1;
 				std::string name = chatFriendList[i]->GetChatFriendName();
-				std::string message(chatFriendList[i]->GetMessageList().front());
+				const ChatMessage& chatMessage = chatFriendList[i]->GetMessageList().front();
 
-				std::string print = name + "\n" + message;
+				std::string print = name + "\n" + chatMessage.message;
 				if (ImGui::Selectable(print.c_str(), selected == i))
 					selected = (int)i;
 
