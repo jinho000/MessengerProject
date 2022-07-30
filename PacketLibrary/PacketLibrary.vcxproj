@@ -159,6 +159,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PacketType.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RecvTestPacket.h">
       <SubType>

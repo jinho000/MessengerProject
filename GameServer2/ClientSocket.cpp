@@ -20,3 +20,4 @@ bool ClientSocket::ConnectServer()
 
 	return true;
 }
+

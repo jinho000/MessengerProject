@@ -16,6 +16,9 @@
     <Filter Include="Packet\SendTestPacket">
       <UniqueIdentifier>{ac571a55-1ee8-4720-b3b1-c821867ea1c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PacketHelper">
+      <UniqueIdentifier>{66c57b85-2bbb-4955-b648-b6f70b18df9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="SendTestPacket.h">
       <Filter>Packet\SendTestPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketType.h">
+      <Filter>Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include "Socket.h"
+#include <PacketLibrary/PacketBase.h>
 
 class ClientSocket : public Socket
 {

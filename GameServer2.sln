@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestClient", "TestClient\Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacketLibrary", "PacketLibrary\PacketLibrary.vcxproj", "{83A93B66-36F9-4063-BA3E-488CB82FBB73}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClientTest", "ClientTest\ClientTest\ClientTest.vcxproj", "{512DA543-56D2-427C-B897-A6AC53F3F773}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImguiClient", "ImguiClient\ImguiClient\ImguiClient.vcxproj", "{512DA543-56D2-427C-B897-A6AC53F3F773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

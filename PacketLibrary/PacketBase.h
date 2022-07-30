@@ -1,15 +1,5 @@
 #pragma once
-
-
-enum class PACKET_TYPE
-{
-	RECV_PACKET,
-	SEND_PACKET,
-	MOVE,
-	ATTACK,
-	BUY,
-
-};
+#include "PacketType.h"
 
 class PacketBase
 {
@@ -21,15 +11,15 @@ protected:
 	
 public: // default
 	PacketBase(PACKET_TYPE _packetType);
-	PacketBase(PACKET_TYPE _packetType, std::vector<uint8_t>& _IOBuffer);
-	virtual ~PacketBase() = 0;
+	PacketBase(std::vector<uint8_t>& _IOBuffer);
+	virtual ~PacketBase();
 
 public:
 	virtual void Serialize() {};
 	virtual void Deserialize() {};
 
 public:
-	const std::vector<uint8_t>& GetBuffer() { m_IOBuffer; }
+	const std::vector<uint8_t>& GetBuffer() { return m_IOBuffer; }
 
 };
 

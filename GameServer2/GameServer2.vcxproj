@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\;..\</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -243,6 +243,11 @@
     </ClInclude>
     <ClInclude Include="using.h" />
     <ClInclude Include="struct.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PacketLibrary\PacketLibrary.vcxproj">
+      <Project>{83a93b66-36f9-4063-ba3e-488cb82fbb73}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
