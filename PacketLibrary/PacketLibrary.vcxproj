@@ -155,6 +155,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChattingPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JoinPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JoinResultPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="LoginPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="LoginResultPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PacketBase.h">
       <SubType>
       </SubType>
@@ -171,6 +191,26 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChattingPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JoinPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JoinResultPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LoginPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LoginResultPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PacketBase.cpp">
       <SubType>
       </SubType>
