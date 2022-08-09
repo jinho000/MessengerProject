@@ -1,26 +1,21 @@
 #pragma once
+#include "PacketBase.h"
 
-// 용도 :
-// 분류 :
-// 첨언 :
-class LoginPacket
+class LoginPacket : public PacketBase
 {
 private: // member var
-	
+	std::string m_ID;
+	std::string m_password;
 
 public: // default
-	LoginPacket();
+	LoginPacket(const std::string& _ID, const std::string& _password);
 	~LoginPacket();
 
-	LoginPacket(const LoginPacket& _other) = delete;
-	LoginPacket(LoginPacket&& _other) = delete;
-
 protected:
-	LoginPacket& operator=(const LoginPacket& _other) = delete;
-	LoginPacket& operator=(const LoginPacket&& _other) = delete;
+	virtual size_t GetContentPacketSize();
 
-private:
-
-public: // member Func
+public:
+	void Serialize(Serializer& _serialize) override;
+	void Deserialize(const Serializer& _serialize) override;
 };
 

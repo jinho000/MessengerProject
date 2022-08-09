@@ -1,31 +1,38 @@
 #pragma once
 #include "PacketType.h"
-#include <string>
+#include "Serializer.h"
+#include "PacketHelper.h"
 
 class PacketBase
 {
 protected:
 	PACKET_TYPE				m_packetType;
-	UINT					m_packetSize;
+	size_t					m_packetSize;
 
-	std::vector<uint8_t>	m_IOBuffer;
-	
 public: // default
 	PacketBase(PACKET_TYPE _packetType);
-	PacketBase(std::vector<uint8_t>& _IOBuffer);
 	virtual ~PacketBase();
 
-public:
-	virtual void Serialize() {};
-	virtual void Deserialize() {};
+	PacketBase(const PacketBase& _other) = delete;
+	PacketBase(PacketBase&& _other) = delete;
+	PacketBase& operator=(const PacketBase& _other) = delete;
+	PacketBase& operator=(const PacketBase&& _other) = delete;
+
+protected:
+	virtual size_t GetContentPacketSize() = 0;
 
 public:
-	const std::vector<uint8_t>& GetBuffer() { return m_IOBuffer; }
+	virtual void Serialize(Serializer& _serializer) = 0
+	{
+		_serializer.WritePacketType(m_packetType);
+		_serializer.WritePacketSize(sizeof(m_packetType) + sizeof(m_packetSize) + GetContentPacketSize());
+	}
+
+	virtual void Deserialize(const Serializer& _serializer) = 0
+	{
+		_serializer.ReadPacketType(m_packetType);
+		_serializer.ReadPacketSize(m_packetSize);
+	}
 
 };
 
-// Packet p(force, test);
-// session.send(p);
-// 
-// PacketHandler::GetInst()->
-//

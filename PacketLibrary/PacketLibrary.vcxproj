@@ -155,23 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ChattingPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="JoinPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="JoinResultPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="LoginPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="LoginResultPacket.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -179,35 +163,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PacketHelper.h" />
     <ClInclude Include="PacketType.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RecvTestPacket.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="SendTestPacket.h">
+    <ClInclude Include="Serializer.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChattingPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="JoinPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="JoinResultPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="LoginPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="LoginResultPacket.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -215,17 +180,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PacketHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RecvTestPacket.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="SendTestPacket.cpp">
+    <ClCompile Include="Serializer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

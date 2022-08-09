@@ -3,16 +3,11 @@
 
 PacketBase::PacketBase(PACKET_TYPE _packetType)
 	: m_packetType(_packetType)
-{
-	m_packetSize = sizeof(m_packetType) + sizeof(m_packetType);
-}
-
-PacketBase::PacketBase(std::vector<uint8_t>& _IOBuffer)
-	:  m_packetSize()
-	, m_IOBuffer(std::move(_IOBuffer))
+	, m_packetSize()
 {
 }
 
 PacketBase::~PacketBase()
 {
 }
+

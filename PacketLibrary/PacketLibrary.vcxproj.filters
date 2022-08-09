@@ -10,12 +10,6 @@
     <Filter Include="Packet\PacketBase">
       <UniqueIdentifier>{6495e845-8cec-469f-9870-d6e56bac9fef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\RecvTestPacket">
-      <UniqueIdentifier>{c538b247-0e36-4775-b8d3-21df4f6b78a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet\SendTestPacket">
-      <UniqueIdentifier>{ac571a55-1ee8-4720-b3b1-c821867ea1c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PacketHelper">
       <UniqueIdentifier>{66c57b85-2bbb-4955-b648-b6f70b18df9f}</UniqueIdentifier>
     </Filter>
@@ -34,6 +28,9 @@
     <Filter Include="Packet\JoinResult">
       <UniqueIdentifier>{9fc6e1ef-fb42-46cc-b5af-cc5d88cb7c7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Serializer">
+      <UniqueIdentifier>{165e43f9-7eee-4ab7-8f24-7b51f9c98298}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -42,26 +39,14 @@
     <ClCompile Include="PacketBase.cpp">
       <Filter>Packet\PacketBase</Filter>
     </ClCompile>
-    <ClCompile Include="RecvTestPacket.cpp">
-      <Filter>Packet\RecvTestPacket</Filter>
-    </ClCompile>
-    <ClCompile Include="SendTestPacket.cpp">
-      <Filter>Packet\SendTestPacket</Filter>
-    </ClCompile>
     <ClCompile Include="LoginPacket.cpp">
       <Filter>Packet\Login</Filter>
     </ClCompile>
-    <ClCompile Include="JoinPacket.cpp">
-      <Filter>Packet\Join</Filter>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Serializer</Filter>
     </ClCompile>
-    <ClCompile Include="ChattingPacket.cpp">
-      <Filter>Packet\Chatting</Filter>
-    </ClCompile>
-    <ClCompile Include="LoginResultPacket.cpp">
-      <Filter>Packet\LoginResult</Filter>
-    </ClCompile>
-    <ClCompile Include="JoinResultPacket.cpp">
-      <Filter>Packet\JoinResult</Filter>
+    <ClCompile Include="PacketHelper.cpp">
+      <Filter>PacketHelper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,29 +56,17 @@
     <ClInclude Include="PacketBase.h">
       <Filter>Packet\PacketBase</Filter>
     </ClInclude>
-    <ClInclude Include="RecvTestPacket.h">
-      <Filter>Packet\RecvTestPacket</Filter>
-    </ClInclude>
-    <ClInclude Include="SendTestPacket.h">
-      <Filter>Packet\SendTestPacket</Filter>
-    </ClInclude>
     <ClInclude Include="PacketType.h">
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="LoginPacket.h">
       <Filter>Packet\Login</Filter>
     </ClInclude>
-    <ClInclude Include="JoinPacket.h">
-      <Filter>Packet\Join</Filter>
+    <ClInclude Include="Serializer.h">
+      <Filter>Serializer</Filter>
     </ClInclude>
-    <ClInclude Include="ChattingPacket.h">
-      <Filter>Packet\Chatting</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginResultPacket.h">
-      <Filter>Packet\LoginResult</Filter>
-    </ClInclude>
-    <ClInclude Include="JoinResultPacket.h">
-      <Filter>Packet\JoinResult</Filter>
+    <ClInclude Include="PacketHelper.h">
+      <Filter>PacketHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "NetworkManager.h"
+#include <PacketLibrary/Serializer.h>
 
 NetworkManager* NetworkManager::pInst = nullptr;
 
@@ -49,8 +50,8 @@ void NetworkManager::ListenThread()
 		
 		// 패킷 설정
 		// 패킷을 전달 후 가져간 곳에서 캐스팅하여 사용
-		PacketBase* pPacketBase = new PacketBase(buffer);
-		pPacketBase->Deserialize();
+		//PacketBase* pPacketBase = new PacketBase(buffer);
+		//pPacketBase->Deserialize();
 
 		// handler처리
 		
@@ -59,7 +60,10 @@ void NetworkManager::ListenThread()
 
 void NetworkManager::Send(PacketBase* _packet)
 {
-	std::vector<uint8_t> buffer = _packet->GetBuffer();
+	Serializer serializer;
+	_packet->Serialize(serializer);
+	std::vector<uint8_t> buffer = serializer.GetBuffer();
+
 	int result = send(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 
 }
