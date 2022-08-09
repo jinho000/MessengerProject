@@ -1,10 +1,16 @@
 #include "pch.h"
 #include "Serializer.h"
 
-Serializer::Serializer()
+Serializer::Serializer(size_t _bufferSize)
 	: m_offset()
 {
-	m_buffer.reserve(255);
+	m_buffer.resize(_bufferSize);
+}
+
+Serializer::Serializer(const std::vector<uint8_t>& _buffer)
+	: m_buffer(_buffer)
+	, m_offset()
+{
 }
 
 Serializer::~Serializer()

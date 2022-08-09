@@ -4,6 +4,9 @@
 #include "User.h"
 #include "MainWindow.h"
 #include "ChatFriend.h"
+#include "NetworkManager.h"
+
+#include <PacketLibrary/LoginPacket.h>
 
 LoginWindow::LoginWindow()
 	: m_IDBuffer()
@@ -24,6 +27,8 @@ void LoginWindow::UpdateWindow()
 		// 서버 연동시 서버에 패킷 전송
 		// send m_IDBuffer
 
+		LoginPacket loginPacket(m_IDBuffer, "pw");
+		NetworkManager::GetInst()->Send(&loginPacket);
 
 		// recv
 		// 

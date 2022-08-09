@@ -8,7 +8,7 @@ enum class IOTYPE
 	DISCONNECT
 };
 
-enum class IO
+enum 
 {
 	IOBUFFER_SIZE = 255
 };

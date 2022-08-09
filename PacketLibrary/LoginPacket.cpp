@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "LoginPacket.h"
+#include "PacketHelper.h"
 
+
+LoginPacket::LoginPacket()
+	: PacketBase(PACKET_TYPE::LOGIN)
+{
+}
 
 LoginPacket::LoginPacket(const std::string& _ID, const std::string& _password)
 	: PacketBase(PACKET_TYPE::LOGIN)

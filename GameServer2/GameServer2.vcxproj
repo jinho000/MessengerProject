@@ -207,6 +207,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LoginPacketHandler.h" />
     <ClInclude Include="PacketHandler.h">
       <SubType>
       </SubType>

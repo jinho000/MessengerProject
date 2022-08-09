@@ -53,22 +53,20 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		//std::copy(buffer.begin(), buffer.end(), data.begin());
 		//RequestSend(data);
 
-		std::string buffer(m_IOCompletionRecv.buffer);
-		std::vector<uint8_t> data;
-		data.resize(buffer.size() + 1, 0);
-		std::copy(buffer.begin(), buffer.end(), data.begin());
+		// 데이터가 패킷의 사이즈만큼 왔는지 확인하기
 
-		// 데이터가 패킷의 사이즈만큼 왔는지 확인
-		if (true)
-		{
-			// 데이터가 패킷의 사이즈만큼 온 경우
-			// PacketHandler::GetInst()->Dispatch(m_recvBuffer);	
-			// 
-			
-		}
+
+
+		// PacketHandler에서 사용
+		std::vector<uint8_t> ioBuffer;
+		ioBuffer.assign(m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + IOBUFFER_SIZE);
+		PacketHandler::GetInst()->Dispatch(this, ioBuffer);
+
+
 		
 		// recv 다시 요청
 		RequestRecv();
+
 		break;
 	}
 	case IOTYPE::SEND:

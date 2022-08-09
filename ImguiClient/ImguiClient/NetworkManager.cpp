@@ -1,11 +1,14 @@
 #include "NetworkManager.h"
 #include <PacketLibrary/Serializer.h>
+#include <GameServer2/ServerHelper.h>
 
 NetworkManager* NetworkManager::pInst = nullptr;
 
 NetworkManager::NetworkManager()
-	: m_clientSocket(new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP))
 {
+	ServerHelper::WSAStart();
+	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
+	m_clientSocket->ConnectServer();
 	ListenRecv();
 }
 
@@ -15,6 +18,8 @@ NetworkManager::~NetworkManager()
 	m_clientSocket = nullptr;
 
 	m_recvThread.join();
+
+	ServerHelper::WSAEnd();
 }
 
 void NetworkManager::CreateIntance()
@@ -48,6 +53,8 @@ void NetworkManager::ListenThread()
 
 		int result = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 		
+
+		int a = 0;
 		// 패킷 설정
 		// 패킷을 전달 후 가져간 곳에서 캐스팅하여 사용
 		//PacketBase* pPacketBase = new PacketBase(buffer);
@@ -60,7 +67,7 @@ void NetworkManager::ListenThread()
 
 void NetworkManager::Send(PacketBase* _packet)
 {
-	Serializer serializer;
+	Serializer serializer(255);
 	_packet->Serialize(serializer);
 	std::vector<uint8_t> buffer = serializer.GetBuffer();
 

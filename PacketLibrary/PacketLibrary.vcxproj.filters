@@ -31,6 +31,9 @@
     <Filter Include="Serializer">
       <UniqueIdentifier>{165e43f9-7eee-4ab7-8f24-7b51f9c98298}</UniqueIdentifier>
     </Filter>
+    <Filter Include="enum">
+      <UniqueIdentifier>{b7e6d0ce-0109-4e5d-b1db-65d3c800d719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="PacketHelper.h">
       <Filter>PacketHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>enum</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

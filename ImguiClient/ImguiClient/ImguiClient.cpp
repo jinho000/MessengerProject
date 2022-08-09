@@ -11,6 +11,7 @@
 #include <tchar.h>
 
 #include "ImguiWindowManager.h"
+#include "NetworkManager.h"
 
 #pragma comment(lib,"d3d11.lib")
 
@@ -99,7 +100,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // init manager
     ImguiWindowManager::CreateIntance();
-
+    NetworkManager::CreateIntance();
 
     // Our state
     bool show_another_window = false;
@@ -157,6 +158,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // Cleanup
+    NetworkManager::Destroy();
     ImguiWindowManager::Destroy();
 
     ImGui_ImplDX11_Shutdown();

@@ -8,6 +8,7 @@ private: // member var
 	std::string m_password;
 
 public: // default
+	LoginPacket();
 	LoginPacket(const std::string& _ID, const std::string& _password);
 	~LoginPacket();
 

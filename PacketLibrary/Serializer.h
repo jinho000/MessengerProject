@@ -9,7 +9,8 @@ private:
 	mutable size_t			m_offset;
 
 public:
-	Serializer();
+	Serializer(size_t _bufferSize);
+	Serializer(const std::vector<uint8_t>& _buffer);
 	~Serializer();
 
 	Serializer(const Serializer& _other) = delete;

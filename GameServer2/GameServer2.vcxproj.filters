@@ -99,6 +99,9 @@
     <Filter Include="PacketHandler">
       <UniqueIdentifier>{6b900ece-06de-46e7-a09e-e58f55c646b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PacketHandler\LoginPacketHandler">
+      <UniqueIdentifier>{d2c9872a-0dba-4230-b5e3-d8211bbb4948}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>PacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPacketHandler.h">
+      <Filter>PacketHandler\LoginPacketHandler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

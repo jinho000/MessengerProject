@@ -1,7 +1,6 @@
 #pragma once
 #include "PacketType.h"
 #include "Serializer.h"
-#include "PacketHelper.h"
 
 class PacketBase
 {
@@ -34,5 +33,6 @@ public:
 		_serializer.ReadPacketSize(m_packetSize);
 	}
 
+	PACKET_TYPE GetPacketType() { return m_packetType; }
 };
 
