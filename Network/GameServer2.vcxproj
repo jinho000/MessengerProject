@@ -24,6 +24,7 @@
     <ProjectGuid>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</ProjectGuid>
     <RootNamespace>GameServer2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Network</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -168,7 +169,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerHelper.cpp" />
     <ClCompile Include="IOCP.cpp">
       <SubType>
@@ -213,7 +213,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Server.h" />
     <ClInclude Include="ServerHelper.h" />
     <ClInclude Include="IOCP.h">
       <SubType>

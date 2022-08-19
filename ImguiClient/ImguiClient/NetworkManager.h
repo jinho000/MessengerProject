@@ -7,7 +7,7 @@
 #include <functional>
 
 #include <PacketLibrary/PacketBase.h>
-#include <GameServer2/ClientSocket.h>
+#include <Network/ClientSocket.h>
 
 using ClientPacketDispatchFunction = std::function<void(std::unique_ptr<PacketBase>)>;
 

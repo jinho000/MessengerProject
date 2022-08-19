@@ -1,5 +1,5 @@
 #include <iostream>
-#include <GameServer2/Server.h>
+#include "Server.h"
 
 int main()
 {

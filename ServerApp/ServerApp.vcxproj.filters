@@ -2,5 +2,18 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Server.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Server">
+      <UniqueIdentifier>{db0ca292-325e-4a95-91e8-fd5302e3fc8f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Server.h">
+      <Filter>Server</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

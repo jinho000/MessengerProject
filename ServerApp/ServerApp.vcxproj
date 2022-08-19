@@ -147,12 +147,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameServer2\GameServer2.vcxproj">
-      <Project>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</Project>
-    </ProjectReference>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="Server.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Network\GameServer2.vcxproj">
+      <Project>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

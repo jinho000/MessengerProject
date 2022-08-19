@@ -19,9 +19,6 @@
     <ClCompile Include="SessionSocket.cpp">
       <Filter>Network\Socket\SessionSocket</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Server</Filter>
-    </ClCompile>
     <ClCompile Include="IOCP.cpp">
       <Filter>IOCP</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{6cd2553b-b760-4938-8aa6-d4955ee5e610}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Server">
-      <UniqueIdentifier>{86d3c3ff-00af-47db-a6e9-4687a1227e62}</UniqueIdentifier>
     </Filter>
     <Filter Include="IOCP">
       <UniqueIdentifier>{78947f2e-017a-46c6-9792-cfa5d9867e19}</UniqueIdentifier>
@@ -124,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="SessionSocket.h">
       <Filter>Network\Socket\SessionSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Server</Filter>
     </ClInclude>
     <ClInclude Include="IOCP.h">
       <Filter>IOCP</Filter>

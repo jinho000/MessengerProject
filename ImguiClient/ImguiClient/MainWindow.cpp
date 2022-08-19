@@ -41,7 +41,7 @@ void MainWindow::UpdateWindow()
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 	if (ImGui::BeginTabBar("TabBar", tab_bar_flags))
 	{
-		const std::vector<ChatFriend*>& chatFriendList = m_pLoginUser->GetChatFriendList();
+		const std::vector<std::string>& chatFriendList = m_pLoginUser->GetChatFriendList();
 
 		if (ImGui::BeginTabItem("Friend List"))
 		{
@@ -59,7 +59,7 @@ void MainWindow::UpdateWindow()
 			// 친구목록
 			for (size_t i = 0; i < chatFriendList.size(); i++)
 			{
-				std::string friendName(chatFriendList[i]->GetChatFriendName());
+				std::string friendName(chatFriendList[i]);
 				friendName += '\n';
 
 				if (ImGui::Selectable(friendName.c_str(), selected == i))

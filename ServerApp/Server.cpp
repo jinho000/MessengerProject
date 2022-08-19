@@ -1,12 +1,12 @@
-#include "pch.h"
 #include "Server.h"
-#include "IOCP.h"
-#include "SessionManager.h"
-#include "ConfigManager.h"
-#include "ListenSocket.h"
-#include "TCPListener.h"
-#include "TCPSessionPool.h"
-#include "PacketHandler.h"  
+#include <Network/pch.h>
+#include <Network/IOCP.h>
+#include <Network/SessionManager.h>
+#include <Network/ConfigManager.h>
+#include <Network/ListenSocket.h>
+#include <Network/TCPListener.h>
+#include <Network/TCPSessionPool.h>
+#include <Network/PacketHandler.h>
 
 void Server::StartServer()
 {
@@ -46,7 +46,6 @@ void Server::StartServer()
     TCPListener::Destroy();
 
     ConfigManager::Destroy();
-
 
     ServerHelper::WSAEnd();
 }
