@@ -5,7 +5,7 @@ class PacketBase;
 namespace PacketHelper
 {
 	template<typename Type>
-	size_t GetTypeSize(const Type& _type)
+	inline size_t GetTypeSize(const Type& _type)
 	{
 		return sizeof(_type);
 	}

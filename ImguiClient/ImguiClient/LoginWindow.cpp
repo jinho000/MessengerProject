@@ -3,7 +3,6 @@
 #include "ImguiWindowManager.h"
 #include "User.h"
 #include "MainWindow.h"
-#include "ChatFriend.h"
 #include "NetworkManager.h"
 
 #include <PacketLibrary/LoginPacket.h>
@@ -26,6 +25,7 @@ void LoginWindow::UpdateWindow()
 	if (ImGui::Button("Login", ImVec2(80, 40)))
 	{
 		LoginPacket loginPacket(m_IDBuffer, m_PWBuffer);
+		NetworkManager::GetInst()->ConnectServer();
 		NetworkManager::GetInst()->Send(&loginPacket);
 	}
 

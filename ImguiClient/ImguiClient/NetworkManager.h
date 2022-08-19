@@ -7,8 +7,8 @@
 #include <functional>
 
 #include <PacketLibrary/PacketBase.h>
-#include <Network/ClientSocket.h>
 
+class ClientSocket;
 using ClientPacketDispatchFunction = std::function<void(std::unique_ptr<PacketBase>)>;
 
 class NetworkManager
@@ -42,11 +42,11 @@ public:
 	static NetworkManager* GetInst() { return pInst; }
 
 private:
-	
 	void ListenRecv();
 	void ListenThread();
 
 public:
 	void Send(PacketBase* _packet);
+	void ConnectServer();
 };
 

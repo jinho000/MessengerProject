@@ -3,6 +3,7 @@
 #include <PacketLibrary/PacketType.h>
 
 class PacketBase;
+class TCPSession;
 using ServerPacketDispatchFunction = std::function<void(TCPSession*, std::unique_ptr<PacketBase>)>;
 using ClientPacketDispatchFunction = std::function<void(std::unique_ptr<PacketBase>)>;
 using ClientCallback = std::function<void(std::unique_ptr<PacketBase>)>;

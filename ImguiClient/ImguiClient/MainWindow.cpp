@@ -1,7 +1,6 @@
 #include "MainWindow.h"
 #include "imgui.h"
 #include "User.h"
-#include "ChatFriend.h"
 #include "ImguiWindowManager.h"
 
 MainWindow::MainWindow()
@@ -25,7 +24,6 @@ MainWindow::~MainWindow()
 	}
 }
 
-
 void MainWindow::UpdateWindow()
 {
 	ImGui::Begin("MainWindow");
@@ -48,7 +46,7 @@ void MainWindow::UpdateWindow()
 			int selected = -2;
 			
 			// À¯Àú			
-			std::string print(m_pLoginUser->GetUserName());
+			std::string print(m_pLoginUser->GetUserNickname());
 			print += '\n';
 
 			if (ImGui::Selectable(print.c_str(), selected == -1))
@@ -67,8 +65,8 @@ void MainWindow::UpdateWindow()
 
 				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 				{
-					ChatFriend* pChatFriend = chatFriendList[i];
-					m_chatWindowList[i]->SetChatFriend(pChatFriend);
+					
+
 				}
 
 				ImGui::Separator();
@@ -78,26 +76,27 @@ void MainWindow::UpdateWindow()
 
 			ImGui::EndTabItem();
 		}
+
 		if (ImGui::BeginTabItem("Chatting List"))
 		{
 			for (size_t i = 0; i < chatFriendList.size(); i++)
 			{
-				if (chatFriendList[i]->GetMessageList().empty() == true)
-					continue;
+				//if (chatFriendList[i]->GetMessageList().empty() == true)
+				//	continue;
 
-				int selected = -1;
-				std::string name = chatFriendList[i]->GetChatFriendName();
-				const ChatMessage& chatMessage = chatFriendList[i]->GetMessageList().front();
+				//int selected = -1;
+				//std::string name = chatFriendList[i]->GetChatFriendName();
+				//const ChatMessage& chatMessage = chatFriendList[i]->GetMessageList().front();
 
-				std::string print = name + "\n" + chatMessage.message;
-				if (ImGui::Selectable(print.c_str(), selected == i))
-					selected = (int)i;
+				//std::string print = name + "\n" + chatMessage.message;
+				//if (ImGui::Selectable(print.c_str(), selected == i))
+				//	selected = (int)i;
 
-				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-				{
-					ChatFriend* pChatFriend = chatFriendList[i];
-					m_chatWindowList[i]->SetChatFriend(pChatFriend);
-				}
+				//if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				//{
+				//	ChatFriend* pChatFriend = chatFriendList[i];
+				//	m_chatWindowList[i]->SetChatFriend(pChatFriend);
+				//}
 
 				ImGui::Separator();
 			}
@@ -116,17 +115,20 @@ void MainWindow::UpdateWindow()
 	ImGui::End();
 }
 
-void MainWindow::CreateChatWindow(int _count)
+
+void MainWindow::CreateChatWindow(const std::string& _friend)
 {
-	for (size_t i = 0; i < _count; i++)
+	if (m_charWindowMap.end() != m_charWindowMap.find(_friend))
 	{
-		m_chatWindowList.push_back(new ChatWindow());
+		return;
 	}
+
+	ChatWindow* pChatWindow = new ChatWindow();
+	m_chatWindowList.push_back(pChatWindow);
+	m_charWindowMap.insert(make_pair(_friend, pChatWindow));
 }
 
 void MainWindow::SetLoginUser(User* _pLoginUser)
 {
 	m_pLoginUser = _pLoginUser;
-
-	CreateChatWindow((int)m_pLoginUser->GetChatFriendList().size());
 }

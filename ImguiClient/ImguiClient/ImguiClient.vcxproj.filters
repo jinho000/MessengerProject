@@ -22,15 +22,6 @@
     <Filter Include="ImguiWindow\ChatWindow">
       <UniqueIdentifier>{af2f394c-b053-4ab8-b6a7-3726bc9430b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="User\ChatRoom">
-      <UniqueIdentifier>{520ba8e9-73f1-4a79-8b13-4d36f5f63e5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="User\ChatFriend">
-      <UniqueIdentifier>{90cc7557-c1ab-4c3e-960c-70aa7314f784}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="User\ChatMessageStruct">
-      <UniqueIdentifier>{db52f9fd-c12f-4aa6-af9f-6f209ec5561d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="NetworkManager">
       <UniqueIdentifier>{a726bbdf-181d-48e3-8e71-2c744bfa7096}</UniqueIdentifier>
     </Filter>
@@ -79,12 +70,6 @@
     <ClCompile Include="ChatWindow.cpp">
       <Filter>ImguiWindow\ChatWindow</Filter>
     </ClCompile>
-    <ClCompile Include="ChatFriend.cpp">
-      <Filter>User\ChatFriend</Filter>
-    </ClCompile>
-    <ClCompile Include="ChatMessage.cpp">
-      <Filter>User\ChatMessageStruct</Filter>
-    </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>NetworkManager</Filter>
     </ClCompile>
@@ -132,12 +117,6 @@
     </ClInclude>
     <ClInclude Include="ChatWindow.h">
       <Filter>ImguiWindow\ChatWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="ChatFriend.h">
-      <Filter>User\ChatFriend</Filter>
-    </ClInclude>
-    <ClInclude Include="ChatMessage.h">
-      <Filter>User\ChatMessageStruct</Filter>
     </ClInclude>
     <ClInclude Include="NetworkManager.h">
       <Filter>NetworkManager</Filter>

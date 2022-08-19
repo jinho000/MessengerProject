@@ -1,8 +1,13 @@
 #include "NetworkManager.h"
+
+#include <Network/ServerHelper.h>
+#include <Network/PacketHandler.h>
+#include <Network/ClientSocket.h>
+
+#include <PacketLibrary/pch.h>
 #include <PacketLibrary/Serializer.h>
 #include <PacketLibrary/PacketHelper.h>
-#include <GameServer2/ServerHelper.h>
-#include <GameServer2/PacketHandler.h>
+
 #include <cassert>
 #include <memory>	
 
@@ -14,16 +19,10 @@ NetworkManager::NetworkManager()
 {
 	ServerHelper::WSAStart();
 
-	// 클라이언트 시작시 서버에 접속
-	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
-	assert(m_clientSocket->ConnectServer() == true);
-
-
 	// 패킷처리 함수 추가
 	m_clientDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN_RESULT, LoginResultPacketHandler));
 
-
-	ListenRecv();
+	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
 }
 
 NetworkManager::~NetworkManager()
@@ -69,7 +68,10 @@ void NetworkManager::ListenThread()
 		
 		// 패킷처리
 		std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
-		const ClientPacketDispatchFunction& dispatchFunction = m_clientDispatchFuncion.find(pPacket->GetPacketType())->second;
+		auto iter = m_clientDispatchFuncion.find(pPacket->GetPacketType());
+		assert(iter != m_clientDispatchFuncion.end());
+
+		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
 		dispatchFunction(std::move(pPacket));
 	}
 }
@@ -80,4 +82,11 @@ void NetworkManager::Send(PacketBase* _packet)
 	_packet->Serialize(serializer);
 	std::vector<uint8_t> buffer = serializer.GetBuffer();
 	int result = send(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
+}
+
+void NetworkManager::ConnectServer()
+{
+	assert(m_clientSocket->ConnectServer() == true);
+
+	ListenRecv();
 }

@@ -35,7 +35,7 @@ struct IOCompletionData
         wsabuf.len = static_cast<ULONG>(_sendBuffer.size());
         
         // 데이터 범위 체크 최대 255크기 까지
-        assert(wsabuf.len < IOBUFFER_SIZE);
+        assert(wsabuf.len <= IOBUFFER_SIZE);
 
         std::copy(_sendBuffer.begin(), _sendBuffer.end(), buffer);
     }

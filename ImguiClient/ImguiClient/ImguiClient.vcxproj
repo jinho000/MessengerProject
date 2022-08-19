@@ -147,14 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChatFriend.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ChatMessage.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ChatWindow.cpp">
       <SubType>
       </SubType>
@@ -193,14 +185,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChatFriend.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ChatMessage.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ChatWindow.h">
       <SubType>
       </SubType>
@@ -241,7 +225,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GameServer2\GameServer2.vcxproj">
+    <ProjectReference Include="..\..\Network\GameServer2.vcxproj">
       <Project>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\PacketLibrary\PacketLibrary.vcxproj">

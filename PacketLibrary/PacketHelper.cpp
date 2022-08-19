@@ -3,6 +3,7 @@
 #include "PacketType.h"
 
 #include "LoginPacket.h"
+#include "LoginResultPacket.h"
 
 std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
 {
@@ -16,6 +17,7 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 		pPacket = std::make_unique<LoginPacket>();
 		break;
 	case PACKET_TYPE::LOGIN_RESULT:
+		pPacket = std::make_unique<LoginResultPacket>();
 		break;
 	case PACKET_TYPE::JOIN:
 		break;

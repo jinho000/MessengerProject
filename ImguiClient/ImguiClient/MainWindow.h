@@ -19,7 +19,8 @@ private: // member var
 	MAIN_UI_TYPE m_mainUIType;
 	User*		 m_pLoginUser;
 
-	std::vector<ChatWindow*> m_chatWindowList;
+	std::unordered_map<std::string, ChatWindow*>	m_charWindowMap;
+	std::vector<ChatWindow*>						m_chatWindowList;
 
 
 public: // default
@@ -27,8 +28,8 @@ public: // default
 	~MainWindow();
 
 private:
-	void CreateChatWindow(int _count);
-
+	void CreateChatWindow(const std::string& _friend);
+	
 
 public: // member Func
 	virtual void UpdateWindow() override;
