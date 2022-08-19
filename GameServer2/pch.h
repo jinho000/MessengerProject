@@ -19,8 +19,12 @@
 #pragma comment (lib, "ws2_32") 
 #pragma comment (lib,"mswsock.lib")  // acceptEx 라이브러리
 
+#include <PacketLibrary/enum.h>
+#include <PacketLibrary/struct.h>
+
 
 #include "enum.h"
 #include "struct.h"
 #include "using.h"
 #include "ServerHelper.h"
+

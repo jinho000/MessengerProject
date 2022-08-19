@@ -7,16 +7,32 @@
 
 PacketHandler::PacketHandler()
 {
-	m_dispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN, LoginPacketHandler));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN, LoginPacketHandler));
+
 
 }
 
-void PacketHandler::Dispatch(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)
+void PacketHandler::AddClientCallback(PACKET_TYPE _packetType, ClientCallback _clientCallback)
 {
-	PacketBase* pPacket = PacketHelper::ConvertToPacket(_buffer);
+	m_clientCallbackMap.insert(std::make_pair(_packetType, _clientCallback));
+}
+
+void PacketHandler::DispatchServerPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)
+{
+	std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(_buffer);
 	assert(pPacket != nullptr);
 
-	std::function<void(TCPSession*, PacketBase*)>& handlerFunction = m_dispatchFuncion.find(pPacket->GetPacketType())->second;
-	handlerFunction(_pTCPSession, pPacket);
-
+	const ServerPacketDispatchFunction& handlerFunction = m_serverDispatchFuncion.find(pPacket->GetPacketType())->second;
+	handlerFunction(_pTCPSession, std::move(pPacket));
 }
+
+void PacketHandler::DispatchClientPacket(const std::vector<uint8_t>& _buffer)
+{
+	std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(_buffer);
+	assert(pPacket != nullptr);
+
+	const ClientPacketDispatchFunction& clientCallback = m_clientCallbackMap.find(pPacket->GetPacketType())->second;
+	clientCallback(std::move(pPacket));
+}
+
+

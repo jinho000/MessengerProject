@@ -22,17 +22,17 @@
     <Filter Include="Packet\Chatting">
       <UniqueIdentifier>{6610bbe3-e0e4-4f66-8e15-1e41956354bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\LoginResult">
-      <UniqueIdentifier>{8f5b865a-b70c-4b44-b766-f5a3d9d10462}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Packet\JoinResult">
       <UniqueIdentifier>{9fc6e1ef-fb42-46cc-b5af-cc5d88cb7c7c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Serializer">
       <UniqueIdentifier>{165e43f9-7eee-4ab7-8f24-7b51f9c98298}</UniqueIdentifier>
     </Filter>
-    <Filter Include="enum">
-      <UniqueIdentifier>{b7e6d0ce-0109-4e5d-b1db-65d3c800d719}</UniqueIdentifier>
+    <Filter Include="Global">
+      <UniqueIdentifier>{dd7ffa26-8953-4d23-9af5-0d161c509d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\LoginResultPacket">
+      <UniqueIdentifier>{8f5b865a-b70c-4b44-b766-f5a3d9d10462}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="PacketHelper.cpp">
       <Filter>PacketHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginResultPacket.cpp">
+      <Filter>Packet\LoginResultPacket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,8 +74,14 @@
     <ClInclude Include="PacketHelper.h">
       <Filter>PacketHelper</Filter>
     </ClInclude>
+    <ClInclude Include="LoginResultPacket.h">
+      <Filter>Packet\LoginResultPacket</Filter>
+    </ClInclude>
     <ClInclude Include="enum.h">
-      <Filter>enum</Filter>
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

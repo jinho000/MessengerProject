@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <PacketLibrary/enum.h>
 
 class TCPSession;
 struct IOCompletionData

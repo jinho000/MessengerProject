@@ -37,13 +37,14 @@ public:
 		Write(reinterpret_cast<const void*>(&_Value), static_cast<unsigned int>(sizeof(T)));
 	}
 
+	// 
 	template<typename T>
 	void WriteVector(std::vector<T>& _Value)
 	{
 		operator<<(static_cast<size_t>(_Value.size()));
 		for (size_t i = 0; i < _Value.size(); i++)
 		{
-			_Value[i].Serialize(*this);
+			operator<<(_Value[i]);
 		}
 	}
 
@@ -72,7 +73,7 @@ public:
 		_Value.resize(Size);
 		for (size_t i = 0; i < _Value.size(); i++)
 		{
-			_Value[i].Deserialize(*this);
+			operator>>(_Value[i]);
 		}
 	}
 

@@ -4,16 +4,16 @@
 
 #include "LoginPacket.h"
 
-PacketBase* PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
+std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
 {
 	PACKET_TYPE type;
 	memcpy_s(&type, sizeof(PACKET_TYPE), _buffer.data(), sizeof(PACKET_TYPE));
 
-	PacketBase* pPacket = nullptr;
+	std::unique_ptr<PacketBase> pPacket = nullptr;
 	switch (type)
 	{
 	case PACKET_TYPE::LOGIN:
-		pPacket = new LoginPacket;
+		pPacket = std::make_unique<LoginPacket>();
 		break;
 	case PACKET_TYPE::LOGIN_RESULT:
 		break;
@@ -29,7 +29,8 @@ PacketBase* PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
 
 	Serializer serializer(_buffer);
 	pPacket->Deserialize(serializer);
-	return pPacket;
+
+	return std::move(pPacket);
 }
 
 template<>

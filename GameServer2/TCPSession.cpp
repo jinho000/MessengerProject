@@ -6,6 +6,9 @@
 #include "SessionManager.h"
 #include "PacketHandler.h"
 
+#include <PacketLibrary/PacketBase.h>
+#include <PacketLibrary/Serializer.h>
+
 TCPSession::TCPSession()
 	: m_sessionSocket()
 	, m_IOCompletionAccept(*this, IOTYPE::ACCEPT)
@@ -60,10 +63,8 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// PacketHandler에서 사용
 		std::vector<uint8_t> ioBuffer;
 		ioBuffer.assign(m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + IOBUFFER_SIZE);
-		PacketHandler::GetInst()->Dispatch(this, ioBuffer);
+		PacketHandler::GetInst()->DispatchServerPacket(this, ioBuffer);
 
-
-		
 		// recv 다시 요청
 		RequestRecv();
 
@@ -173,16 +174,21 @@ void TCPSession::RequestRecv()
 	}
 }
 
-void TCPSession::RequestSend(const std::vector<uint8_t>& _buffer)
+
+void TCPSession::RequestSend(PacketBase* _packet)
 {
-	if (_buffer.empty())
+	Serializer serializer(IOBUFFER_SIZE);
+	_packet->Serialize(serializer);
+
+	const std::vector<uint8_t>& buffer = serializer.GetBuffer();
+	if (buffer.empty())
 	{
 		return;
 	}
 
 	// Send 요청시 마다 클리어
 	m_IOCompletionSend.Clear();
-	m_IOCompletionSend.SetBuffer(_buffer);
+	m_IOCompletionSend.SetBuffer(buffer);
 
 	DWORD byteSize = 0;
 	DWORD flag = 0;

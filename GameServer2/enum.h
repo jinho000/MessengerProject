@@ -7,8 +7,3 @@ enum class IOTYPE
 	ACCEPT,
 	DISCONNECT
 };
-
-enum 
-{
-	IOBUFFER_SIZE = 255
-};

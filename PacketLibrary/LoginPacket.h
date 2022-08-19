@@ -13,10 +13,14 @@ public: // default
 	~LoginPacket();
 
 protected:
-	virtual size_t GetContentPacketSize();
+	virtual size_t GetContentPacketSize() override;
 
 public:
 	void Serialize(Serializer& _serialize) override;
 	void Deserialize(const Serializer& _serialize) override;
+
+public:
+	const std::string& GetID() { return m_ID; }
+	const std::string& GetPW() { return m_password; }
 };
 

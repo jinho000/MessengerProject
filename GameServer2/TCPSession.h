@@ -1,6 +1,7 @@
 #pragma once
 #include "SessionSocket.h"
 
+class PacketBase;
 class TCPSession
 {
 private: // member var
@@ -26,7 +27,6 @@ public: // default
 private:
 	void IOCompletionCallback(DWORD _transferredBytes, IOCompletionData* _IOData);
 	
-
 public: // member Func
 	bool IsRecycleSession();
 
@@ -34,5 +34,5 @@ public: // member Func
 	void SetClientAddress();
 	void RegistIOCP();
 	void RequestRecv();
-	void RequestSend(const std::vector<uint8_t>& _buffer);
+	void RequestSend(PacketBase* _packet);
 };
