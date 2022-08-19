@@ -47,6 +47,6 @@ private:
 
 public:
 	void Send(PacketBase* _packet);
-	void ConnectServer();
+	bool ConnectServer();
 };
 

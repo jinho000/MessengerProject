@@ -30,7 +30,10 @@ NetworkManager::~NetworkManager()
 	delete m_clientSocket;
 	m_clientSocket = nullptr;
 
-	m_recvThread.join();
+	if (m_recvThread.joinable())
+	{
+		m_recvThread.join();
+	}
 
 	ServerHelper::WSAEnd();
 }
@@ -84,9 +87,14 @@ void NetworkManager::Send(PacketBase* _packet)
 	int result = send(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 }
 
-void NetworkManager::ConnectServer()
+bool NetworkManager::ConnectServer()
 {
-	assert(m_clientSocket->ConnectServer() == true);
+	if (m_clientSocket->ConnectServer() == false)
+	{
+		return false;
+	}
 
 	ListenRecv();
+
+	return true;
 }
