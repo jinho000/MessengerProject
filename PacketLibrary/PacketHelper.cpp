@@ -47,5 +47,6 @@ size_t PacketHelper::GetTypeSize(const std::vector<Type>& _Value)
 	{
 		Size += GetTypeSize(_Value[i]);
 	}
+
 	return Size;
 }
