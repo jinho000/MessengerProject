@@ -1,9 +1,8 @@
 #pragma once
 #include "ImguiWindow.h"
-#include "JoinWindow.h"
 #include <string>
 
-class LoginWindow : public ImguiWindow
+class JoinWindow : public ImguiWindow
 {
 private: // member var
 	enum
@@ -13,14 +12,21 @@ private: // member var
 
 	char		m_IDBuffer[BUFFER_SIZE];
 	char		m_PWBuffer[BUFFER_SIZE];
-	JoinWindow	m_joinModal;
+	bool		m_active;
+
+	std::string m_checkResult;
+	std::string m_JoinResult;
 
 public: // default
-	LoginWindow();
-	~LoginWindow() = default;
+	JoinWindow();
+	~JoinWindow();
 
+private:
+	void ShowResultModal();
 
 public: // member Func
-	virtual void UpdateWindow() override;
+	void UpdateWindow();
+
+	void Active();
 };
 

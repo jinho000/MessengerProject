@@ -167,6 +167,10 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="JoinWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LoginWindow.cpp">
       <SubType>
       </SubType>
@@ -206,6 +210,10 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="JoinWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LoginResultPacketHandler.h" />
     <ClInclude Include="LoginWindow.h">
       <SubType>

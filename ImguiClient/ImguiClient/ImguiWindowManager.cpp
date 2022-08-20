@@ -1,7 +1,8 @@
 #include "ImguiWindowManager.h"
+#include "imgui.h"
+
 #include "LoginWindow.h"
 #include "MainWindow.h"
-#include "imgui.h"
 
 ImguiWindowManager* ImguiWindowManager::pInst = nullptr;
 
@@ -47,8 +48,6 @@ void ImguiWindowManager::UpdateWindow()
 
 void ImguiWindowManager::ChangeMainWindow(WINDOW_UI _window)
 {
-	// UI 종료시 할일?
-	// UI 시작시 할일?
 	m_currentUI = _window;
 }
 

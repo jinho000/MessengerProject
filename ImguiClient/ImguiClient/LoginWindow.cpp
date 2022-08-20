@@ -10,6 +10,7 @@
 LoginWindow::LoginWindow()
 	: m_IDBuffer()
 	, m_PWBuffer()
+	, m_joinModal()
 {
 }
 
@@ -59,6 +60,12 @@ void LoginWindow::UpdateWindow()
 
 	}
 
+	ImGui::SameLine();
+	if (ImGui::Button("Join", ImVec2(80, 40)))
+	{
+		m_joinModal.Active();
+	}
+
 	// popup
 	if (ImGui::BeginPopupModal("Error! ##ConnectServerFail", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
@@ -72,6 +79,9 @@ void LoginWindow::UpdateWindow()
 
 		ImGui::EndPopup();
 	}
+
+	// JoinModal
+	m_joinModal.UpdateWindow();
 
 	ImGui::End();
 }

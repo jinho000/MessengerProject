@@ -28,6 +28,9 @@
     <Filter Include="NetworkManager\PacketHandler">
       <UniqueIdentifier>{b2cb44ac-61c2-4521-aeeb-1afe42553dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImguiWindow\LoginWindow\JoinWindow">
+      <UniqueIdentifier>{bf02408e-e831-4a0d-9f09-83e351c39df8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImguiClient.cpp" />
@@ -72,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>NetworkManager</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinWindow.cpp">
+      <Filter>ImguiWindow\LoginWindow\JoinWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="LoginResultPacketHandler.h">
       <Filter>NetworkManager\PacketHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinWindow.h">
+      <Filter>ImguiWindow\LoginWindow\JoinWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
