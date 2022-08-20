@@ -1,27 +1,81 @@
 #include "ChatWindow.h"
 #include "imgui.h"
+#include "ImguiWindowManager.h"
+#include "MainWindow.h"
+
+int ChatWindow::ID = 0;
 
 
-ChatWindow::ChatWindow()
-	: m_friendID()
-	, m_bActive(false)
+ChatWindow::ChatWindow(const std::string& _friendID)
+	: m_windowID(std::to_string(ID) + "_")
+	, m_friendID(_friendID)
+	, m_bActive(true)
+    , m_ScrollToBottom(false)
+    , m_reclaimFocus(true)
+    , m_initialSize(ImVec2(500, 400))
 {
+	m_windowID += _friendID;
+}
+
+
+void ChatWindow::ShowChattingMessage()
+{
+    // 스크롤바 만들기
+    const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
+    ImGui::BeginChild("ScrollingRegion", ImVec2(0, -footer_height_to_reserve), false, ImGuiWindowFlags_HorizontalScrollbar);
+
+    // 채팅 출력
+    for (const ChatMessage& chatMessage : m_messageList)
+    {
+        std::string text(chatMessage.ID + ": " + chatMessage.message);
+        ImGui::Text(text.c_str());
+    }
+
+    // 스크롤 자동 내리기
+    if (m_ScrollToBottom || (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()))
+        ImGui::SetScrollHereY(1.0f);
+    m_ScrollToBottom = false;
+
+    ImGui::EndChild();
+}
+
+void ChatWindow::ShowInputMessage()
+{
+    // 채팅 입력
+    ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue;
+    char buff[255] = {};
+    if (ImGui::InputText("  ", buff, IM_ARRAYSIZE(buff), input_text_flags))
+    {
+        MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+        const std::string& userID = pMainWindow->GetUser()->GetUserID();
+        m_messageList.push_back({ userID, buff });
+
+        SetScrollToBottom();
+        m_reclaimFocus = true;
+    }
+
+    // 입력창 포커싱
+    ImGui::SetItemDefaultFocus();
+    if (m_reclaimFocus)
+    {
+        ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
+        m_reclaimFocus = false;
+    }
 }
 
 void ChatWindow::UpdateWindow()
 {
-	ImGui::Begin(m_friendID.c_str(), &m_bActive);
+	if (m_bActive == false)
+		return;
 
+	ImGui::SetNextWindowSize(m_initialSize, ImGuiCond_FirstUseEver);
+	ImGui::Begin(m_windowID.c_str(), &m_bActive);
 
+    ShowChattingMessage();
 
-	ImGui::Separator();
+    ImGui::Separator();
 
-	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue;
-	char buff[255] = {};
-	if (ImGui::InputText(" ##ss", buff, 255, input_text_flags))
-	{
-		int a = 0;
-	}
+    ShowInputMessage();
 
 	ImGui::End();
 }

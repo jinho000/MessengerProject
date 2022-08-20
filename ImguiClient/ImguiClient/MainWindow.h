@@ -16,7 +16,6 @@ enum class MAIN_UI_TYPE
 class MainWindow : public ImguiWindow
 {
 private: // member var
-	MAIN_UI_TYPE m_mainUIType;
 	User*		 m_pLoginUser;
 
 	std::unordered_map<std::string, ChatWindow*>	m_charWindowMap;
@@ -35,6 +34,6 @@ public: // member Func
 	virtual void UpdateWindow() override;
 
 	void SetLoginUser(User* _pLoginUser);
-
+	const User* GetUser() { return m_pLoginUser; }
 };
 

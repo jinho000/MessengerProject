@@ -4,8 +4,7 @@
 #include "ImguiWindowManager.h"
 
 MainWindow::MainWindow()
-	: m_mainUIType(MAIN_UI_TYPE::CHATWINDOW_LIST)
-	, m_pLoginUser(nullptr)
+	: m_pLoginUser(nullptr)
 {
 }
 
@@ -41,20 +40,10 @@ void MainWindow::UpdateWindow()
 	{
 		const std::vector<std::string>& chatFriendList = m_pLoginUser->GetChatFriendList();
 
+		// 模备格废
 		if (ImGui::BeginTabItem("Friend List"))
 		{
-			int selected = -2;
-			
-			// 蜡历			
-			std::string print(m_pLoginUser->GetUserNickname());
-			print += '\n';
-
-			if (ImGui::Selectable(print.c_str(), selected == -1))
-				selected = -1;
-
-			ImGui::Separator();
-
-			// 模备格废
+			int selected = -1;
 			for (size_t i = 0; i < chatFriendList.size(); i++)
 			{
 				std::string friendName(chatFriendList[i]);
@@ -65,44 +54,15 @@ void MainWindow::UpdateWindow()
 
 				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 				{
-					
-
+					CreateChatWindow(friendName);
 				}
 
 				ImGui::Separator();
 			}
 
-			
-
 			ImGui::EndTabItem();
 		}
-
-		if (ImGui::BeginTabItem("Chatting List"))
-		{
-			for (size_t i = 0; i < chatFriendList.size(); i++)
-			{
-				//if (chatFriendList[i]->GetMessageList().empty() == true)
-				//	continue;
-
-				//int selected = -1;
-				//std::string name = chatFriendList[i]->GetChatFriendName();
-				//const ChatMessage& chatMessage = chatFriendList[i]->GetMessageList().front();
-
-				//std::string print = name + "\n" + chatMessage.message;
-				//if (ImGui::Selectable(print.c_str(), selected == i))
-				//	selected = (int)i;
-
-				//if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-				//{
-				//	ChatFriend* pChatFriend = chatFriendList[i];
-				//	m_chatWindowList[i]->SetChatFriend(pChatFriend);
-				//}
-
-				ImGui::Separator();
-			}
-			ImGui::EndTabItem();
-		}
-
+		
 		ImGui::EndTabBar();
 	}
 
@@ -118,12 +78,14 @@ void MainWindow::UpdateWindow()
 
 void MainWindow::CreateChatWindow(const std::string& _friend)
 {
-	if (m_charWindowMap.end() != m_charWindowMap.find(_friend))
+	auto iter = m_charWindowMap.find(_friend);
+	if (iter != m_charWindowMap.end())
 	{
+		iter->second->Active();
 		return;
 	}
-
-	ChatWindow* pChatWindow = new ChatWindow();
+	
+	ChatWindow* pChatWindow = new ChatWindow(_friend);
 	m_chatWindowList.push_back(pChatWindow);
 	m_charWindowMap.insert(make_pair(_friend, pChatWindow));
 }

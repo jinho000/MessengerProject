@@ -22,6 +22,7 @@ public: // default
 
 public: // member Func
 	const std::vector<std::string>& GetChatFriendList() const { return m_friendList; }
-	const std::string& GetUserNickname() { return m_name; }
+	const std::string& GetUserNickname() const { return m_name; }
+	const std::string& GetUserID() const { return m_loginID; }
 };
 
