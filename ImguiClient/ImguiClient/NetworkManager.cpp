@@ -14,6 +14,7 @@
 #include "JoinWindow.h"
 #include "LoginWindow.h"
 #include "MainWindow.h"
+#include "ChatWindow.h"
 
 // connect Error popup
 // 		//	ImGui::OpenPopup("Error! ##ConnectServerFail");
@@ -83,6 +84,7 @@ void NetworkManager::AddDispatchFunction()
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::IDCHECK_RESULT, JoinWindow::DispatchIDCheckResultPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::LOGIN_RESULT, LoginWindow::DispatchLoginResultPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND_RESULT, MainWindow::DispatchAddFriendResultPacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::RECV_CHATTING, ChatWindow::DispatchRecvChattingPacket));
 
 
 }
