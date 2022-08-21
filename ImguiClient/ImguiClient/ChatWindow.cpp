@@ -79,3 +79,19 @@ void ChatWindow::UpdateWindow()
 	ImGui::End();
 }
 
+void ChatWindow::Active()
+{
+    m_bActive = true;
+    m_reclaimFocus = true;
+}
+
+std::string ChatWindow::GetFirstMessage()
+{
+    if (m_messageList.empty())
+    {
+        return "";
+    }
+
+    return m_messageList.back().message;
+}
+

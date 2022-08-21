@@ -11,7 +11,7 @@ void LoginResultPacketHandler(std::unique_ptr<PacketBase> _packetBase)
 	std::unique_ptr<LoginResultPacket> pPacket(static_cast<LoginResultPacket*>(_packetBase.release()));
 
 	std::vector<std::string> friendList = pPacket->GetUserInfo().FriendList;
-	User* pLoginUser = new User(pPacket->GetUserInfo().ID, pPacket->GetUserInfo().NickName, friendList);
+	User* pLoginUser = new User(pPacket->GetUserInfo().ID, friendList);
 
 	// 메인 윈도우에 세팅
 	MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));

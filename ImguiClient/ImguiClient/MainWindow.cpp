@@ -46,6 +46,7 @@ void MainWindow::UpdateWindow()
 	{
 		m_bLogout = true;
 	}
+
 	ImGui::Separator();
 
 	// 유저 정보 출력
@@ -77,6 +78,30 @@ void MainWindow::UpdateWindow()
 			ImGui::EndTabItem();
 		}
 		
+		// 채팅목록
+		if (ImGui::BeginTabItem("Chatting List"))
+		{
+			int selected = -1;
+			for (size_t i = 0; i < m_chatWindowList.size(); i++)
+			{
+				std::string print(m_chatWindowList[i]->GetFriendID());
+				print += '\n';
+				print += m_chatWindowList[i]->GetFirstMessage();
+
+				if (ImGui::Selectable(print.c_str(), selected == i))
+					selected = (int)i;
+
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				{
+					m_chatWindowList[i]->Active();
+				}
+
+				ImGui::Separator();
+			}
+
+			ImGui::EndTabItem();
+		}
+
 		ImGui::EndTabBar();
 	}
 

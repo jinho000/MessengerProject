@@ -34,7 +34,7 @@ void LoginWindow::UpdateWindow()
 		friendList.push_back("ID3");
 		friendList.push_back("ID4");
 
-		User* pLoginUser = new User(m_IDBuffer, "nickname", friendList);
+		User* pLoginUser = new User(m_IDBuffer, friendList);
 
 		// 메인 윈도우에 세팅
 		MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));

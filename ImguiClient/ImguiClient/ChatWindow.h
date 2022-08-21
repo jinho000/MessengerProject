@@ -34,11 +34,12 @@ public: // default
 public: // member Func
 	virtual void UpdateWindow() override;
 
-	void Active() 
-	{ 
-		m_bActive = true;
-		m_reclaimFocus = true;
-	}
 	void SetScrollToBottom() { m_ScrollToBottom = true; };
+	
+	void Active();
+
+	const std::string& GetFriendID() { return m_friendID; }
+	std::string GetFirstMessage();
+
 };
 

@@ -6,13 +6,11 @@ class ChatFriend;
 class User
 {
 private: // member var
-	std::string			m_loginID;
-	std::string			m_name;
-	
+	std::string					m_loginID;
 	std::vector<std::string>	m_friendList;
 
 public: // default
-	User(std::string _loginID, std::string _name, std::vector<std::string>& _friendList);
+	User(std::string _loginID, std::vector<std::string>& _friendList);
 	~User();
 
 	User(const User& _other) = delete;
@@ -22,7 +20,6 @@ public: // default
 
 public: // member Func
 	const std::vector<std::string>& GetChatFriendList() const { return m_friendList; }
-	const std::string& GetUserNickname() const { return m_name; }
 	const std::string& GetUserID() const { return m_loginID; }
 };
 
