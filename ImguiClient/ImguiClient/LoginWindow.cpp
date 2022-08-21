@@ -16,6 +16,7 @@ LoginWindow::LoginWindow()
 
 void LoginWindow::UpdateWindow()
 {
+	ImGui::SetNextWindowSize(ImVec2(250, 250), ImGuiCond_FirstUseEver);
 	ImGui::Begin("LoginWindow");
 
 	ImGui::Text("ID");

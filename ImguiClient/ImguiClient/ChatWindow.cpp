@@ -15,6 +15,8 @@ ChatWindow::ChatWindow(const std::string& _friendID)
     , m_initialSize(ImVec2(500, 400))
 {
 	m_windowID += _friendID;
+    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+    m_userID = pMainWindow->GetUser()->GetUserID();
 }
 
 
@@ -42,13 +44,10 @@ void ChatWindow::ShowChattingMessage()
 void ChatWindow::ShowInputMessage()
 {
     // 채팅 입력
-    ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue;
     char buff[255] = {};
-    if (ImGui::InputText("  ", buff, IM_ARRAYSIZE(buff), input_text_flags))
+    if (ImGui::InputText("##ChatInput", buff, IM_ARRAYSIZE(buff), ImGuiInputTextFlags_EnterReturnsTrue))
     {
-        MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
-        const std::string& userID = pMainWindow->GetUser()->GetUserID();
-        m_messageList.push_back({ userID, buff });
+        m_messageList.push_back({ m_userID, buff });
 
         SetScrollToBottom();
         m_reclaimFocus = true;

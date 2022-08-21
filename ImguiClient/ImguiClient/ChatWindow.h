@@ -13,6 +13,7 @@ private: // member var
 
 	std::string					m_windowID;
 	std::string					m_friendID;
+	std::string					m_userID;
 	std::vector<ChatMessage>	m_messageList;
 	bool						m_bActive;
 

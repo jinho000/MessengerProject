@@ -21,6 +21,10 @@ private: // member var
 	std::unordered_map<std::string, ChatWindow*>	m_charWindowMap;
 	std::vector<ChatWindow*>						m_chatWindowList;
 
+	bool		m_bAddFriendPopup;
+	char		m_searchFriendID[255];
+	bool		m_bPopupInputFocus;
+	bool		m_bLogout;
 
 public: // default
 	MainWindow();
@@ -28,7 +32,12 @@ public: // default
 
 private:
 	void CreateChatWindow(const std::string& _friend);
+
+	void ShowAddFriendPopup();
+	void UpdateAddFriendPopup();
 	
+	void LogoutUser();
+	void DestroyChatWindow();
 
 public: // member Func
 	virtual void UpdateWindow() override;

@@ -34,6 +34,7 @@ void JoinWindow::UpdateWindow()
 	if (m_active == false)
 		return;
 
+	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiCond_FirstUseEver);
 	if (ImGui::BeginPopupModal("JoinWindow", &m_active))
 	{
 		ImGui::Text("ID");
