@@ -1,5 +1,12 @@
 #include "JoinWindow.h"
 #include "imgui.h"
+#include <PacketLibrary/JoinPacket.h>
+#include <PacketLibrary/JoinResultPacket.h>
+#include <PacketLibrary/IDCheckPacket.h>
+#include <PacketLibrary/IDCheckResultPacket.h>
+#include "ImguiWindowManager.h"
+#include "LoginWindow.h"
+
 
 JoinWindow::JoinWindow()
 	: m_IDBuffer()
@@ -8,26 +15,48 @@ JoinWindow::JoinWindow()
 	, m_checkResult()
 	, m_JoinResult()
 {
+
 }
 
 JoinWindow::~JoinWindow()
 {
 }
 
-void JoinWindow::ShowResultModal()
-{
-	//bool unused_open = true;
-	//if (ImGui::BeginPopupModal("Result", &unused_open))
-	//{
-	//	ImGui::Text(m_result.c_str());
-	//	if (ImGui::Button("OK"))
-	//	{
-	//		ImGui::CloseCurrentPopup();
-	//	}
 
-	//	ImGui::EndPopup();
-	//}
+void JoinWindow::DispatchJoinResultPacket(std::unique_ptr<PacketBase> _packet)
+{
+	std::unique_ptr<JoinResultPacket> pPacket(static_cast<JoinResultPacket*>(_packet.release()));
+
+	LoginWindow* pLoginWindow = static_cast<LoginWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::LOGIN));
+	JoinWindow* pJoinWindow = pLoginWindow->GetJoinWindow();
+
+	if (pPacket->GetJoinResult() == RESULT_TYPE::SUCCESS)
+	{
+		pJoinWindow->m_JoinResult = "Join OK";
+	}
+	else
+	{
+		pJoinWindow->m_JoinResult = "Join Fail";
+	}
 }
+
+void JoinWindow::DispatchIDCheckResultPacket(std::unique_ptr<PacketBase> _packet)
+{
+	std::unique_ptr<IDCheckResultPacket> pPacket(static_cast<IDCheckResultPacket*>(_packet.release()));
+
+	LoginWindow* pLoginWindow = static_cast<LoginWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::LOGIN));
+	JoinWindow* pJoinWindow = pLoginWindow->GetJoinWindow();
+
+	if (pPacket->GetIDCheckResult() == RESULT_TYPE::SUCCESS)
+	{
+		pJoinWindow->m_checkResult = "OK";
+	}
+	else
+	{
+		pJoinWindow->m_checkResult = "Fail";
+	}
+}
+
 
 void JoinWindow::UpdateWindow()
 {
@@ -43,10 +72,8 @@ void JoinWindow::UpdateWindow()
 		ImGui::SameLine();
 		if (ImGui::Button("CheckID"))
 		{
-			// 서버에 ID 전송
-
-			// 결과값 처리
-			m_checkResult = "OK"; 
+			IDCheckPacket packet(m_IDBuffer);
+			NetworkManager::GetInst()->Send(&packet);
 		}
 
 		ImGui::SameLine();
@@ -57,12 +84,8 @@ void JoinWindow::UpdateWindow()
 
 		if (ImGui::Button("Join##2", ImVec2(60, 30)))
 		{
-
-			// 서버에 전송하기
-
-
-			// 서버의 결과를 받아서 처리
-			m_JoinResult = "OK";
+			JoinPacket packet(m_IDBuffer, m_PWBuffer);
+			NetworkManager::GetInst()->Send(&packet);
 		}
 
 		ImGui::SameLine();
@@ -77,7 +100,6 @@ void JoinWindow::UpdateWindow()
 		ImGui::EndPopup();
 	}
 
-	ShowResultModal();
 }
 
 void JoinWindow::Active()

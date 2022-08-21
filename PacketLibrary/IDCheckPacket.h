@@ -1,16 +1,16 @@
 #pragma once
 #include "PacketBase.h"
 
-class LoginPacket : public PacketBase
+class IDCheckPacket : public PacketBase
 {
 private: // member var
 	std::string m_ID;
-	std::string m_password;
 
 public: // default
-	LoginPacket();
-	LoginPacket(const std::string& _ID, const std::string& _password);
-	~LoginPacket();
+	IDCheckPacket();
+	IDCheckPacket(const std::string& _ID);
+	~IDCheckPacket();
+
 
 protected:
 	virtual size_t GetContentPacketSize() override;
@@ -21,7 +21,5 @@ public:
 
 public:
 	const std::string& GetID() { return m_ID; }
-	const std::string& GetPW() { return m_password; }
-
 };
 

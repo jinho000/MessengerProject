@@ -1,6 +1,8 @@
 #pragma once
-#include "ImguiWindow.h"
 #include <string>
+#include "ImguiWindow.h"
+#include "NetworkManager.h"
+#include <PacketLibrary/enum.h>
 
 class JoinWindow : public ImguiWindow
 {
@@ -21,8 +23,9 @@ public: // default
 	JoinWindow();
 	~JoinWindow();
 
-private:
-	void ShowResultModal();
+public:
+	static void DispatchJoinResultPacket(std::unique_ptr<PacketBase> _packet);
+	static void DispatchIDCheckResultPacket(std::unique_ptr<PacketBase> _packet);
 
 public: // member Func
 	void UpdateWindow();

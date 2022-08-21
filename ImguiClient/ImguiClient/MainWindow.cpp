@@ -2,11 +2,15 @@
 #include "imgui.h"
 #include "User.h"
 #include "ImguiWindowManager.h"
+#include "NetworkManager.h"
+
+#include <PacketLibrary/AddFriendPacket.h>
+#include <PacketLibrary/AddFriendResultPacket.h>
 
 MainWindow::MainWindow()
 	: m_pLoginUser(nullptr)
 	, m_bAddFriendPopup(false)
-	, m_searchFriendID()
+	, m_addFriendID()
 	, m_bPopupInputFocus(false)
 	, m_bLogout(false)
 {
@@ -23,6 +27,26 @@ MainWindow::~MainWindow()
 	DestroyChatWindow();
 }
 
+
+void MainWindow::DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _packet)
+{
+	std::unique_ptr<AddFriendResultPacket> pPacket(static_cast<AddFriendResultPacket*>(_packet.release()));
+
+	// 메인 윈도우에 세팅
+	MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+
+	if (pPacket->GetAddFriendResult() == RESULT_TYPE::SUCCESS)
+	{
+		pMainWindow->m_addFriendResult = "Add Success";
+	}
+	else
+	{
+		pMainWindow->m_addFriendResult = "Add Fail";
+	}
+}
+
+
+
 void MainWindow::UpdateWindow()
 {
 	ImGui::SetNextWindowSize(ImVec2(300, 450), ImGuiCond_FirstUseEver);
@@ -35,7 +59,7 @@ void MainWindow::UpdateWindow()
 	}
 
 	// 친구 추가 버튼
-	if (ImGui::Button("Add Friend", ImVec2(80, 40)))
+	if (ImGui::Button("Add Friend##Button", ImVec2(80, 40)))
 	{
 		ShowAddFriendPopup();
 	}
@@ -77,7 +101,7 @@ void MainWindow::UpdateWindow()
 
 			ImGui::EndTabItem();
 		}
-		
+
 		// 채팅목록
 		if (ImGui::BeginTabItem("Chatting List"))
 		{
@@ -122,16 +146,17 @@ void MainWindow::UpdateWindow()
 
 void MainWindow::CreateChatWindow(const std::string& _friend)
 {
-	auto iter = m_charWindowMap.find(_friend);
-	if (iter != m_charWindowMap.end())
+	for (const auto& chatWindow : m_chatWindowList)
 	{
-		iter->second->Active();
-		return;
+		if (chatWindow->GetFriendID() == _friend)
+		{
+			chatWindow->Active();
+			return;
+		}
 	}
-	
+
 	ChatWindow* pChatWindow = new ChatWindow(_friend);
 	m_chatWindowList.push_back(pChatWindow);
-	m_charWindowMap.insert(make_pair(_friend, pChatWindow));
 }
 
 void MainWindow::ShowAddFriendPopup()
@@ -139,7 +164,8 @@ void MainWindow::ShowAddFriendPopup()
 	ImGui::OpenPopup("Add Friend");
 	m_bAddFriendPopup = true;
 	m_bPopupInputFocus = true;
-	memset(m_searchFriendID, 0, 255);
+	m_addFriendResult.clear();
+	memset(m_addFriendID, 0, 255);
 }
 
 void MainWindow::UpdateAddFriendPopup()
@@ -152,15 +178,16 @@ void MainWindow::UpdateAddFriendPopup()
 	{
 		ImGui::Text("Friend ID");
 
-		if (ImGui::InputText("##Friend ID", m_searchFriendID, 255, ImGuiInputTextFlags_EnterReturnsTrue))
+		if (ImGui::InputText("##Friend ID", m_addFriendID, 255, ImGuiInputTextFlags_EnterReturnsTrue))
 		{
-			memset(m_searchFriendID, 0, 255);
-			m_bPopupInputFocus = true;
-
 			// 서버로 아이디 전송
+			AddFriendPacket packet(m_addFriendID);
+			NetworkManager::GetInst()->Send(&packet);
 
+			m_bPopupInputFocus = true;
 		}
 
+		// 입력창 포커싱
 		ImGui::SetItemDefaultFocus();
 		if (m_bPopupInputFocus == true)
 		{
@@ -171,18 +198,16 @@ void MainWindow::UpdateAddFriendPopup()
 		ImGui::SameLine();
 		if (ImGui::Button("Add", ImVec2(40, 20)))
 		{
-			memset(m_searchFriendID, 0, 255);
-			m_bPopupInputFocus = true;
-
 			// 서버에 아이디 전송
-			int a = 0;
-
-
+			AddFriendPacket packet(m_addFriendID);
+			NetworkManager::GetInst()->Send(&packet);
+			
+			m_bPopupInputFocus = true;
 		}
 
 		ImGui::Separator();
 
-		ImGui::Text("Add Result ");
+		ImGui::Text(m_addFriendResult.c_str());
 
 		ImGui::EndPopup();
 	}
@@ -210,7 +235,6 @@ void MainWindow::DestroyChatWindow()
 	}
 
 	m_chatWindowList.clear();
-	m_charWindowMap.clear();
 }
 
 void MainWindow::SetLoginUser(User* _pLoginUser)

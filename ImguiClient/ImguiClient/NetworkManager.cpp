@@ -11,7 +11,27 @@
 #include <cassert>
 #include <memory>	
 
-#include "LoginResultPacketHandler.h"
+#include "JoinWindow.h"
+#include "LoginWindow.h"
+#include "MainWindow.h"
+
+// connect Error popup
+// 		//	ImGui::OpenPopup("Error! ##ConnectServerFail");
+	//	// Always center this window when appearing
+	//	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+	//	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+//if (ImGui::BeginPopupModal("Error! ##ConnectServerFail", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+//{
+//	ImGui::Text("Connect Server Fail\n\n");
+//	ImGui::Separator();
+
+//	if (ImGui::Button("OK", ImVec2(120, 0))) 
+//	{ 
+//		ImGui::CloseCurrentPopup(); 
+//	}
+
+//	ImGui::EndPopup();
+//}
 
 NetworkManager* NetworkManager::pInst = nullptr;
 
@@ -19,10 +39,12 @@ NetworkManager::NetworkManager()
 {
 	ServerHelper::WSAStart();
 
-	// 패킷처리 함수 추가
-	m_clientDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN_RESULT, LoginResultPacketHandler));
-
+	// 처음 시작시 서버에 연결 (연결실패처리 해야함)
 	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
+	m_clientSocket->ConnectServer();
+	
+	// 패킷처리 함수 추가
+	AddDispatchFunction();
 }
 
 NetworkManager::~NetworkManager()
@@ -55,6 +77,16 @@ void NetworkManager::Destroy()
 	pInst = nullptr;
 }
 
+void NetworkManager::AddDispatchFunction()
+{
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::JOIN_RESULT, JoinWindow::DispatchJoinResultPacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::IDCHECK_RESULT, JoinWindow::DispatchIDCheckResultPacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::LOGIN_RESULT, LoginWindow::DispatchLoginResultPacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND_RESULT, MainWindow::DispatchAddFriendResultPacket));
+
+
+}
+
 void NetworkManager::ListenRecv()
 {
 	m_recvThread = std::thread(&NetworkManager::ListenThread, this);
@@ -68,11 +100,14 @@ void NetworkManager::ListenThread()
 		buffer.resize(RECV_BUFFER_SIZE);
 
 		int result = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
-		
+
+		// 접속 종료 처리
+
+
 		// 패킷처리
 		std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
-		auto iter = m_clientDispatchFuncion.find(pPacket->GetPacketType());
-		assert(iter != m_clientDispatchFuncion.end());
+		auto iter = m_packetHandler.find(pPacket->GetPacketType());
+		assert(iter != m_packetHandler.end());
 
 		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
 		dispatchFunction(std::move(pPacket));

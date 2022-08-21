@@ -19,9 +19,6 @@
     <Filter Include="Packet\Login">
       <UniqueIdentifier>{22fb466b-ea8b-406b-baae-8bf7014d8a5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\Chatting">
-      <UniqueIdentifier>{6610bbe3-e0e4-4f66-8e15-1e41956354bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Packet\JoinResult">
       <UniqueIdentifier>{9fc6e1ef-fb42-46cc-b5af-cc5d88cb7c7c}</UniqueIdentifier>
     </Filter>
@@ -31,8 +28,26 @@
     <Filter Include="Global">
       <UniqueIdentifier>{dd7ffa26-8953-4d23-9af5-0d161c509d43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\LoginResultPacket">
+    <Filter Include="Packet\IDCheckResult">
+      <UniqueIdentifier>{93a95959-3a51-4493-9d1b-8977060088fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\IDCheck">
+      <UniqueIdentifier>{479a85cc-4133-4339-a263-046bb16a1f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\AddFriend">
+      <UniqueIdentifier>{fba2df7b-9a29-4e4f-b0f5-957e2b1b7be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\LoginResult">
       <UniqueIdentifier>{8f5b865a-b70c-4b44-b766-f5a3d9d10462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\AddFriendResult">
+      <UniqueIdentifier>{40e24ec0-0ef6-4df4-b7c0-7ce4027acc1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\SendChatting">
+      <UniqueIdentifier>{5b0c8e32-50c3-47e8-b8ab-095bda99e251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\RecvChatting">
+      <UniqueIdentifier>{6610bbe3-e0e4-4f66-8e15-1e41956354bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +67,31 @@
       <Filter>PacketHelper</Filter>
     </ClCompile>
     <ClCompile Include="LoginResultPacket.cpp">
-      <Filter>Packet\LoginResultPacket</Filter>
+      <Filter>Packet\LoginResult</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinPacket.cpp">
+      <Filter>Packet\Join</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinResultPacket.cpp">
+      <Filter>Packet\JoinResult</Filter>
+    </ClCompile>
+    <ClCompile Include="IDCheckResultPacket.cpp">
+      <Filter>Packet\IDCheckResult</Filter>
+    </ClCompile>
+    <ClCompile Include="IDCheckPacket.cpp">
+      <Filter>Packet\IDCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFriendPacket.cpp">
+      <Filter>Packet\AddFriend</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFriendResultPacket.cpp">
+      <Filter>Packet\AddFriendResult</Filter>
+    </ClCompile>
+    <ClCompile Include="RecvChattingPacket.cpp">
+      <Filter>Packet\RecvChatting</Filter>
+    </ClCompile>
+    <ClCompile Include="SendChattingPacket.cpp">
+      <Filter>Packet\SendChatting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,13 +114,37 @@
       <Filter>PacketHelper</Filter>
     </ClInclude>
     <ClInclude Include="LoginResultPacket.h">
-      <Filter>Packet\LoginResultPacket</Filter>
+      <Filter>Packet\LoginResult</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinPacket.h">
+      <Filter>Packet\Join</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinResultPacket.h">
+      <Filter>Packet\JoinResult</Filter>
+    </ClInclude>
+    <ClInclude Include="IDCheckResultPacket.h">
+      <Filter>Packet\IDCheckResult</Filter>
+    </ClInclude>
+    <ClInclude Include="IDCheckPacket.h">
+      <Filter>Packet\IDCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFriendPacket.h">
+      <Filter>Packet\AddFriend</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFriendResultPacket.h">
+      <Filter>Packet\AddFriendResult</Filter>
+    </ClInclude>
+    <ClInclude Include="RecvChattingPacket.h">
+      <Filter>Packet\RecvChatting</Filter>
+    </ClInclude>
+    <ClInclude Include="SendChattingPacket.h">
+      <Filter>Packet\SendChatting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,6 @@ struct UserInfo
 {
 	std::string ID;
 	std::string PW;
-	std::string NickName;
 	std::vector<std::string> FriendList;
 
 	UserInfo()
@@ -22,7 +21,6 @@ struct UserInfo
 	UserInfo(UserInfo& _other)
 		: ID(_other.ID)
 		, PW(_other.PW)
-		, NickName(_other.NickName)
 	{
 		FriendList = std::move(_other.FriendList);
 	}
@@ -31,7 +29,6 @@ struct UserInfo
 	{
 		_serializer << ID;
 		_serializer << PW;
-		_serializer << NickName;
 		_serializer.WriteVector(FriendList);
 	}
 
@@ -39,7 +36,6 @@ struct UserInfo
 	{
 		_serializer >> ID;
 		_serializer >> PW;
-		_serializer >> NickName;
 		_serializer.ReadVector(FriendList);
 	}
 };

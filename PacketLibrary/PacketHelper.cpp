@@ -4,6 +4,14 @@
 
 #include "LoginPacket.h"
 #include "LoginResultPacket.h"
+#include "JoinPacket.h"
+#include "JoinResultPacket.h"
+#include "SendChattingPacket.h"
+#include "RecvChattingPacket.h"
+#include "IDCheckPacket.h"
+#include "IDCheckResultPacket.h"
+#include "AddFriendPacket.h"
+#include "AddFriendResultPacket.h"
 
 std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
 {
@@ -20,10 +28,28 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 		pPacket = std::make_unique<LoginResultPacket>();
 		break;
 	case PACKET_TYPE::JOIN:
+		pPacket = std::make_unique<JoinPacket>();
 		break;
 	case PACKET_TYPE::JOIN_RESULT:
+		pPacket = std::make_unique<JoinResultPacket>();
 		break;
-	case PACKET_TYPE::CHATTING:
+	case PACKET_TYPE::SEND_CHATTING:
+		pPacket = std::make_unique<SendChattingPacket>();
+		break;
+	case PACKET_TYPE::RECV_CHATTING:
+		pPacket = std::make_unique<RecvChattingPacket>();
+		break;
+	case PACKET_TYPE::IDCHECK:
+		pPacket = std::make_unique<IDCheckPacket>();
+		break;
+	case PACKET_TYPE::IDCHECK_RESULT:
+		pPacket = std::make_unique<IDCheckResultPacket>();
+		break;
+	case PACKET_TYPE::ADD_FRIEND:
+		pPacket = std::make_unique<AddFriendPacket>();
+		break;
+	case PACKET_TYPE::ADD_FRIEND_RESULT:
+		pPacket = std::make_unique<AddFriendResultPacket>();
 		break;
 	default:
 		break;

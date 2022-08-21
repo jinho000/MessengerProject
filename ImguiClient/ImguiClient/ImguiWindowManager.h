@@ -5,7 +5,6 @@ enum class WINDOW_UI
 {
 	LOGIN,
 	MAIN,
-	JOIN,
 	END
 };
 

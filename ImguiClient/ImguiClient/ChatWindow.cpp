@@ -2,6 +2,10 @@
 #include "imgui.h"
 #include "ImguiWindowManager.h"
 #include "MainWindow.h"
+#include "NetworkManager.h"
+
+#include <PacketLibrary/SendChattingPacket.h>
+#include <PacketLibrary/RecvChattingPacket.h>
 
 int ChatWindow::ID = 0;
 
@@ -9,6 +13,7 @@ int ChatWindow::ID = 0;
 ChatWindow::ChatWindow(const std::string& _friendID)
 	: m_windowID(std::to_string(ID) + "_")
 	, m_friendID(_friendID)
+    //, m_chatMessage()
 	, m_bActive(true)
     , m_ScrollToBottom(false)
     , m_reclaimFocus(true)
@@ -47,9 +52,13 @@ void ChatWindow::ShowInputMessage()
     char buff[255] = {};
     if (ImGui::InputText("##ChatInput", buff, IM_ARRAYSIZE(buff), ImGuiInputTextFlags_EnterReturnsTrue))
     {
+        // 채팅창에 출력
         m_messageList.push_back({ m_userID, buff });
 
-        SetScrollToBottom();
+        // 서버로 전송
+        SendChattingPacket packet(m_userID, m_friendID, buff);
+
+        m_ScrollToBottom = true;
         m_reclaimFocus = true;
     }
 
@@ -59,6 +68,22 @@ void ChatWindow::ShowInputMessage()
     {
         ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
         m_reclaimFocus = false;
+    }
+}
+
+void ChatWindow::DispatchRecvChattingPacket(std::unique_ptr<PacketBase> _packet)
+{
+    std::unique_ptr<RecvChattingPacket> pPacket(static_cast<RecvChattingPacket*>(_packet.release()));
+    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+    const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
+    
+    for (const auto& chatWindow : chatWindowList)
+    {
+        if (chatWindow->m_friendID == pPacket->GetSendUserID())
+        {
+            chatWindow->m_messageList.push_back({ pPacket->GetSendUserID(), pPacket->GetChatMessage()});
+            break;
+        }
     }
 }
 

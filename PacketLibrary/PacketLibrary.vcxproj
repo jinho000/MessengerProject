@@ -155,7 +155,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddFriendPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="AddFriendResultPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="enum.h" />
+    <ClInclude Include="IDCheckPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="IDCheckResultPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JoinPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JoinResultPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LoginPacket.h">
       <SubType>
       </SubType>
@@ -171,6 +195,14 @@
     <ClInclude Include="PacketHelper.h" />
     <ClInclude Include="PacketType.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RecvChattingPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SendChattingPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Serializer.h">
       <SubType>
       </SubType>
@@ -178,6 +210,30 @@
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddFriendPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="AddFriendResultPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="IDCheckPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="IDCheckResultPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JoinPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JoinResultPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LoginPacket.cpp">
       <SubType>
       </SubType>
@@ -196,6 +252,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="RecvChattingPacket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SendChattingPacket.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="Serializer.cpp">
       <SubType>

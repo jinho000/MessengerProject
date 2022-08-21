@@ -4,12 +4,14 @@
 
 #include <thread>
 #include <vector>
-#include <functional>
 
+#include <functional>
 #include <PacketLibrary/PacketBase.h>
 
-class ClientSocket;
 using ClientPacketDispatchFunction = std::function<void(std::unique_ptr<PacketBase>)>;
+
+
+class ClientSocket;
 
 class NetworkManager
 {
@@ -24,7 +26,7 @@ private:
 	std::thread		m_recvThread;
 	ClientSocket*	m_clientSocket; // 소켓 종료 후 스레드 종료
 
-	std::unordered_map<PACKET_TYPE, ClientPacketDispatchFunction> m_clientDispatchFuncion;
+	std::unordered_map<PACKET_TYPE, ClientPacketDispatchFunction> m_packetHandler;
 
 private: 
 	NetworkManager();
@@ -44,6 +46,7 @@ public:
 private:
 	void ListenRecv();
 	void ListenThread();
+	void AddDispatchFunction();
 
 public:
 	void Send(PacketBase* _packet);

@@ -19,8 +19,12 @@ public: // default
 	LoginWindow();
 	~LoginWindow() = default;
 
+public:
+	static void DispatchLoginResultPacket(std::unique_ptr<PacketBase> _packet);
 
 public: // member Func
 	virtual void UpdateWindow() override;
+
+	JoinWindow* GetJoinWindow() { return &m_joinModal; }
 };
 

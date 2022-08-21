@@ -14,7 +14,6 @@ void LoginPacketHandler(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _lo
 	UserInfo userInfo;
 	userInfo.ID = pLoginPacket->GetID();
 	userInfo.PW = pLoginPacket->GetPW();
-	userInfo.NickName = "NickName";
 
 	userInfo.FriendList.push_back("ID1");
 	userInfo.FriendList.push_back("ID2");

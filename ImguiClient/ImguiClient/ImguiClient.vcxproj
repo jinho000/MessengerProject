@@ -214,7 +214,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="LoginResultPacketHandler.h" />
     <ClInclude Include="LoginWindow.h">
       <SubType>
       </SubType>

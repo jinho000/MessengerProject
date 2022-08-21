@@ -3,8 +3,10 @@
 #include "User.h"
 #include "ChatWindow.h"
 
+#include <PacketLibrary/PacketBase.h>
 #include <vector>
 #include <unordered_map>
+
 
 enum class MAIN_UI_TYPE
 {
@@ -16,19 +18,23 @@ enum class MAIN_UI_TYPE
 class MainWindow : public ImguiWindow
 {
 private: // member var
-	User*		 m_pLoginUser;
+	User*						m_pLoginUser;
 
-	std::unordered_map<std::string, ChatWindow*>	m_charWindowMap;
-	std::vector<ChatWindow*>						m_chatWindowList;
+	std::vector<ChatWindow*>	m_chatWindowList;
 
 	bool		m_bAddFriendPopup;
-	char		m_searchFriendID[255];
+	std::string m_addFriendResult;
+	char		m_addFriendID[255];
+
 	bool		m_bPopupInputFocus;
 	bool		m_bLogout;
 
 public: // default
 	MainWindow();
 	~MainWindow();
+
+public:
+	static void DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _packet);
 
 private:
 	void CreateChatWindow(const std::string& _friend);
@@ -44,5 +50,6 @@ public: // member Func
 
 	void SetLoginUser(User* _pLoginUser);
 	const User* GetUser() { return m_pLoginUser; }
+	const std::vector<ChatWindow*>& GetChatWindowList() { return m_chatWindowList; }
 };
 

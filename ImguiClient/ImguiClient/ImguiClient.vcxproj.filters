@@ -25,9 +25,6 @@
     <Filter Include="NetworkManager">
       <UniqueIdentifier>{a726bbdf-181d-48e3-8e71-2c744bfa7096}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NetworkManager\PacketHandler">
-      <UniqueIdentifier>{b2cb44ac-61c2-4521-aeeb-1afe42553dfd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ImguiWindow\LoginWindow\JoinWindow">
       <UniqueIdentifier>{bf02408e-e831-4a0d-9f09-83e351c39df8}</UniqueIdentifier>
     </Filter>
@@ -126,9 +123,6 @@
     </ClInclude>
     <ClInclude Include="NetworkManager.h">
       <Filter>NetworkManager</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginResultPacketHandler.h">
-      <Filter>NetworkManager\PacketHandler</Filter>
     </ClInclude>
     <ClInclude Include="JoinWindow.h">
       <Filter>ImguiWindow\LoginWindow\JoinWindow</Filter>
