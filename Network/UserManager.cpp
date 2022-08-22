@@ -16,6 +16,13 @@ void UserManager::AddUser(const std::string& _userID, TCPSession* _pTCPSession)
     m_connectedUserTableLock.unlock();
 }
 
+void UserManager::DeleteUser(const std::string& _userID)
+{
+    m_connectedUserTableLock.lock();
+    m_connectedUserTable.erase(_userID);
+    m_connectedUserTableLock.unlock();
+}
+
 TCPSession* UserManager::FindUser(const std::string& _userID)
 {
     auto iter = m_connectedUserTable.find(_userID);

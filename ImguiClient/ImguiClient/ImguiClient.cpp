@@ -158,8 +158,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // Cleanup
-    NetworkManager::Destroy();
     ImguiWindowManager::Destroy();
+    NetworkManager::Destroy();
 
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();

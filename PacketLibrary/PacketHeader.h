@@ -9,3 +9,4 @@
 #include "LoginResultPacket.h"
 #include "RecvChattingPacket.h"
 #include "SendChattingPacket.h"
+#include "LogoutPacket.h"

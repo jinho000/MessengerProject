@@ -6,6 +6,7 @@
 
 #include <PacketLibrary/AddFriendPacket.h>
 #include <PacketLibrary/AddFriendResultPacket.h>
+#include <PacketLibrary/LogoutPacket.h>
 
 MainWindow::MainWindow()
 	: m_pLoginUser(nullptr)
@@ -20,6 +21,10 @@ MainWindow::~MainWindow()
 {
 	if (m_pLoginUser != nullptr)
 	{
+		// 로그아웃 패킷 전달
+		LogoutPacket packet(m_pLoginUser->GetUserID());
+		NetworkManager::GetInst()->Send(&packet);
+
 		delete m_pLoginUser;
 		m_pLoginUser = nullptr;
 	}
@@ -217,6 +222,10 @@ void MainWindow::UpdateAddFriendPopup()
 
 void MainWindow::LogoutUser()
 {
+	// 로그아웃 패킷 전달
+	LogoutPacket packet(m_pLoginUser->GetUserID());
+	NetworkManager::GetInst()->Send(&packet);
+
 	// 현재 유저 제거
 	delete m_pLoginUser;
 	m_pLoginUser = nullptr;

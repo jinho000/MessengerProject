@@ -131,22 +131,7 @@ void NetworkManager::Send(PacketBase* _packet)
 
 bool NetworkManager::ConnectServer()
 {
-	//assert(m_clientSocket->ConnectServer() == true);
-	
-
-	m_clientSocket->ConnectServer();
-	
-	DWORD errorCode = WSAGetLastError();
-	LPVOID msgBuff = nullptr;
-
-	FormatMessageA(
-		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-		NULL,
-		errorCode,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPSTR)&msgBuff,
-		0,
-		NULL);
+	assert(m_clientSocket->ConnectServer() == true);
 
 	// RecvThread Ω√¿€
 	StartRecvThread();

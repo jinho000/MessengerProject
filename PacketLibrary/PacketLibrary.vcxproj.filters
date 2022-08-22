@@ -49,6 +49,9 @@
     <Filter Include="Packet\RecvChatting">
       <UniqueIdentifier>{6610bbe3-e0e4-4f66-8e15-1e41956354bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Packet\Logout">
+      <UniqueIdentifier>{b7310b10-2c9d-4e1a-979b-2f3a3354a96d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="SendChattingPacket.cpp">
       <Filter>Packet\SendChatting</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoutPacket.cpp">
+      <Filter>Packet\Logout</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="PacketHeader.h">
       <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoutPacket.h">
+      <Filter>Packet\Logout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

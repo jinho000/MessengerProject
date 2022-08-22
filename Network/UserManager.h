@@ -15,6 +15,8 @@ private: // default
 
 public: // member Func
 	void AddUser(const std::string& _userID, TCPSession* _pTCPSession);
+	void DeleteUser(const std::string& _userID);
+
 	TCPSession* FindUser(const std::string& _userID);
 
 };

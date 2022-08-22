@@ -2,16 +2,7 @@
 #include "PacketHelper.h"
 #include "PacketType.h"
 
-#include "LoginPacket.h"
-#include "LoginResultPacket.h"
-#include "JoinPacket.h"
-#include "JoinResultPacket.h"
-#include "SendChattingPacket.h"
-#include "RecvChattingPacket.h"
-#include "IDCheckPacket.h"
-#include "IDCheckResultPacket.h"
-#include "AddFriendPacket.h"
-#include "AddFriendResultPacket.h"
+#include "PacketHeader.h"
 
 std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint8_t>& _buffer)
 {
@@ -50,6 +41,9 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 		break;
 	case PACKET_TYPE::ADD_FRIEND_RESULT:
 		pPacket = std::make_unique<AddFriendResultPacket>();
+		break;
+	case PACKET_TYPE::LOGOUT:
+		pPacket = std::make_unique<LogoutPacket>();
 		break;
 	default:
 		break;

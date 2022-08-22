@@ -78,3 +78,9 @@ void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketB
 	pRecvUserSession->Send(&recvPacket);
 }
 
+void DispatchLogoutPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _logoutPacket)
+{
+	std::unique_ptr<LogoutPacket> pLogoutPacket(static_cast<LogoutPacket*>(_logoutPacket.release()));
+	UserManager::GetInst()->DeleteUser(pLogoutPacket->GetLogoutID());
+}
+
