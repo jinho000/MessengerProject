@@ -4,11 +4,12 @@
 class AddFriendResultPacket : public PacketBase
 {
 private: // member var
+	std::string m_friendID;
 	RESULT_TYPE m_addFriendResult;
 
 public: // default
 	AddFriendResultPacket();
-	AddFriendResultPacket(RESULT_TYPE _addFriendResult);
+	AddFriendResultPacket(const std::string& _friendID, RESULT_TYPE _addFriendResult);
 	~AddFriendResultPacket();
 
 protected:
@@ -20,5 +21,6 @@ public:
 
 public:
 	RESULT_TYPE GetAddFriendResult() { return m_addFriendResult; }
+	const std::string& GetFriendID() { return m_friendID; }
 };
 

@@ -3,36 +3,28 @@
 #include <PacketLibrary/PacketHelper.h>
 #include <PacketLibrary/PacketBase.h>
 
-#include "LoginPacketHandler.h"
+#include "DispatchFunction.h"
 
 PacketHandler::PacketHandler()
 {
-	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN, LoginPacketHandler));
-
-
+	AddDispatchFunction();
 }
 
-void PacketHandler::AddClientCallback(PACKET_TYPE _packetType, ClientCallback _clientCallback)
+
+void PacketHandler::AddDispatchFunction()
 {
-	m_clientCallbackMap.insert(std::make_pair(_packetType, _clientCallback));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN, DispatchLoginPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::JOIN, DispatchJoinPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::IDCHECK, DispatchIDCheckPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND, DispatchAddFriendPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::SEND_CHATTING, DispatchSendChattingPacket));
 }
 
-void PacketHandler::DispatchServerPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)
-{
-	std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(_buffer);
-	assert(pPacket != nullptr);
-
-	const ServerPacketDispatchFunction& handlerFunction = m_serverDispatchFuncion.find(pPacket->GetPacketType())->second;
-	handlerFunction(_pTCPSession, std::move(pPacket));
-}
-
-void PacketHandler::DispatchClientPacket(const std::vector<uint8_t>& _buffer)
+void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)
 {
 	std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(_buffer);
 	assert(pPacket != nullptr);
 
-	const ClientPacketDispatchFunction& clientCallback = m_clientCallbackMap.find(pPacket->GetPacketType())->second;
-	clientCallback(std::move(pPacket));
+	const ServerPacketDispatchFunction& dispatchFunction = m_serverDispatchFuncion.find(pPacket->GetPacketType())->second;
+	dispatchFunction(_pTCPSession, std::move(pPacket));
 }
-
-

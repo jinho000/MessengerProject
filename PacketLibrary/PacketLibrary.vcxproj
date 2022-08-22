@@ -192,6 +192,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PacketHeader.h" />
     <ClInclude Include="PacketHelper.h" />
     <ClInclude Include="PacketType.h" />
     <ClInclude Include="pch.h" />

@@ -44,7 +44,7 @@ public:
 	static NetworkManager* GetInst() { return pInst; }
 
 private:
-	void ListenRecv();
+	void StartRecvThread();
 	void ListenThread();
 	void AddDispatchFunction();
 

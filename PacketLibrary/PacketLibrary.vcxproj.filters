@@ -146,5 +146,8 @@
     <ClInclude Include="SendChattingPacket.h">
       <Filter>Packet\SendChatting</Filter>
     </ClInclude>
+    <ClInclude Include="PacketHeader.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

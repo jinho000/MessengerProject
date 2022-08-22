@@ -34,5 +34,5 @@ public: // member Func
 	void SetClientAddress();
 	void RegistIOCP();
 	void RequestRecv();
-	void RequestSend(PacketBase* _packet);
+	void Send(PacketBase* _packet);
 };

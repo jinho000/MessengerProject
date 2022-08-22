@@ -157,6 +157,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DispatchFunction.cpp" />
     <ClCompile Include="ListenSocket.cpp">
       <SubType>
       </SubType>
@@ -207,7 +208,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="LoginPacketHandler.h" />
+    <ClInclude Include="DispatchFunction.h" />
     <ClInclude Include="PacketHandler.h">
       <SubType>
       </SubType>

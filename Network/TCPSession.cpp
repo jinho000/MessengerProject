@@ -47,23 +47,14 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 			break;
 		}
 
-		// echo
-		//m_IOCompletionRecv.buffer[_transferredBytes] = '\0';
-		//std::cout << m_IOCompletionRecv.buffer << std::endl;
-		//std::string buffer(m_IOCompletionRecv.buffer);
-		//std::vector<uint8_t> data;
-		//data.resize(buffer.size() + 1, 0);
-		//std::copy(buffer.begin(), buffer.end(), data.begin());
-		//RequestSend(data);
-
 		// 데이터가 패킷의 사이즈만큼 왔는지 확인하기
 
 
-
-		// PacketHandler에서 사용
+		// 패킷처리
 		std::vector<uint8_t> ioBuffer;
 		ioBuffer.assign(m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + IOBUFFER_SIZE);
-		PacketHandler::GetInst()->DispatchServerPacket(this, ioBuffer);
+		PacketHandler::GetInst()->DispatchPacket(this, ioBuffer);
+
 
 		// recv 다시 요청
 		RequestRecv();
@@ -175,7 +166,7 @@ void TCPSession::RequestRecv()
 }
 
 
-void TCPSession::RequestSend(PacketBase* _packet)
+void TCPSession::Send(PacketBase* _packet)
 {
 	Serializer serializer(IOBUFFER_SIZE);
 	_packet->Serialize(serializer);

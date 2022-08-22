@@ -42,10 +42,12 @@ NetworkManager::NetworkManager()
 
 	// 처음 시작시 서버에 연결 (연결실패처리 해야함)
 	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
-	m_clientSocket->ConnectServer();
-	
+
 	// 패킷처리 함수 추가
 	AddDispatchFunction();
+
+	// 서버연결
+	ConnectServer();
 }
 
 NetworkManager::~NetworkManager()
@@ -89,7 +91,7 @@ void NetworkManager::AddDispatchFunction()
 
 }
 
-void NetworkManager::ListenRecv()
+void NetworkManager::StartRecvThread()
 {
 	m_recvThread = std::thread(&NetworkManager::ListenThread, this);
 }
@@ -104,7 +106,10 @@ void NetworkManager::ListenThread()
 		int result = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 
 		// 접속 종료 처리
-
+		if (result == -1)
+		{
+			break;
+		}
 
 		// 패킷처리
 		std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
@@ -126,12 +131,10 @@ void NetworkManager::Send(PacketBase* _packet)
 
 bool NetworkManager::ConnectServer()
 {
-	if (m_clientSocket->ConnectServer() == false)
-	{
-		return false;
-	}
-
-	ListenRecv();
+	assert(m_clientSocket->ConnectServer() == true);
+	
+	// RecvThread 시작
+	StartRecvThread();
 
 	return true;
 }

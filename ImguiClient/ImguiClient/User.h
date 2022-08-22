@@ -19,6 +19,8 @@ public: // default
 	User& operator=(const User&& _other) = delete;
 
 public: // member Func
+	void AddFriend(const std::string& _friendID) { m_friendList.push_back(_friendID); }
+
 	const std::vector<std::string>& GetChatFriendList() const { return m_friendList; }
 	const std::string& GetUserID() const { return m_loginID; }
 };

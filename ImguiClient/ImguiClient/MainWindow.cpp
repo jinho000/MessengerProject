@@ -38,6 +38,8 @@ void MainWindow::DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _pack
 	if (pPacket->GetAddFriendResult() == RESULT_TYPE::SUCCESS)
 	{
 		pMainWindow->m_addFriendResult = "Add Success";
+		const std::string& friendID = pPacket->GetFriendID();
+		pMainWindow->m_pLoginUser->AddFriend(friendID);
 	}
 	else
 	{
