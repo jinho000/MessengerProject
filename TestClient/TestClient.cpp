@@ -1,6 +1,7 @@
 ﻿#include <iostream>
-#include <GameServer2/pch.h>
-#include <GameServer2/ClientSocket.h>
+#include <Network/pch.h>
+#include <Network/ServerHelper.h>
+#include <Network/ClientSocket.h>
 
 ClientSocket* clientSocket = nullptr;
 
@@ -28,47 +29,9 @@ void WorkThread()
     }
 }
 
-#include <vector>
-#include <string>
-#include <stack>
-using namespace std;
-struct numInfo
-{
-    int number;
-    int index;
-};
 
 int main()
 {
-    int count = 0; cin >> count;
-    vector<int> resultArry;
-    stack<numInfo> st;
-    resultArry.resize(count, -1);
-
-    for (int i = 0; i < count; ++i)
-    {
-        int num = 0; cin >> num;
-
-        while (st.empty() == false && st.top().number < num)
-        {
-            resultArry[st.top().index] = num;
-            st.pop();
-        }
-
-        st.push({ num, i });
-    }
-
-    string result;
-    for (int i = 0; i < count; ++i)
-    {
-        result += to_string(resultArry[i]);
-        result += " ";
-    }
-
-    cout << result << endl;
-   
-    return 0;
-
     ServerHelper::WSAStart();
     
     clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);

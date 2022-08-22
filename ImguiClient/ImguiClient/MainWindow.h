@@ -37,8 +37,6 @@ public:
 	static void DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _packet);
 
 private:
-	void CreateChatWindow(const std::string& _friend);
-
 	void ShowAddFriendPopup();
 	void UpdateAddFriendPopup();
 	
@@ -48,8 +46,11 @@ private:
 public: // member Func
 	virtual void UpdateWindow() override;
 
+	void CreateChatWindow(const std::string& _friend, const std::string& _message = "");
+	
 	void SetLoginUser(User* _pLoginUser);
 	const User* GetUser() { return m_pLoginUser; }
 	const std::vector<ChatWindow*>& GetChatWindowList() { return m_chatWindowList; }
+
 };
 

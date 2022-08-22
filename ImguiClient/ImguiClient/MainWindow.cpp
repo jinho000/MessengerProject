@@ -95,7 +95,7 @@ void MainWindow::UpdateWindow()
 
 				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 				{
-					CreateChatWindow(friendName);
+					CreateChatWindow(friendName.substr(0, friendName.length() - 1));
 				}
 
 				ImGui::Separator();
@@ -145,8 +145,7 @@ void MainWindow::UpdateWindow()
 	ImGui::End();
 }
 
-
-void MainWindow::CreateChatWindow(const std::string& _friend)
+void MainWindow::CreateChatWindow(const std::string& _friend, const std::string& _message)
 {
 	for (const auto& chatWindow : m_chatWindowList)
 	{
@@ -157,9 +156,10 @@ void MainWindow::CreateChatWindow(const std::string& _friend)
 		}
 	}
 
-	ChatWindow* pChatWindow = new ChatWindow(_friend);
+	ChatWindow* pChatWindow = new ChatWindow(_friend, _message);
 	m_chatWindowList.push_back(pChatWindow);
 }
+
 
 void MainWindow::ShowAddFriendPopup()
 {

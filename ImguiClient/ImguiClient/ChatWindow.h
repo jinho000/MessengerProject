@@ -15,7 +15,6 @@ private: // member var
 	std::string					m_windowID;
 	std::string					m_friendID;
 	std::string					m_userID;
-	//std::string					m_chatMessage;
 	std::vector<ChatMessage>	m_messageList;
 	bool						m_bActive;
 
@@ -30,6 +29,7 @@ private:
 	
 public: // default
 	ChatWindow(const std::string& _friendID);
+	ChatWindow(const std::string& _friendID, const std::string& _message);
 	~ChatWindow() = default;
 
 public:

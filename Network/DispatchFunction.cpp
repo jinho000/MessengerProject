@@ -2,10 +2,14 @@
 #include "DispatchFunction.h"
 #include <PacketLibrary/PacketHeader.h>
 #include "TCPSession.h"
+#include "UserManager.h"
 
 void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _loginPacket)
 {
 	std::unique_ptr<LoginPacket> pLoginPacket(static_cast<LoginPacket*>(_loginPacket.release()));
+
+	// 辑滚俊 立加贸府
+	UserManager::GetInst()->AddUser(pLoginPacket->GetID(), _TCPSession);
 
 
 	// DB贸府
@@ -61,6 +65,16 @@ void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase
 
 void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket)
 {
+	std::unique_ptr<SendChattingPacket> pSendChattingPacket(static_cast<SendChattingPacket*>(_sendChattingPacket.release()));
 
+	TCPSession* pRecvUserSession = UserManager::GetInst()->FindUser(pSendChattingPacket->GetRecvUserID());
+	
+	if (nullptr == pRecvUserSession)
+	{
+		return;
+	}
+
+	RecvChattingPacket recvPacket(pSendChattingPacket->GetSendUserID(), pSendChattingPacket->GetRecvUserID(), pSendChattingPacket->GetChatMessage());
+	pRecvUserSession->Send(&recvPacket);
 }
 

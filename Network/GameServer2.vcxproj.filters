@@ -46,6 +46,9 @@
     <ClCompile Include="DispatchFunction.cpp">
       <Filter>PacketHandler\DispatchFunction</Filter>
     </ClCompile>
+    <ClCompile Include="UserManager.cpp">
+      <Filter>ClientContent\UserManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -99,8 +102,11 @@
     <Filter Include="PacketHandler\DispatchFunction">
       <UniqueIdentifier>{d2c9872a-0dba-4230-b5e3-d8211bbb4948}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PacketHandler\NewFilter1">
-      <UniqueIdentifier>{6e315eb9-6fb7-489a-bdbb-7e66fd071abf}</UniqueIdentifier>
+    <Filter Include="ClientContent">
+      <UniqueIdentifier>{934c34c3-1fe3-46b2-b9b1-37b8b69d39b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ClientContent\UserManager">
+      <UniqueIdentifier>{b362c5f0-3213-44e8-8b1a-ef08253ac9ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="DispatchFunction.h">
       <Filter>PacketHandler\DispatchFunction</Filter>
+    </ClInclude>
+    <ClInclude Include="UserManager.h">
+      <Filter>ClientContent\UserManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

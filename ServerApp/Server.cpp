@@ -7,6 +7,7 @@
 #include <Network/TCPListener.h>
 #include <Network/TCPSessionPool.h>
 #include <Network/PacketHandler.h>
+#include <Network/UserManager.h>
 
 void Server::StartServer()
 {
@@ -20,6 +21,8 @@ void Server::StartServer()
     TCPListener::CreateInstance();
     SessionManager::CreateInstance();
     PacketHandler::CreateInstance();
+
+    UserManager::CreateInstance();
 
     {
         // 리슨 서버 시작
@@ -39,6 +42,8 @@ void Server::StartServer()
     }
     
     IOCP::Destroy();
+
+    UserManager::Destroy();
 
     PacketHandler::Destroy();
     TCPSessionPool::Destroy();

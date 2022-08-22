@@ -11,17 +11,26 @@ int ChatWindow::ID = 0;
 
 
 ChatWindow::ChatWindow(const std::string& _friendID)
-	: m_windowID(std::to_string(ID) + "_")
-	, m_friendID(_friendID)
-    //, m_chatMessage()
-	, m_bActive(true)
+    : ChatWindow(_friendID, "")
+{
+}
+
+ChatWindow::ChatWindow(const std::string& _friendID, const std::string& _message)
+    : m_windowID(std::to_string(ID) + "_")
+    , m_friendID(_friendID)
+    , m_bActive(true)
     , m_ScrollToBottom(false)
     , m_reclaimFocus(true)
     , m_initialSize(ImVec2(500, 400))
 {
-	m_windowID += _friendID;
+    m_windowID += _friendID;
     MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
     m_userID = pMainWindow->GetUser()->GetUserID();
+
+    if (_message.empty() == false)
+    {
+        m_messageList.push_back({ _friendID, _message });
+    }
 }
 
 
@@ -57,6 +66,7 @@ void ChatWindow::ShowInputMessage()
 
         // 서버로 전송
         SendChattingPacket packet(m_userID, m_friendID, buff);
+        NetworkManager::GetInst()->Send(&packet);
 
         m_ScrollToBottom = true;
         m_reclaimFocus = true;
@@ -74,17 +84,22 @@ void ChatWindow::ShowInputMessage()
 void ChatWindow::DispatchRecvChattingPacket(std::unique_ptr<PacketBase> _packet)
 {
     std::unique_ptr<RecvChattingPacket> pPacket(static_cast<RecvChattingPacket*>(_packet.release()));
-    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
-    const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
     
+    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+    
+    // 채팅창이 있는 경우
+    const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
     for (const auto& chatWindow : chatWindowList)
     {
         if (chatWindow->m_friendID == pPacket->GetSendUserID())
         {
             chatWindow->m_messageList.push_back({ pPacket->GetSendUserID(), pPacket->GetChatMessage()});
-            break;
+            return;
         }
     }
+
+    // 채팅창이 안만들어져 있는 경우 만들기
+    pMainWindow->CreateChatWindow(pPacket->GetSendUserID(), pPacket->GetChatMessage());
 }
 
 void ChatWindow::UpdateWindow()
