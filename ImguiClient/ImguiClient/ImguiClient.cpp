@@ -11,6 +11,7 @@
 #include <tchar.h>
 
 #include "ImguiWindowManager.h"
+#include "ServerConnectModal.h"
 #include "NetworkManager.h"
 
 #pragma comment(lib,"d3d11.lib")
@@ -108,6 +109,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // Main loop
     bool done = false;
+
     while (!done)
     {
         // Poll and handle messages (inputs, window resize, etc.)

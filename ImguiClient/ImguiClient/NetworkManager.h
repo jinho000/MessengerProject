@@ -51,5 +51,6 @@ private:
 public:
 	void Send(PacketBase* _packet);
 	bool ConnectServer();
+	bool ReConnectServer();
 };
 

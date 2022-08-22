@@ -165,6 +165,19 @@ void MainWindow::CreateChatWindow(const std::string& _friend, const std::string&
 	m_chatWindowList.push_back(pChatWindow);
 }
 
+void MainWindow::MoveLoginWindow()
+{
+	// 현재 유저 제거
+	delete m_pLoginUser;
+	m_pLoginUser = nullptr;
+
+	// 현재 채팅창 제거
+	DestroyChatWindow();
+
+	// 로그인 UI로 이동
+	ImguiWindowManager::GetInst()->ChangeMainWindow(WINDOW_UI::LOGIN);
+}
+
 
 void MainWindow::ShowAddFriendPopup()
 {
@@ -226,15 +239,7 @@ void MainWindow::LogoutUser()
 	LogoutPacket packet(m_pLoginUser->GetUserID());
 	NetworkManager::GetInst()->Send(&packet);
 
-	// 현재 유저 제거
-	delete m_pLoginUser;
-	m_pLoginUser = nullptr;
-
-	// 현재 채팅창 제거
-	DestroyChatWindow();
-
-	// 로그인 UI로 이동
-	ImguiWindowManager::GetInst()->ChangeMainWindow(WINDOW_UI::LOGIN);
+	MoveLoginWindow();
 }
 
 void MainWindow::DestroyChatWindow()

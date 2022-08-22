@@ -15,39 +15,21 @@
 #include "LoginWindow.h"
 #include "MainWindow.h"
 #include "ChatWindow.h"
-
-// connect Error popup
-// 		//	ImGui::OpenPopup("Error! ##ConnectServerFail");
-	//	// Always center this window when appearing
-	//	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-	//	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-//if (ImGui::BeginPopupModal("Error! ##ConnectServerFail", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-//{
-//	ImGui::Text("Connect Server Fail\n\n");
-//	ImGui::Separator();
-
-//	if (ImGui::Button("OK", ImVec2(120, 0))) 
-//	{ 
-//		ImGui::CloseCurrentPopup(); 
-//	}
-
-//	ImGui::EndPopup();
-//}
+#include "ImguiWindowManager.h"	
+#include "ServerConnectModal.h"
 
 NetworkManager* NetworkManager::pInst = nullptr;
 
 NetworkManager::NetworkManager()
 {
+	// 소켓라이브러리 시작
 	ServerHelper::WSAStart();
 
-	// 처음 시작시 서버에 연결 (연결실패처리 해야함)
+	// 소켓라이브러리 시작 후 소켓 생성
 	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
 
 	// 패킷처리 함수 추가
 	AddDispatchFunction();
-
-	// 서버연결
-	ConnectServer();
 }
 
 NetworkManager::~NetworkManager()
@@ -93,6 +75,11 @@ void NetworkManager::AddDispatchFunction()
 
 void NetworkManager::StartRecvThread()
 {
+	if (m_recvThread.joinable())
+	{
+		m_recvThread.join();
+	}
+
 	m_recvThread = std::thread(&NetworkManager::ListenThread, this);
 }
 
@@ -105,9 +92,22 @@ void NetworkManager::ListenThread()
 
 		int result = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 
-		// 접속 종료 처리
 		if (result == -1)
 		{
+			// 클라이언트의 종료 10053(WSAECONNABORTED)
+			// 서버가 종료된 경우 10054(WSAECONNRESET)
+			int errorcode = GetLastError();
+			if (errorcode == WSAECONNRESET)
+			{
+				// 서버 연결 모달 띄우기
+				ServerConnectModal* pServerConnectModal = static_cast<ServerConnectModal*>(ImguiWindowManager::GetInst()->GetServerConnectModal());
+				pServerConnectModal->Active();
+
+				// 로그아웃하기
+				MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::LOGIN));
+				pMainWindow->MoveLoginWindow();
+			}
+
 			break;
 		}
 
@@ -131,10 +131,27 @@ void NetworkManager::Send(PacketBase* _packet)
 
 bool NetworkManager::ConnectServer()
 {
-	assert(m_clientSocket->ConnectServer() == true);
+	if (m_clientSocket->ConnectServer() == false)
+	{
+		return false;
+	}
 
 	// RecvThread 시작
 	StartRecvThread();
 
 	return true;
+}
+
+bool NetworkManager::ReConnectServer()
+{
+	if (m_clientSocket != nullptr)
+	{
+		delete m_clientSocket;
+		m_clientSocket = nullptr;
+	}
+
+	// 소켓을 다시만들어 연결한다
+	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
+
+	return ConnectServer();
 }

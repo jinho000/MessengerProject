@@ -28,6 +28,9 @@
     <Filter Include="ImguiWindow\LoginWindow\JoinWindow">
       <UniqueIdentifier>{bf02408e-e831-4a0d-9f09-83e351c39df8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImguiWindow\ServerConnectModal">
+      <UniqueIdentifier>{616afd93-826c-4075-ae58-b5575aeecda2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImguiClient.cpp" />
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="JoinWindow.cpp">
       <Filter>ImguiWindow\LoginWindow\JoinWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerConnectModal.cpp">
+      <Filter>ImguiWindow\ServerConnectModal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="JoinWindow.h">
       <Filter>ImguiWindow\LoginWindow\JoinWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerConnectModal.h">
+      <Filter>ImguiWindow\ServerConnectModal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,6 +17,8 @@ private: // member var
 	ImguiWindow*	m_imguiWindow[static_cast<int>(WINDOW_UI::END)];
 	WINDOW_UI		m_currentUI;
 
+	ImguiWindow*	m_serverConnectModal;
+
 private: // default
 	ImguiWindowManager();
 	~ImguiWindowManager();
@@ -36,5 +38,6 @@ public:
 	void ChangeMainWindow(WINDOW_UI _window);
 
 	ImguiWindow* GetImguiWindow(WINDOW_UI _windowUIType) { return m_imguiWindow[static_cast<int>(_windowUIType)]; }
+	ImguiWindow* GetServerConnectModal() { return m_serverConnectModal; }
 };
 
