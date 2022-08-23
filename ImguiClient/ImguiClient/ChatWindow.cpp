@@ -4,8 +4,7 @@
 #include "MainWindow.h"
 #include "NetworkManager.h"
 
-#include <PacketLibrary/SendChattingPacket.h>
-#include <PacketLibrary/RecvChattingPacket.h>
+#include <PacketLibrary/ChattingPacket.h>
 
 int ChatWindow::ID = 0;
 
@@ -29,7 +28,11 @@ ChatWindow::ChatWindow(const std::string& _friendID, const std::string& _message
 
     if (_message.empty() == false)
     {
-        m_messageList.push_back({ _friendID, _message });
+        ChatMessage message;
+        message.sendUserID = _friendID;
+        message.recvUserID = m_userID;
+        message.message = _message;
+        m_messageList.push_back(message);
     }
 }
 
@@ -43,7 +46,7 @@ void ChatWindow::ShowChattingMessage()
     // 채팅 출력
     for (const ChatMessage& chatMessage : m_messageList)
     {
-        std::string text(chatMessage.ID + ": " + chatMessage.message);
+        std::string text(chatMessage.sendUserID + ": " + chatMessage.message);
         ImGui::Text(text.c_str());
     }
 
@@ -62,10 +65,11 @@ void ChatWindow::ShowInputMessage()
     if (ImGui::InputText("##ChatInput", buff, IM_ARRAYSIZE(buff), ImGuiInputTextFlags_EnterReturnsTrue))
     {
         // 채팅창에 출력
-        m_messageList.push_back({ m_userID, buff });
+        ChatMessage chatMessage = { m_userID, m_friendID, buff };
+        m_messageList.push_back(chatMessage);
 
         // 서버로 전송
-        SendChattingPacket packet(m_userID, m_friendID, buff);
+        ChattingPacket packet(chatMessage);
         NetworkManager::GetInst()->Send(&packet);
 
         m_ScrollToBottom = true;
@@ -83,23 +87,23 @@ void ChatWindow::ShowInputMessage()
 
 void ChatWindow::DispatchRecvChattingPacket(std::unique_ptr<PacketBase> _packet)
 {
-    std::unique_ptr<RecvChattingPacket> pPacket(static_cast<RecvChattingPacket*>(_packet.release()));
+    std::unique_ptr<ChattingPacket> pPacket(static_cast<ChattingPacket*>(_packet.release()));
     
-    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
     
     // 채팅창이 있는 경우
+    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
     const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
     for (const auto& chatWindow : chatWindowList)
     {
-        if (chatWindow->m_friendID == pPacket->GetSendUserID())
+        if (chatWindow->m_friendID == pPacket->GetChattingMessage().sendUserID)
         {
-            chatWindow->m_messageList.push_back({ pPacket->GetSendUserID(), pPacket->GetChatMessage()});
+            chatWindow->m_messageList.push_back(pPacket->GetChattingMessage());
             return;
         }
     }
 
     // 채팅창이 안만들어져 있는 경우 만들기
-    pMainWindow->CreateChatWindow(pPacket->GetSendUserID(), pPacket->GetChatMessage());
+    pMainWindow->CreateChatWindow(pPacket->GetChattingMessage().sendUserID, pPacket->GetChattingMessage().message);
 }
 
 void ChatWindow::UpdateWindow()

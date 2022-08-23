@@ -25,6 +25,7 @@ public:
 	void WritePacketSize(size_t _value);
 
 	void operator<<(int _value);
+	void operator<<(bool _value);
 	void operator<<(UINT _value);
 	void operator<<(size_t _value);
 	void operator<<(float _value);
@@ -54,6 +55,7 @@ public:
 	void ReadPacketSize(size_t& _packetSize) const;
 
 	void operator>>(int& _value) const;
+	void operator>>(bool& _value) const;
 	void operator>>(UINT& _value) const;
 	void operator>>(size_t& _value) const;
 	void operator>>(float& _value) const;

@@ -68,7 +68,7 @@ void NetworkManager::AddDispatchFunction()
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::IDCHECK_RESULT, JoinWindow::DispatchIDCheckResultPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::LOGIN_RESULT, LoginWindow::DispatchLoginResultPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND_RESULT, MainWindow::DispatchAddFriendResultPacket));
-	m_packetHandler.insert(std::make_pair(PACKET_TYPE::RECV_CHATTING, ChatWindow::DispatchRecvChattingPacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::CHATTING, ChatWindow::DispatchRecvChattingPacket));
 
 
 }
@@ -116,6 +116,7 @@ void NetworkManager::ListenThread()
 		auto iter = m_packetHandler.find(pPacket->GetPacketType());
 		assert(iter != m_packetHandler.end());
 
+		// lock?
 		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
 		dispatchFunction(std::move(pPacket));
 	}

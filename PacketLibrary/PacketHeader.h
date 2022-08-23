@@ -7,6 +7,5 @@
 #include "JoinResultPacket.h"
 #include "LoginPacket.h"
 #include "LoginResultPacket.h"
-#include "RecvChattingPacket.h"
-#include "SendChattingPacket.h"
+#include "ChattingPacket.h"
 #include "LogoutPacket.h"

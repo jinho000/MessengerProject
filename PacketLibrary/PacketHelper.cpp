@@ -24,11 +24,8 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 	case PACKET_TYPE::JOIN_RESULT:
 		pPacket = std::make_unique<JoinResultPacket>();
 		break;
-	case PACKET_TYPE::SEND_CHATTING:
-		pPacket = std::make_unique<SendChattingPacket>();
-		break;
-	case PACKET_TYPE::RECV_CHATTING:
-		pPacket = std::make_unique<RecvChattingPacket>();
+	case PACKET_TYPE::CHATTING:
+		pPacket = std::make_unique<ChattingPacket>();
 		break;
 	case PACKET_TYPE::IDCHECK:
 		pPacket = std::make_unique<IDCheckPacket>();

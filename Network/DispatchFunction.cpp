@@ -11,6 +11,8 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 	// 서버에 접속처리
 	UserManager::GetInst()->AddUser(pLoginPacket->GetID(), _TCPSession);
 
+	// 접속한 유저에게 등록된 메세지가 있을경우 채팅패킷 보내기
+	UserManager::GetInst()->SendUnreadChatting(pLoginPacket->GetID(), _TCPSession);
 
 	// DB처리
 	UserInfo userInfo;
@@ -65,16 +67,21 @@ void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase
 
 void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket)
 {
-	std::unique_ptr<SendChattingPacket> pSendChattingPacket(static_cast<SendChattingPacket*>(_sendChattingPacket.release()));
+	std::unique_ptr<ChattingPacket> pSendChattingPacket(static_cast<ChattingPacket*>(_sendChattingPacket.release()));
 
-	TCPSession* pRecvUserSession = UserManager::GetInst()->FindUser(pSendChattingPacket->GetRecvUserID());
+	TCPSession* pRecvUserSession = UserManager::GetInst()->FindUser(pSendChattingPacket->GetChattingMessage().recvUserID);
 	
+	// 유저가 없는경우, 유저가 접속하지 않은경우
+	// 등록되지 않은 유저에게는 채팅을 보낼 수 없음
+	// 유저의 메세지 저장
 	if (nullptr == pRecvUserSession)
 	{
+		std::string recvUserID = pSendChattingPacket->GetChattingMessage().recvUserID;
+		UserManager::GetInst()->AddUnreadChatting(recvUserID, std::move(pSendChattingPacket));
 		return;
 	}
 
-	RecvChattingPacket recvPacket(pSendChattingPacket->GetSendUserID(), pSendChattingPacket->GetRecvUserID(), pSendChattingPacket->GetChatMessage());
+	ChattingPacket recvPacket(pSendChattingPacket->GetChattingMessage());
 	pRecvUserSession->Send(&recvPacket);
 }
 

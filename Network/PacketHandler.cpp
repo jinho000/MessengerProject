@@ -17,7 +17,7 @@ void PacketHandler::AddDispatchFunction()
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::JOIN, DispatchJoinPacket));
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::IDCHECK, DispatchIDCheckPacket));
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND, DispatchAddFriendPacket));
-	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::SEND_CHATTING, DispatchSendChattingPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::CHATTING, DispatchSendChattingPacket));
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGOUT, DispatchLogoutPacket));
 }
 

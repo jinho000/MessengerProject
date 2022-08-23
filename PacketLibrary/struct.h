@@ -4,8 +4,36 @@
 
 struct ChatMessage
 {
-	std::string ID;
+	std::string sendUserID;
+	std::string recvUserID;
 	std::string message;
+
+	bool		bRead = false;
+
+	ChatMessage() = default;
+
+	ChatMessage(const std::string& _sendUserID, const std::string& _recvUserID, const std::string& _message)
+		: sendUserID(_sendUserID)
+		, recvUserID(_recvUserID)
+		, message(_message)
+		, bRead(false)
+	{}
+
+	void Serialize(Serializer& _serializer)
+	{
+		_serializer << sendUserID;
+		_serializer << recvUserID;
+		_serializer << message;
+		_serializer << bRead;
+	}
+
+	void Deserialize(const Serializer& _serializer)
+	{
+		_serializer >> sendUserID;
+		_serializer >> recvUserID;
+		_serializer >> message;
+		_serializer >> bRead;
+	}
 };
 
 

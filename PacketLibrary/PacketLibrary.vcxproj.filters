@@ -43,14 +43,14 @@
     <Filter Include="Packet\AddFriendResult">
       <UniqueIdentifier>{40e24ec0-0ef6-4df4-b7c0-7ce4027acc1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\SendChatting">
-      <UniqueIdentifier>{5b0c8e32-50c3-47e8-b8ab-095bda99e251}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Packet\RecvChatting">
-      <UniqueIdentifier>{6610bbe3-e0e4-4f66-8e15-1e41956354bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Packet\Logout">
       <UniqueIdentifier>{b7310b10-2c9d-4e1a-979b-2f3a3354a96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\UnreadChatting">
+      <UniqueIdentifier>{654dafa1-f752-4b62-9aac-2365ee6a4fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\Chatting">
+      <UniqueIdentifier>{73f6b6ef-1aaa-47af-9251-0d467afc8296}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,14 +90,11 @@
     <ClCompile Include="AddFriendResultPacket.cpp">
       <Filter>Packet\AddFriendResult</Filter>
     </ClCompile>
-    <ClCompile Include="RecvChattingPacket.cpp">
-      <Filter>Packet\RecvChatting</Filter>
-    </ClCompile>
-    <ClCompile Include="SendChattingPacket.cpp">
-      <Filter>Packet\SendChatting</Filter>
-    </ClCompile>
     <ClCompile Include="LogoutPacket.cpp">
       <Filter>Packet\Logout</Filter>
+    </ClCompile>
+    <ClCompile Include="ChattingPacket.cpp">
+      <Filter>Packet\Chatting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,17 +143,14 @@
     <ClInclude Include="AddFriendResultPacket.h">
       <Filter>Packet\AddFriendResult</Filter>
     </ClInclude>
-    <ClInclude Include="RecvChattingPacket.h">
-      <Filter>Packet\RecvChatting</Filter>
-    </ClInclude>
-    <ClInclude Include="SendChattingPacket.h">
-      <Filter>Packet\SendChatting</Filter>
-    </ClInclude>
     <ClInclude Include="PacketHeader.h">
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="LogoutPacket.h">
       <Filter>Packet\Logout</Filter>
+    </ClInclude>
+    <ClInclude Include="ChattingPacket.h">
+      <Filter>Packet\Chatting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

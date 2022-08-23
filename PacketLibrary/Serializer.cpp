@@ -31,6 +31,11 @@ void Serializer::operator<<(int _value)
 	Write(&_value, sizeof(int));
 }
 
+void Serializer::operator<<(bool _value)
+{
+	Write(&_value, sizeof(bool));
+}
+
 void Serializer::operator<<(UINT _value)
 {
 	Write(&_value, sizeof(UINT));
@@ -85,6 +90,11 @@ void Serializer::ReadPacketSize(size_t& _packetSize) const
 void Serializer::operator>>(int& _value) const
 {
 	Read(&_value, sizeof(int));
+}
+
+void Serializer::operator>>(bool& _value) const
+{
+	Read(&_value, sizeof(bool));
 }
 
 void Serializer::operator>>(UINT& _value) const

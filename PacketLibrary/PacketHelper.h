@@ -11,7 +11,7 @@ namespace PacketHelper
 	}
 
 	template<>
-	inline size_t GetTypeSize(const std::string& _type)
+	inline size_t GetTypeSize<std::string>(const std::string& _type)
 	{
 		return sizeof(_type.size()) + _type.size();
 	}
