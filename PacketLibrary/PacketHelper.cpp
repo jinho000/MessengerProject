@@ -42,6 +42,9 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 	case PACKET_TYPE::LOGOUT:
 		pPacket = std::make_unique<LogoutPacket>();
 		break;
+	case PACKET_TYPE::READ_CHATTING:
+		pPacket = std::make_unique<ReadChattingPacket>();
+		break;
 	default:
 		break;
 	}
@@ -51,21 +54,3 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 
 	return std::move(pPacket);
 }
-
-//template<>
-//size_t PacketHelper::GetTypeSize(const std::string& _type)
-//{
-//	return sizeof(_type.size()) + _type.size();
-//}
-//
-//template<typename Type>
-//size_t PacketHelper::GetTypeSize(const std::vector<Type>& _Value)
-//{
-//	int Size = sizeof(_Value.size());
-//	for (size_t i = 0; i < _Value.size(); i++)
-//	{
-//		Size += GetTypeSize(_Value[i]);
-//	}
-//
-//	return Size;
-//}

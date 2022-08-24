@@ -5,16 +5,12 @@
 #include "NetworkManager.h"
 
 #include <PacketLibrary/ChattingPacket.h>
+#include <PacketLibrary/ReadChattingPacket.h>
 
 int ChatWindow::ID = 0;
 
 
 ChatWindow::ChatWindow(const std::string& _friendID)
-    : ChatWindow(_friendID, "")
-{
-}
-
-ChatWindow::ChatWindow(const std::string& _friendID, const std::string& _message)
     : m_windowID(std::to_string(ID) + "_")
     , m_friendID(_friendID)
     , m_bActive(true)
@@ -25,17 +21,7 @@ ChatWindow::ChatWindow(const std::string& _friendID, const std::string& _message
     m_windowID += _friendID;
     MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
     m_userID = pMainWindow->GetUser()->GetUserID();
-
-    if (_message.empty() == false)
-    {
-        ChatMessage message;
-        message.sendUserID = _friendID;
-        message.recvUserID = m_userID;
-        message.message = _message;
-        m_messageList.push_back(message);
-    }
 }
-
 
 void ChatWindow::ShowChattingMessage()
 {
@@ -47,6 +33,11 @@ void ChatWindow::ShowChattingMessage()
     for (const ChatMessage& chatMessage : m_messageList)
     {
         std::string text(chatMessage.sendUserID + ": " + chatMessage.message);
+        if (chatMessage.bRead == false)
+        {
+            text += "(1)";
+        }
+
         ImGui::Text(text.c_str());
     }
 
@@ -66,7 +57,8 @@ void ChatWindow::ShowInputMessage()
     {
         // 채팅창에 출력
         ChatMessage chatMessage = { m_userID, m_friendID, buff };
-        m_messageList.push_back(chatMessage);
+        AddChatMessage(chatMessage);
+        AddUnreadMessage(&m_messageList.back());
 
         // 서버로 전송
         ChattingPacket packet(chatMessage);
@@ -85,26 +77,82 @@ void ChatWindow::ShowInputMessage()
     }
 }
 
+void ChatWindow::AddUnreadMessage(ChatMessage* _chatMessage)
+{
+    m_unreadMessage.push(_chatMessage);
+}
+
+void ChatWindow::AddRecvMessage(ChatMessage* _chatMessage)
+{
+    m_recvMessage.push_back(_chatMessage);
+}
+
+void ChatWindow::SendReadMessage()
+{
+    ReadChattingPacket packet(m_friendID, m_userID, m_recvMessage.size());
+    NetworkManager::GetInst()->Send(&packet);
+
+    m_recvMessage.clear();
+}
+
+void ChatWindow::ReadUnreadMessage(int _count)
+{
+    for (int i = 0; i < _count; ++i)
+    {
+        m_unreadMessage.front()->bRead = true;
+        m_unreadMessage.pop();
+    }
+}
+
 void ChatWindow::DispatchRecvChattingPacket(std::unique_ptr<PacketBase> _packet)
 {
     std::unique_ptr<ChattingPacket> pPacket(static_cast<ChattingPacket*>(_packet.release()));
-    
-    
+    ChatMessage& chatMessage = pPacket->GetChattingMessage();
+    chatMessage.bRead = true;
+
     // 채팅창이 있는 경우
     MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
     const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
     for (const auto& chatWindow : chatWindowList)
     {
-        if (chatWindow->m_friendID == pPacket->GetChattingMessage().sendUserID)
+        if (chatWindow->m_friendID == chatMessage.sendUserID)
         {
-            chatWindow->m_messageList.push_back(pPacket->GetChattingMessage());
+            chatWindow->AddChatMessage(chatMessage);
+            chatWindow->AddRecvMessage(&chatWindow->m_messageList.back());
+            
+            if (chatWindow->IsActive() == true)
+            {
+                // 채팅창이 이미 열려있는경우
+                chatWindow->SendReadMessage();
+            }
             return;
         }
     }
 
     // 채팅창이 안만들어져 있는 경우 만들기
-    pMainWindow->CreateChatWindow(pPacket->GetChattingMessage().sendUserID, pPacket->GetChattingMessage().message);
+    ChatWindow* pChatWindow = new ChatWindow(chatMessage.sendUserID);
+    pChatWindow->AddChatMessage(chatMessage);
+    pChatWindow->AddRecvMessage(&pChatWindow->m_messageList.back());
+    pChatWindow->SetActive(false);
+
+    pMainWindow->AddChatWindow(pChatWindow);
 }
+
+void ChatWindow::DispatchReadMessagePacket(std::unique_ptr<PacketBase> _packet)
+{
+    std::unique_ptr<ReadChattingPacket> pPacket(static_cast<ReadChattingPacket*>(_packet.release()));
+
+    MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+    const std::vector<ChatWindow*>& chatWindowList = pMainWindow->GetChatWindowList();
+    for (const auto& chatWindow : chatWindowList)
+    {
+        if (chatWindow->m_friendID == pPacket->GetRecvUserID())
+        {
+            chatWindow->ReadUnreadMessage(pPacket->GetReadCount());
+        }
+    }
+}
+
 
 void ChatWindow::UpdateWindow()
 {
@@ -123,10 +171,24 @@ void ChatWindow::UpdateWindow()
 	ImGui::End();
 }
 
-void ChatWindow::Active()
+void ChatWindow::AddChatMessage(const ChatMessage& _chatMessage)
 {
-    m_bActive = true;
-    m_reclaimFocus = true;
+    m_messageList.push_back(_chatMessage);
+}
+
+void ChatWindow::SetActive(bool _bActive)
+{
+    if (_bActive == true)
+    {
+        m_bActive = true;
+        m_reclaimFocus = true;
+
+        SendReadMessage();
+    }
+    else
+    {
+        m_bActive = false;
+    }
 }
 
 std::string ChatWindow::GetFirstMessage()

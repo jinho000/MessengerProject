@@ -20,6 +20,6 @@ public:
 	void Deserialize(const Serializer& _serializer) override;
 
 public:
-	const ChatMessage& GetChattingMessage() { return m_chatMessage; }
+	ChatMessage& GetChattingMessage() { return m_chatMessage; }
 };
 

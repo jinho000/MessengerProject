@@ -19,6 +19,7 @@ void PacketHandler::AddDispatchFunction()
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND, DispatchAddFriendPacket));
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::CHATTING, DispatchSendChattingPacket));
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGOUT, DispatchLogoutPacket));
+	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::READ_CHATTING, DispatchReadChattingPacket));
 }
 
 void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)

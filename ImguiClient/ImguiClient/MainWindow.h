@@ -46,7 +46,8 @@ private:
 public: // member Func
 	virtual void UpdateWindow() override;
 
-	void CreateChatWindow(const std::string& _friend, const std::string& _message = "");
+	void AddChatWindow(ChatWindow* _chatWindow);
+	void CreateChatWindow(const std::string& _friend);
 	void MoveLoginWindow();
 
 	void SetLoginUser(User* _pLoginUser);

@@ -91,3 +91,21 @@ void DispatchLogoutPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _
 	UserManager::GetInst()->DeleteUser(pLogoutPacket->GetLogoutID());
 }
 
+void DispatchReadChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _readChattingPacket)
+{
+	std::unique_ptr<ReadChattingPacket> pReadChattingPacket(static_cast<ReadChattingPacket*>(_readChattingPacket.release()));
+
+	TCPSession* pRecvUserSession = UserManager::GetInst()->FindUser(pReadChattingPacket->GetSendUserID());
+
+	// 유저가 접속하지 않은경우
+	// 패킷저장 저장
+	if (nullptr == pRecvUserSession)
+	{
+		// 구현해야함
+
+		return;
+	}
+
+	pRecvUserSession->Send(pReadChattingPacket.get());
+}
+

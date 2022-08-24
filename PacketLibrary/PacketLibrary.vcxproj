@@ -209,6 +209,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="struct.h" />
+    <ClInclude Include="ReadChattingPacket.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddFriendPacket.cpp">
@@ -263,6 +267,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Serializer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ReadChattingPacket.cpp">
       <SubType>
       </SubType>
     </ClCompile>
