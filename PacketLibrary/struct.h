@@ -1,6 +1,5 @@
 #pragma once
-#include "pch.h"
-#include "Serializer.h"
+
 
 struct ChatMessage
 {
@@ -18,22 +17,6 @@ struct ChatMessage
 		, message(_message)
 		, bRead(false)
 	{}
-
-	void Serialize(Serializer& _serializer)
-	{
-		_serializer << sendUserID;
-		_serializer << recvUserID;
-		_serializer << message;
-		_serializer << bRead;
-	}
-
-	void Deserialize(const Serializer& _serializer)
-	{
-		_serializer >> sendUserID;
-		_serializer >> recvUserID;
-		_serializer >> message;
-		_serializer >> bRead;
-	}
 };
 
 
@@ -42,6 +25,7 @@ struct UserInfo
 	std::string ID;
 	std::string PW;
 	std::vector<std::string> FriendList;
+	std::vector<ChatMessage> UnreadMessage;
 
 	UserInfo()
 	{}
@@ -49,21 +33,8 @@ struct UserInfo
 	UserInfo(UserInfo& _other)
 		: ID(_other.ID)
 		, PW(_other.PW)
+		, FriendList(std::move(_other.FriendList))
+		, UnreadMessage(std::move(_other.UnreadMessage))
 	{
-		FriendList = std::move(_other.FriendList);
-	}
-
-	void Serialize(Serializer& _serializer)
-	{
-		_serializer << ID;
-		_serializer << PW;
-		_serializer.WriteVector(FriendList);
-	}
-
-	void Deserialize(const Serializer& _serializer)
-	{
-		_serializer >> ID;
-		_serializer >> PW;
-		_serializer.ReadVector(FriendList);
 	}
 };

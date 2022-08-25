@@ -11,8 +11,6 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 	// 서버에 접속처리
 	UserManager::GetInst()->AddUser(pLoginPacket->GetID(), _TCPSession);
 
-	// 접속한 유저에게 등록된 메세지가 있을경우 채팅패킷 보내기
-	UserManager::GetInst()->SendUnreadChatting(pLoginPacket->GetID(), _TCPSession);
 
 	// DB처리
 	UserInfo userInfo;
@@ -24,6 +22,12 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 	userInfo.FriendList.push_back("ID3");
 	userInfo.FriendList.push_back("ID4");
 
+	// 접속한 유저에게 등록된 메세지가 있을경우 채팅패킷 보내기
+	std::vector<ChatMessage>* unreadChattingList = UserManager::GetInst()->GetUnreadMessageList(pLoginPacket->GetID());
+	if (nullptr != unreadChattingList)
+	{
+		userInfo.UnreadMessage = std::move(*unreadChattingList);
+	}
 
 	// DB결과를 받아서 처리하기
 	LoginResultPacket resultPacket(RESULT_TYPE::SUCCESS, userInfo);
@@ -97,12 +101,10 @@ void DispatchReadChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketB
 
 	TCPSession* pRecvUserSession = UserManager::GetInst()->FindUser(pReadChattingPacket->GetSendUserID());
 
-	// 유저가 접속하지 않은경우
-	// 패킷저장 저장
+	// 유저가 접속하지 않은경우 채팅을 저장하지 않으므로 그냥 버림
+	// 채팅내용을 저장시 가지고 있어야함
 	if (nullptr == pRecvUserSession)
 	{
-		// 구현해야함
-
 		return;
 	}
 

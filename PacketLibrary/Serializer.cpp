@@ -58,6 +58,22 @@ void Serializer::operator<<(const std::string& _value)
 	Write(_value.c_str(), static_cast<int>(_value.size()));
 }
 
+void Serializer::operator<<(const ChatMessage& _value)
+{
+	operator<<(_value.sendUserID);
+	operator<<(_value.recvUserID);
+	operator<<(_value.message);
+	operator<<(_value.bRead);
+}
+
+void Serializer::operator<<(const UserInfo& _value)
+{
+	operator<<(_value.ID);
+	operator<<(_value.PW);
+	WriteVector(_value.FriendList);
+	WriteVector(_value.UnreadMessage);
+}
+
 void Serializer::WritePacketType(PACKET_TYPE _packetType)
 {
 	WriteEnum<PACKET_TYPE>(_packetType);
@@ -118,4 +134,20 @@ void Serializer::operator>>(std::string& _value) const
 	Read(&size, sizeof(size_t));
 	_value.resize(size);
 	Read(&_value[0], static_cast<int>(size));
+}
+
+void Serializer::operator>>(ChatMessage& _value) const
+{
+	operator>>(_value.sendUserID);
+	operator>>(_value.recvUserID);
+	operator>>(_value.message);
+	operator>>(_value.bRead);
+}
+
+void Serializer::operator>>(UserInfo& _value) const
+{
+	operator>>(_value.ID);
+	operator>>(_value.PW);
+	ReadVector(_value.FriendList);
+	ReadVector(_value.UnreadMessage);
 }

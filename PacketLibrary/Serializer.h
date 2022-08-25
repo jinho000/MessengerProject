@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.h"
 #include "PacketType.h"
 
 // 单捞磐 流纺拳 贸府
@@ -30,6 +31,8 @@ public:
 	void operator<<(size_t _value);
 	void operator<<(float _value);
 	void operator<<(const std::string& _value);
+	void operator<<(const ChatMessage& _value);
+	void operator<<(const UserInfo& _value);
 
 
 	template<typename T>
@@ -38,9 +41,19 @@ public:
 		Write(reinterpret_cast<const void*>(&_Value), static_cast<unsigned int>(sizeof(T)));
 	}
 
-	// 
+
 	template<typename T>
 	void WriteVector(std::vector<T>& _Value)
+	{
+		operator<<(static_cast<size_t>(_Value.size()));
+		for (size_t i = 0; i < _Value.size(); i++)
+		{
+			operator<<(_Value[i]);
+		}
+	}
+
+	template<typename T>
+	void WriteVector(const std::vector<T>& _Value)
 	{
 		operator<<(static_cast<size_t>(_Value.size()));
 		for (size_t i = 0; i < _Value.size(); i++)
@@ -60,6 +73,8 @@ public:
 	void operator>>(size_t& _value) const;
 	void operator>>(float& _value) const;
 	void operator>>(std::string& _value) const;
+	void operator>>(ChatMessage& _value) const;
+	void operator>>(UserInfo& _value) const;
 
 	template<typename T>
 	void ReadEnum(T& _Value) const

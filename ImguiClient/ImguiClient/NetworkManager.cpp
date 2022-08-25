@@ -117,9 +117,12 @@ void NetworkManager::ListenThread()
 		auto iter = m_packetHandler.find(pPacket->GetPacketType());
 		assert(iter != m_packetHandler.end());
 
-		// lock?
 		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
+
+		// lock?
+		//m_packetHandlerLock.lock();
 		dispatchFunction(std::move(pPacket));
+		//m_packetHandlerLock.unlock();
 	}
 }
 

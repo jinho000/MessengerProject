@@ -108,9 +108,6 @@
     <Filter Include="ClientContent\UserManager">
       <UniqueIdentifier>{b362c5f0-3213-44e8-8b1a-ef08253ac9ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ClientContent\ServerUser">
-      <UniqueIdentifier>{4a38820a-fe95-4cd4-9f5d-ed0269fb6134}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

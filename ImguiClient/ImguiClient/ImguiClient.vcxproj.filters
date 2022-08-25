@@ -112,9 +112,6 @@
     <ClInclude Include="ImguiWindowManager.h">
       <Filter>ImguiWindowManager</Filter>
     </ClInclude>
-    <ClInclude Include="ImguiWindow.h">
-      <Filter>ImguiWindow</Filter>
-    </ClInclude>
     <ClInclude Include="LoginWindow.h">
       <Filter>ImguiWindow\LoginWindow</Filter>
     </ClInclude>
@@ -135,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="ServerConnectModal.h">
       <Filter>ImguiWindow\ServerConnectModal</Filter>
+    </ClInclude>
+    <ClInclude Include="ImguiWindow.h">
+      <Filter>ImguiWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

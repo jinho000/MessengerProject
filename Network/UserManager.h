@@ -2,10 +2,11 @@
 #include "Singleton.h"
 #include <PacketLibrary/ChattingPacket.h>
 
+
 class UserManager : public Singleton<UserManager>
 {
 	friend class Singleton;
-	using UnreadChattingList = std::queue<std::unique_ptr<ChattingPacket>>;
+	using UnreadChattingList = std::vector<ChatMessage>;
 
 private: // member var
 	std::unordered_map<std::string, TCPSession*>	m_connectedUserTable;
@@ -25,7 +26,7 @@ public: // member Func
 	void DeleteUser(const std::string& _userID);
 
 	void AddUnreadChatting(const std::string& _recvUserID, std::unique_ptr<ChattingPacket> _sendPacket);
-	void SendUnreadChatting(const std::string& _loginUserID, TCPSession* _loginUserSession);
+	UnreadChattingList* GetUnreadMessageList(const std::string& _loginUserID_);
 
 	TCPSession* FindUser(const std::string& _userID);
 

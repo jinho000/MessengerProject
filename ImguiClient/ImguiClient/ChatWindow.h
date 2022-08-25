@@ -16,7 +16,7 @@ private: // member var
 	std::string					m_windowID;
 	std::string					m_friendID;
 	std::string					m_userID;
-	std::vector<ChatMessage>	m_messageList;
+	std::vector<ChatMessage*>	m_messageList;
 
 	std::vector<ChatMessage*>	m_recvMessage;
 	std::queue<ChatMessage*>	m_unreadMessage;
@@ -44,12 +44,14 @@ public: // default
 
 public:
 	static void DispatchRecvChattingPacket(std::unique_ptr<PacketBase> _packet);
+	static void DispatchRecvChatting(const ChatMessage& _pChatMessage);
 	static void DispatchReadMessagePacket(std::unique_ptr<PacketBase> _packet);
 
 public: // member Func
 	virtual void UpdateWindow() override;
 
-	void AddChatMessage(const ChatMessage& _chatMessage);
+
+	void AddChatMessage(ChatMessage* _chatMessage);
 	void SetActive(bool _bActive);
 	bool IsActive() { return m_bActive; }
 

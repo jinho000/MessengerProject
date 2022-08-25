@@ -25,11 +25,11 @@ size_t ChattingPacket::GetContentPacketSize()
 void ChattingPacket::Serialize(Serializer& _serializer)
 {
 	PacketBase::Serialize(_serializer);
-	m_chatMessage.Serialize(_serializer);
+	_serializer << m_chatMessage;
 }
 
 void ChattingPacket::Deserialize(const Serializer& _serializer)
 {
 	PacketBase::Deserialize(_serializer);
-	m_chatMessage.Deserialize(_serializer);
+	_serializer >> m_chatMessage;
 }

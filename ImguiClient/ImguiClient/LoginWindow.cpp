@@ -25,6 +25,13 @@ void LoginWindow::DispatchLoginResultPacket(std::unique_ptr<PacketBase> _packet)
 	MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
 	pMainWindow->SetLoginUser(pLoginUser);
 
+	// 유저가 접속하지 않은동안 들어온 메세지 처리
+	const std::vector<ChatMessage>& unreadMessageList = pPacket->GetUserInfo().UnreadMessage;
+	for (const ChatMessage& chatMessage : unreadMessageList)
+	{
+		ChatWindow::DispatchRecvChatting(chatMessage);
+	}
+
 	// 로그인이 성공한 경우
 	ImguiWindowManager::GetInst()->ChangeMainWindow(WINDOW_UI::MAIN);
 }

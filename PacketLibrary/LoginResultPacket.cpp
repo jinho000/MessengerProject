@@ -29,14 +29,12 @@ void LoginResultPacket::Serialize(Serializer& _serializer)
 {
 	PacketBase::Serialize(_serializer);
 	_serializer.WriteEnum<RESULT_TYPE>(m_result);
-	
-	m_userInfo.Serialize(_serializer);
+	_serializer << m_userInfo;
 }
 
 void LoginResultPacket::Deserialize(const Serializer& _serializer)
 {
 	PacketBase::Deserialize(_serializer);
 	_serializer.ReadEnum<RESULT_TYPE>(m_result);
-
-	m_userInfo.Deserialize(_serializer);
+	_serializer >> m_userInfo;
 }

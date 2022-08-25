@@ -4,6 +4,7 @@
 
 #include <thread>
 #include <vector>
+#include <mutex>
 
 #include <functional>
 #include <PacketLibrary/PacketBase.h>
@@ -28,6 +29,7 @@ private:
 
 	std::unordered_map<PACKET_TYPE, ClientPacketDispatchFunction> m_packetHandler;
 
+	std::mutex m_packetHandlerLock;
 private: 
 	NetworkManager();
 	~NetworkManager();

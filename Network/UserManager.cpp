@@ -30,43 +30,24 @@ void UserManager::AddUnreadChatting(const std::string& _recvUserID, std::unique_
     auto iter = m_unreadMessageTable.find(_recvUserID);
     if (iter == m_unreadMessageTable.end())
     {
-        //UnreadChattingList qu;
-        //qu.push(std::move(_sendPacket));
-        //m_unreadMessageTable.insert(std::make_pair(_recvUserID, std::move(qu)));
-
         m_unreadMessageTable[_recvUserID] = UnreadChattingList();
-        m_unreadMessageTable[_recvUserID].push(std::move(_sendPacket));
+        m_unreadMessageTable[_recvUserID].push_back(_sendPacket->GetChattingMessage());
     }
     else
     {
-        iter->second.push(std::move(_sendPacket));
+        iter->second.push_back(_sendPacket->GetChattingMessage());
     }
     m_unreadMessageTableLock.unlock();
 }
 
-void UserManager::SendUnreadChatting(const std::string& _loginUserID, TCPSession* _loginUserSession)
+std::vector<ChatMessage>* UserManager::GetUnreadMessageList(const std::string& _loginUserID_)
 {
-    std::lock_guard<std::mutex> lock(m_unreadMessageTableLock);
-
-    auto iter = m_unreadMessageTable.find(_loginUserID);
-    
-    // 읽지않은 채팅이 있을경우 전송하기
-    if (iter != m_unreadMessageTable.end())
-    {
-        UnreadChattingList& unreadChatList = iter->second;
-        
-        while (unreadChatList.empty() == false)
-        {
-            ChattingPacket& sendPacket = *unreadChatList.front();
-            ChattingPacket recvPacket(sendPacket.GetChattingMessage());
-            _loginUserSession->Send(&recvPacket);
-            unreadChatList.pop();
-        }
-
-        return;
-    }
-
+    auto iter = m_unreadMessageTable.find(_loginUserID_);
+    if (iter == m_unreadMessageTable.end())
+        return nullptr;
+    return &iter->second;
 }
+
 
 TCPSession* UserManager::FindUser(const std::string& _userID)
 {
