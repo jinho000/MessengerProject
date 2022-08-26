@@ -6,6 +6,8 @@
 #include <Windows.h>
 #include <MSWSock.h>
 
+#include <mysql/mysql.h>
+
 #include <functional>
 #include <thread>
 #include <vector>
@@ -16,6 +18,7 @@
 #include <mutex>
 #include <cassert>
 
+#pragma comment (lib, "libmysql.lib")
 #pragma comment (lib, "ws2_32") 
 #pragma comment (lib,"mswsock.lib")  // acceptEx 라이브러리
 

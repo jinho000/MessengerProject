@@ -147,12 +147,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DBManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="QueryResult.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TestClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Network\GameServer2.vcxproj">
       <Project>{1e0e639f-d863-46be-93d0-1b9967c9fddf}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DBManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="QueryResult.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

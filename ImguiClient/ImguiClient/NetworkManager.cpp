@@ -120,9 +120,9 @@ void NetworkManager::ListenThread()
 		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
 
 		// lock?
-		//m_packetHandlerLock.lock();
+		m_packetHandlerLock.lock();
 		dispatchFunction(std::move(pPacket));
-		//m_packetHandlerLock.unlock();
+		m_packetHandlerLock.unlock();
 	}
 }
 

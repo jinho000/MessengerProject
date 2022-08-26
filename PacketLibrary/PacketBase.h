@@ -26,7 +26,6 @@ public:
 		_serializer.WritePacketType(m_packetType);
 		_serializer.WritePacketSize(sizeof(m_packetType) + sizeof(m_packetSize) + GetContentPacketSize());
 	}
-
 	virtual void Deserialize(const Serializer& _serializer) = 0
 	{
 		_serializer.ReadPacketType(m_packetType);
@@ -35,4 +34,3 @@ public:
 
 	PACKET_TYPE GetPacketType() { return m_packetType; }
 };
-

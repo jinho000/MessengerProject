@@ -157,6 +157,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DBManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DispatchFunction.cpp" />
     <ClCompile Include="ListenSocket.cpp">
       <SubType>
@@ -169,6 +173,10 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="QueryResult.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="ServerHelper.cpp" />
     <ClCompile Include="IOCP.cpp">
@@ -208,6 +216,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ListenSocket.h">
       <SubType>
       </SubType>
@@ -218,6 +230,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="QueryResult.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ServerHelper.h" />
     <ClInclude Include="IOCP.h">
       <SubType>

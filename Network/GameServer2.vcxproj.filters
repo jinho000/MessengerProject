@@ -49,6 +49,12 @@
     <ClCompile Include="UserManager.cpp">
       <Filter>ClientContent\UserManager</Filter>
     </ClCompile>
+    <ClCompile Include="DBManager.cpp">
+      <Filter>DBManager</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryResult.cpp">
+      <Filter>DBManager\QuertResult</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -108,6 +114,12 @@
     <Filter Include="ClientContent\UserManager">
       <UniqueIdentifier>{b362c5f0-3213-44e8-8b1a-ef08253ac9ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DBManager">
+      <UniqueIdentifier>{28878046-aeef-486c-9e06-f16a684b0339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\QuertResult">
+      <UniqueIdentifier>{96dbc5e9-8de3-471b-a5d4-6507ed523ad4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -166,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="UserManager.h">
       <Filter>ClientContent\UserManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>DBManager</Filter>
+    </ClInclude>
+    <ClInclude Include="QueryResult.h">
+      <Filter>DBManager\QuertResult</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

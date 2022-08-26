@@ -8,6 +8,7 @@
 #include <Network/TCPSessionPool.h>
 #include <Network/PacketHandler.h>
 #include <Network/UserManager.h>
+#include <Network/DBManager.h>
 
 void Server::StartServer()
 {
@@ -23,6 +24,7 @@ void Server::StartServer()
     PacketHandler::CreateInstance();
 
     UserManager::CreateInstance();
+    DBManager::CreateInstance();
 
     {
         // 리슨 서버 시작
@@ -43,6 +45,7 @@ void Server::StartServer()
     
     IOCP::Destroy();
 
+    DBManager::Destroy();
     UserManager::Destroy();
 
     PacketHandler::Destroy();
@@ -53,4 +56,6 @@ void Server::StartServer()
     ConfigManager::Destroy();
 
     ServerHelper::WSAEnd();
+
+    mysql_library_end();
 }

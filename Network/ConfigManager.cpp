@@ -23,8 +23,14 @@ void ConfigManager::LoadConfig()
 	// 1개는 메인 스레드
 	SYSTEM_INFO sysinfo;
 	GetSystemInfo(&sysinfo);
-
 	m_workerThreadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
 
-	//m_workerThreadCount = 1;
+
+	//  "127.0.0.1", "root", "1234", "userver2", 3306,
+	// DBServer 정보 세팅
+	m_DBServerInfo.Host = "127.0.0.1";
+	m_DBServerInfo.User = "root";
+	m_DBServerInfo.Password = "1234";
+	m_DBServerInfo.Schema = "userver2";
+	m_DBServerInfo.Port = 3306;
 }

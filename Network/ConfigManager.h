@@ -1,6 +1,15 @@
 #pragma once
 #include "Singleton.h"
 
+struct DBServerInfo
+{
+	std::string Host;
+	std::string User;
+	std::string Password;
+	std::string Schema;
+	int			Port;
+};
+
 // 설정값을 읽어와 저장하는 클래스
 // 저장한 설정값을 다른 클래스에서 가져다 사용
 class ConfigManager : public Singleton<ConfigManager>
@@ -8,10 +17,13 @@ class ConfigManager : public Singleton<ConfigManager>
 	friend class Singleton;
 
 private: // member var
-	std::string m_serverIP;
-	int			m_serverPort;
-	int			m_maxConnection;
-	int			m_workerThreadCount;
+	std::string		m_serverIP;
+	int				m_serverPort;
+	int				m_maxConnection;
+	int				m_workerThreadCount;
+
+	DBServerInfo	m_DBServerInfo;
+
 
 private:
 	ConfigManager();
@@ -26,5 +38,6 @@ public:
 	int GetServerPort() { return m_serverPort; }
 	int GetMaxConnection() { return m_maxConnection; }
 	int GetWorkerThreadCount() { return m_workerThreadCount; }
+	const DBServerInfo& GetDBServerInfo() { return m_DBServerInfo; }
 };
 
