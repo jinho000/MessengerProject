@@ -9,6 +9,13 @@ LoginResultPacket::LoginResultPacket()
 {
 }
 
+LoginResultPacket::LoginResultPacket(RESULT_TYPE _result)
+	: PacketBase(PACKET_TYPE::LOGIN_RESULT)
+	, m_result(_result)
+	, m_userInfo()
+{
+}
+
 LoginResultPacket::LoginResultPacket(RESULT_TYPE _result, UserInfo& _userInfo)
 	: PacketBase(PACKET_TYPE::LOGIN_RESULT)
 	, m_result(_result)

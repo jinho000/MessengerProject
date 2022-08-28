@@ -15,6 +15,8 @@ private: // member var
 	char		m_PWBuffer[BUFFER_SIZE];
 	JoinWindow	m_joinModal;
 
+	std::string m_loginResult;
+
 public: // default
 	LoginWindow();
 	~LoginWindow() = default;

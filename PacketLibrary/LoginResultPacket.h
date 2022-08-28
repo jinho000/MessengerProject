@@ -9,6 +9,7 @@ private: // member var
 
 public: // default
 	LoginResultPacket();
+	LoginResultPacket(RESULT_TYPE _result);
 	LoginResultPacket(RESULT_TYPE _result, UserInfo& _userInfo);
 	~LoginResultPacket();
 

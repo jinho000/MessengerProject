@@ -31,6 +31,6 @@ void ConfigManager::LoadConfig()
 	m_DBServerInfo.Host = "127.0.0.1";
 	m_DBServerInfo.User = "root";
 	m_DBServerInfo.Password = "1234";
-	m_DBServerInfo.Schema = "userver2";
+	m_DBServerInfo.Schema = "messengerdb";
 	m_DBServerInfo.Port = 3306;
 }

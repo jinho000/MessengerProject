@@ -213,9 +213,17 @@ void MainWindow::UpdateAddFriendPopup()
 
 		if (ImGui::InputText("##Friend ID", m_addFriendID, 255, ImGuiInputTextFlags_EnterReturnsTrue))
 		{
-			// 서버로 아이디 전송
-			AddFriendPacket packet(m_addFriendID);
-			NetworkManager::GetInst()->Send(&packet);
+			// 이미 등록된 친구인지 확인
+			if (m_pLoginUser->IsFriend(m_addFriendID) == false)
+			{
+				// 서버로 아이디 전송
+				AddFriendPacket packet(m_addFriendID);
+				NetworkManager::GetInst()->Send(&packet);
+			}
+			else
+			{
+				m_addFriendResult = "Already Friend!";
+			}
 
 			m_bPopupInputFocus = true;
 		}

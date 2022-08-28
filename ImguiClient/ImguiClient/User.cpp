@@ -13,3 +13,10 @@ User::~User()
 
 }
 
+bool User::IsFriend(const std::string& _friendID)
+{
+	auto iter = std::find(m_friendList.begin(), m_friendList.end(), _friendID);
+	
+	return iter != m_friendList.end();
+}
+

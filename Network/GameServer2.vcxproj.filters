@@ -52,8 +52,23 @@
     <ClCompile Include="DBManager.cpp">
       <Filter>DBManager</Filter>
     </ClCompile>
-    <ClCompile Include="QueryResult.cpp">
-      <Filter>DBManager\QuertResult</Filter>
+    <ClCompile Include="Query.cpp">
+      <Filter>DBManager\Query</Filter>
+    </ClCompile>
+    <ClCompile Include="FindIDQuery.cpp">
+      <Filter>DBManager\FindIDQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinQuery.cpp">
+      <Filter>DBManager\JoinQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginQuery.cpp">
+      <Filter>DBManager\LoginQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendListQuery.cpp">
+      <Filter>DBManager\FriendListQuery</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFriendQuery.cpp">
+      <Filter>DBManager\AddFriendQuery</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,8 +132,23 @@
     <Filter Include="DBManager">
       <UniqueIdentifier>{28878046-aeef-486c-9e06-f16a684b0339}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DBManager\QuertResult">
+    <Filter Include="DBManager\FindIDQuery">
+      <UniqueIdentifier>{601da976-c095-417d-a813-b9358417d3e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\Query">
       <UniqueIdentifier>{96dbc5e9-8de3-471b-a5d4-6507ed523ad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\JoinQuery">
+      <UniqueIdentifier>{a9020204-c947-42e1-917e-f795408ca097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\LoginQuery">
+      <UniqueIdentifier>{de11bdbe-677b-4cc4-a30a-513f98ce25ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\AddFriendQuery">
+      <UniqueIdentifier>{fc0bb5f8-8c03-41c0-90ba-63718d785aac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBManager\FriendListQuery">
+      <UniqueIdentifier>{764bd80c-e971-4804-ace3-ef8ce7471e4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -182,8 +212,23 @@
     <ClInclude Include="DBManager.h">
       <Filter>DBManager</Filter>
     </ClInclude>
-    <ClInclude Include="QueryResult.h">
-      <Filter>DBManager\QuertResult</Filter>
+    <ClInclude Include="Query.h">
+      <Filter>DBManager\Query</Filter>
+    </ClInclude>
+    <ClInclude Include="FindIDQuery.h">
+      <Filter>DBManager\FindIDQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinQuery.h">
+      <Filter>DBManager\JoinQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginQuery.h">
+      <Filter>DBManager\LoginQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendListQuery.h">
+      <Filter>DBManager\FriendListQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFriendQuery.h">
+      <Filter>DBManager\AddFriendQuery</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

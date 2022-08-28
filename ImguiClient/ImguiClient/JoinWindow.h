@@ -15,6 +15,7 @@ private: // member var
 	char		m_IDBuffer[BUFFER_SIZE];
 	char		m_PWBuffer[BUFFER_SIZE];
 	bool		m_active;
+	bool		m_bCheckID;
 
 	std::string m_checkResult;
 	std::string m_JoinResult;

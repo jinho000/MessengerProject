@@ -42,30 +42,37 @@ DBManager::~DBManager()
 	mysql_close(m_mysqlLib);
 }
 
-void DBManager::DoQueryAndSetResult(const std::string& _query, QueryResult& _queryResult)
+
+bool DBManager::DoQueryAndSetResult(Query& _query)
 {
-	std::vector<std::string> queryResult;
+	std::queue<std::string> queryResult;
 
 	// 쿼리 전송
-	if (mysql_query(m_mysqlLib, _query.c_str()) == 0) {
+	if (mysql_query(m_mysqlLib, _query.GetQuery().c_str()) == 0) {
 
 		// 결과값 받아오기
 		MYSQL_RES* result = mysql_store_result(m_mysqlLib);
-		MYSQL_ROW row;
-
-		// 결과값 레코드를 하나씩 받아옴
-		while ((row = mysql_fetch_row(result)) != NULL)
+		if (result != nullptr)
 		{
-			for (int i = 0; i < _queryResult.GetFieldCount(); ++i)
+			// 결과값 레코드를 하나씩 받아옴
+			MYSQL_ROW row;
+			while ((row = mysql_fetch_row(result)) != NULL)
 			{
-				queryResult.push_back(row[i]);
+				for (int i = 0; i < _query.GetFieldCount(); ++i)
+				{
+					queryResult.push(row[i]);
+				}
 			}
+
+			// 결과값 처리 해제
+			mysql_free_result(result);
 		}
 
-		// 결과값 처리 해제
-		mysql_free_result(result);
-	}
+		// 쿼리 결과값 세팅
+		_query.SetQueryResult(std::move(queryResult));
 
-	// 쿼리 결과값 세팅
-	_queryResult.SetQueryResult(std::move(queryResult));
+		return true;
+	}
+	
+	return false;
 }

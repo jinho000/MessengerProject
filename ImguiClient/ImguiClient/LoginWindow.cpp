@@ -17,12 +17,18 @@ LoginWindow::LoginWindow()
 
 void LoginWindow::DispatchLoginResultPacket(std::unique_ptr<PacketBase> _packet)
 {
+	LoginWindow* pLoginWindow = static_cast<LoginWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::LOGIN));
+	
 	std::unique_ptr<LoginResultPacket> pPacket(static_cast<LoginResultPacket*>(_packet.release()));
-
-	User* pLoginUser = new User(pPacket->GetUserInfo().ID, const_cast<std::vector<std::string>&>(pPacket->GetUserInfo().FriendList));
+	if (pPacket->GetLoginResult() == RESULT_TYPE::FAIL)
+	{
+		pLoginWindow->m_loginResult = "Login Fail!";
+		return;
+	}
 
 	// 메인 윈도우에 세팅
 	MainWindow* pMainWindow = static_cast<MainWindow*>(ImguiWindowManager::GetInst()->GetImguiWindow(WINDOW_UI::MAIN));
+	User* pLoginUser = new User(pPacket->GetUserInfo().ID, const_cast<std::vector<std::string>&>(pPacket->GetUserInfo().FriendList));
 	pMainWindow->SetLoginUser(pLoginUser);
 
 	// 유저가 접속하지 않은동안 들어온 메세지 처리
@@ -49,7 +55,15 @@ void LoginWindow::UpdateWindow()
 	if (ImGui::Button("Login", ImVec2(80, 40)))
 	{
 		LoginPacket loginPacket(m_IDBuffer, m_PWBuffer);
-		NetworkManager::GetInst()->Send(&loginPacket);
+		if (loginPacket.GetID().empty() == false)
+		{
+			NetworkManager::GetInst()->Send(&loginPacket);
+			m_loginResult.clear();
+		}
+		else
+		{
+			m_loginResult = "ID is empty!";
+		}
 	}
 
 	ImGui::SameLine();
@@ -58,6 +72,8 @@ void LoginWindow::UpdateWindow()
 		m_joinModal.Active();
 	}
 
+	ImGui::SameLine();
+	ImGui::Text(m_loginResult.c_str());
 
 	// JoinModal
 	m_joinModal.UpdateWindow();

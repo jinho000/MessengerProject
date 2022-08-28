@@ -152,6 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddFriendQuery.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="ConfigManager.cpp">
       <SubType>
@@ -162,7 +166,23 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DispatchFunction.cpp" />
+    <ClCompile Include="FindIDQuery.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FriendListQuery.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="JoinQuery.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ListenSocket.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LoginQuery.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -174,7 +194,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="QueryResult.cpp">
+    <ClCompile Include="Query.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -211,6 +231,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddFriendQuery.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="ConfigManager.h">
       <SubType>
@@ -220,17 +244,33 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FindIDQuery.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FriendListQuery.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="JoinQuery.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ListenSocket.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="DispatchFunction.h" />
+    <ClInclude Include="LoginQuery.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="QueryResult.h">
+    <ClInclude Include="Query.h">
       <SubType>
       </SubType>
     </ClInclude>

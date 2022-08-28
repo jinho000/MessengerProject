@@ -12,6 +12,7 @@ JoinWindow::JoinWindow()
 	: m_IDBuffer()
 	, m_PWBuffer()
 	, m_active(false)
+	, m_bCheckID(false)
 	, m_checkResult()
 	, m_JoinResult()
 {
@@ -50,6 +51,7 @@ void JoinWindow::DispatchIDCheckResultPacket(std::unique_ptr<PacketBase> _packet
 	if (pPacket->GetIDCheckResult() == RESULT_TYPE::SUCCESS)
 	{
 		pJoinWindow->m_checkResult = "OK";
+		pJoinWindow->m_bCheckID = true;
 	}
 	else
 	{
@@ -73,7 +75,15 @@ void JoinWindow::UpdateWindow()
 		if (ImGui::Button("CheckID"))
 		{
 			IDCheckPacket packet(m_IDBuffer);
-			NetworkManager::GetInst()->Send(&packet);
+			if (packet.GetID().empty() == true)
+			{
+				m_checkResult = "ID is Empty!";
+			}
+			else
+			{
+				NetworkManager::GetInst()->Send(&packet);
+				m_JoinResult = "";
+			}
 		}
 
 		ImGui::SameLine();
@@ -84,8 +94,15 @@ void JoinWindow::UpdateWindow()
 
 		if (ImGui::Button("Join##2", ImVec2(60, 30)))
 		{
-			JoinPacket packet(m_IDBuffer, m_PWBuffer);
-			NetworkManager::GetInst()->Send(&packet);
+			if (m_bCheckID == true)
+			{
+				JoinPacket packet(m_IDBuffer, m_PWBuffer);
+				NetworkManager::GetInst()->Send(&packet);
+			}
+			else
+			{
+				m_JoinResult = "check ID!";
+			}
 		}
 
 		ImGui::SameLine();
@@ -106,6 +123,7 @@ void JoinWindow::Active()
 {
 	ImGui::OpenPopup("JoinWindow");
 	m_active = true;	
+	m_bCheckID = false;
 
 	memset(m_IDBuffer, 0, BUFFER_SIZE);
 	memset(m_PWBuffer, 0, BUFFER_SIZE);

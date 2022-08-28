@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "QueryResult.h"
+#include "Query.h"
 
 class DBManager : public Singleton<DBManager>
 {
@@ -13,6 +13,6 @@ private: // default
 	~DBManager();
 
 public:
-	void DoQueryAndSetResult(const std::string& _query, QueryResult& _queryResult);
+	bool DoQueryAndSetResult(Query& _query);
 };
 
