@@ -7,10 +7,10 @@ private: // member var
 	
 
 public: // default
-	AddFriendQuery();
+	AddFriendQuery(const std::string& _userID, const std::string& _friendID);
 	~AddFriendQuery();
 
 public: // member Func
-
+	void ReadQuery();
 };
 

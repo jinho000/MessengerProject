@@ -7,7 +7,7 @@ private: // member var
 	std::vector<std::string> m_friendList;
 
 public: // default
-	FriendListQuery(int _userIDIndex);
+	FriendListQuery(const std::string& _userID);
 	~FriendListQuery();
 
 public: // member Func

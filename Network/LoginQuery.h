@@ -4,8 +4,8 @@
 class LoginQuery : public Query
 {
 private: // member var
-	int		m_userIDIndex;
-	bool	m_bLoginSuccess;
+	std::string	m_userID;
+	bool		m_bLoginSuccess;
 
 public: // default
 	LoginQuery(const std::string& _ID, const std::string& _PW);
@@ -15,6 +15,6 @@ public: // member Func
 	virtual void ReadQuery();
 
 	bool IsLoginSuccess() { return m_bLoginSuccess; }
-	int GetUserIDIndex() { return m_userIDIndex; }
+	const std::string& GetUserID() { return m_userID; }
 };
 

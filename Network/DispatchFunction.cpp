@@ -9,6 +9,7 @@
 #include "JoinQuery.h"
 #include "LoginQuery.h"
 #include "FriendListQuery.h"
+#include "AddFriendQuery.h"
 
 void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _loginPacket)
 {
@@ -23,8 +24,7 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 		UserManager::GetInst()->AddUser(pLoginPacket->GetID(), _TCPSession);
 		
 		// 로그인에 성공하고 유저의 ID index를 가져온경우 유저리스트쿼리를 실패할 수 없음
-		int userIDIndex = loginQuery.GetUserIDIndex();
-		FriendListQuery friendListQuery(userIDIndex);
+		FriendListQuery friendListQuery(loginQuery.GetUserID());
 		DBManager::GetInst()->DoQueryAndSetResult(friendListQuery);
 
 
@@ -94,13 +94,27 @@ void DispatchIDCheckPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> 
 
 void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _AddFriendPacket)
 {
-	std::unique_ptr<AddFriendResultPacket> pAddFriendResultPacket(static_cast<AddFriendResultPacket*>(_AddFriendPacket.release()));
+	std::unique_ptr<AddFriendPacket> pAddFriendPacket(static_cast<AddFriendPacket*>(_AddFriendPacket.release()));
+	const std::string& friendID = pAddFriendPacket->GetFriendID();
+	
 
-	// DB처리
+	// DB에 등록된 아이디인지 확인
+	FindIDQuery findIDQuery(friendID);
+	if (DBManager::GetInst()->DoQueryAndSetResult(findIDQuery) == true && findIDQuery.IsFindSuccess() == true)
+	{
+		// DB에 등록된 아이디인경우 친구리스트에 추가
+		// AddFriendQuery는 실패할일이 없다고 가정
+		AddFriendQuery addFriendQuery(pAddFriendPacket->GetUserID(), friendID);
+		DBManager::GetInst()->DoQueryAndSetResult(addFriendQuery);
 
+		AddFriendResultPacket resultPacket(friendID, RESULT_TYPE::SUCCESS);
+		_TCPSession->Send(&resultPacket);
 
-	// DB결과를 받아서 처리하기
-	AddFriendResultPacket resultPacket(pAddFriendResultPacket->GetFriendID(), RESULT_TYPE::SUCCESS);
+		return;
+	}
+
+	
+	AddFriendResultPacket resultPacket(friendID, RESULT_TYPE::FAIL);
 	_TCPSession->Send(&resultPacket);
 }
 

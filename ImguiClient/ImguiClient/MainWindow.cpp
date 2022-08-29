@@ -217,7 +217,7 @@ void MainWindow::UpdateAddFriendPopup()
 			if (m_pLoginUser->IsFriend(m_addFriendID) == false)
 			{
 				// 서버로 아이디 전송
-				AddFriendPacket packet(m_addFriendID);
+				AddFriendPacket packet(m_pLoginUser->GetUserID(), m_addFriendID);
 				NetworkManager::GetInst()->Send(&packet);
 			}
 			else
@@ -240,7 +240,7 @@ void MainWindow::UpdateAddFriendPopup()
 		if (ImGui::Button("Add", ImVec2(40, 20)))
 		{
 			// 서버에 아이디 전송
-			AddFriendPacket packet(m_addFriendID);
+			AddFriendPacket packet(m_pLoginUser->GetUserID(), m_addFriendID);
 			NetworkManager::GetInst()->Send(&packet);
 			
 			m_bPopupInputFocus = true;

@@ -2,10 +2,9 @@
 #include "LoginQuery.h"
 
 LoginQuery::LoginQuery(const std::string& _ID, const std::string& _PW)
-	: Query(std::string("select idx from userinfo where id = \"") 
+	: Query(std::string("select userInfo.ID from userinfo where id = \"") 
 		+ _ID + "\" AND pw = \"" 
 		+ _PW + "\";", 1)
-	, m_userIDIndex(-1)
 	, m_bLoginSuccess(false)
 {
 }
@@ -18,7 +17,7 @@ void LoginQuery::ReadQuery()
 {
 	if (m_queryResult.empty() != true)
 	{
-		m_userIDIndex = std::stoi(m_queryResult.front());
+		m_userID = m_queryResult.front();
 		m_bLoginSuccess = true;
 	}
 }

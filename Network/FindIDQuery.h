@@ -7,8 +7,8 @@ class FindIDQuery : public Query
 private: // member var
 	static std::string gFindIDQuery;
 
-	int		m_IDIndex;
-	bool	m_bFindSuccess;
+	std::string	m_userID;
+	bool		m_bFindSuccess;
 
 public: // default
 	FindIDQuery(const std::string& _findID);
@@ -18,6 +18,6 @@ public: // member Func
 	virtual void ReadQuery() override;
 
 	bool IsFindSuccess() { return m_bFindSuccess; }
-	int GetIDIndex() { return m_IDIndex; }
+	const std::string& GetID() { return m_userID; }
 };
 
