@@ -22,6 +22,6 @@ private:
 	void AddDispatchFunction();
 
 public: // member Func
-	void DispatchPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer);
+	void DispatchPacket(TCPSession* _pTCPSession, std::unique_ptr<PacketBase> _packet);
 };
 

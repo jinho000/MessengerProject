@@ -14,6 +14,7 @@ private: // member var
 	IOCompletionCallback	m_IOCompletionCallback;
 	
 	std::vector<uint8_t>	m_recvBuffer;
+	size_t					m_packetSize;
 
 public: // default
 	TCPSession();
@@ -26,6 +27,7 @@ public: // default
 
 private:
 	void IOCompletionCallback(DWORD _transferredBytes, IOCompletionData* _IOData);
+	void SendIOCompletion();
 	
 public: // member Func
 	bool IsRecycleSession();

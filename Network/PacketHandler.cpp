@@ -22,11 +22,8 @@ void PacketHandler::AddDispatchFunction()
 	m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::READ_CHATTING, DispatchReadChattingPacket));
 }
 
-void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, const std::vector<uint8_t>& _buffer)
+void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, std::unique_ptr<PacketBase> _packet)
 {
-	std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(_buffer);
-	assert(pPacket != nullptr);
-
-	const ServerPacketDispatchFunction& dispatchFunction = m_serverDispatchFuncion.find(pPacket->GetPacketType())->second;
-	dispatchFunction(_pTCPSession, std::move(pPacket));
+	const ServerPacketDispatchFunction& dispatchFunction = m_serverDispatchFuncion.find(_packet->GetPacketType())->second;
+	dispatchFunction(_pTCPSession, std::move(_packet));
 }

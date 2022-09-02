@@ -21,10 +21,15 @@ protected:
 	virtual size_t GetContentPacketSize() = 0;
 
 public:
+	enum { SIZEOF_PACKET_HEADER = sizeof(PACKET_TYPE) + sizeof(size_t) };
+
 	virtual void Serialize(Serializer& _serializer) = 0
 	{
+		size_t bufferSize = sizeof(m_packetType) + sizeof(m_packetSize) + GetContentPacketSize();
+		_serializer.ResizeBuffer(bufferSize);
+
 		_serializer.WritePacketType(m_packetType);
-		_serializer.WritePacketSize(sizeof(m_packetType) + sizeof(m_packetSize) + GetContentPacketSize());
+		_serializer.WritePacketSize(bufferSize);
 	}
 	virtual void Deserialize(const Serializer& _serializer) = 0
 	{

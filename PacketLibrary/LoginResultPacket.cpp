@@ -29,7 +29,7 @@ LoginResultPacket::~LoginResultPacket()
 
 size_t LoginResultPacket::GetContentPacketSize()
 {
-	return PacketHelper::GetTypeSize(m_result, m_userInfo.ID, m_userInfo.PW, m_userInfo.FriendList);
+	return PacketHelper::GetTypeSize(m_result, m_userInfo.ID, m_userInfo.PW, m_userInfo.FriendList, m_userInfo.UnreadMessage);
 }
 
 void LoginResultPacket::Serialize(Serializer& _serializer)

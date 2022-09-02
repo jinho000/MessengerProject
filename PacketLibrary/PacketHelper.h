@@ -35,5 +35,6 @@ namespace PacketHelper
 		return GetTypeSize(_type) + GetTypeSize(args...);
 	}
 
+	
 	std::unique_ptr<PacketBase> ConvertToPacket(const std::vector<uint8_t>& _buffer);
 }

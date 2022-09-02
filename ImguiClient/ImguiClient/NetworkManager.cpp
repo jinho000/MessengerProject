@@ -112,6 +112,8 @@ void NetworkManager::ListenThread()
 			break;
 		}
 
+		// 데이터가 여러번 나눠서 올경우 처리
+
 		// 패킷처리
 		std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
 		auto iter = m_packetHandler.find(pPacket->GetPacketType());
@@ -128,7 +130,7 @@ void NetworkManager::ListenThread()
 
 void NetworkManager::Send(PacketBase* _packet)
 {
-	Serializer serializer(255);
+	Serializer serializer;
 	_packet->Serialize(serializer);
 	std::vector<uint8_t> buffer = serializer.GetBuffer();
 	int result = send(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);

@@ -1,10 +1,9 @@
 #include "pch.h"
 #include "Serializer.h"
 
-Serializer::Serializer(size_t _bufferSize)
+Serializer::Serializer()
 	: m_offset()
 {
-	m_buffer.resize(_bufferSize);
 }
 
 Serializer::Serializer(const std::vector<uint8_t>& _buffer)
@@ -150,4 +149,9 @@ void Serializer::operator>>(UserInfo& _value) const
 	operator>>(_value.PW);
 	ReadVector(_value.FriendList);
 	ReadVector(_value.UnreadMessage);
+}
+
+void Serializer::ResizeBuffer(size_t _bufferSize)
+{
+	m_buffer.resize(_bufferSize);
 }

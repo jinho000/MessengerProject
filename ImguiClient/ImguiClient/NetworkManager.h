@@ -21,7 +21,7 @@ private:
 	
 	enum
 	{
-		RECV_BUFFER_SIZE = 255
+		RECV_BUFFER_SIZE = 1024
 	};
 
 	std::thread		m_recvThread;

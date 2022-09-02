@@ -2,7 +2,7 @@
 #include "FriendListQuery.h"
 
 FriendListQuery::FriendListQuery(const std::string& _userID)
-	: Query(std::string("select friendList.friendID from userinfo inner join friendList on userinfo.ID = ") + _userID + ";", 1)
+	: Query(std::string("select friendList.friendID from userinfo inner join friendList on userinfo.ID = \"") + _userID + "\";", 1)
 {
 }
 

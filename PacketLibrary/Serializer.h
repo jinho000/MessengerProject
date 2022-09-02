@@ -3,6 +3,7 @@
 #include "PacketType.h"
 
 // 데이터 직렬화 처리
+// 패킷의 데이터만 버퍼에 저장하여 처리하므로 구조체의 패딩을 고려할 필요 없음
 class Serializer
 {
 private:
@@ -10,7 +11,7 @@ private:
 	mutable size_t			m_offset;
 
 public:
-	Serializer(size_t _bufferSize);
+	Serializer();
 	Serializer(const std::vector<uint8_t>& _buffer);
 	~Serializer();
 
@@ -95,6 +96,7 @@ public:
 	}
 
 public:
+	void ResizeBuffer(size_t _bufferSize);
 	const std::vector<uint8_t>& GetBuffer() { return m_buffer; }
 
 };
