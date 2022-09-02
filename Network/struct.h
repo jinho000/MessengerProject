@@ -26,25 +26,26 @@ struct IOCompletionData
 
     void Clear()
     {
-        memset(buffer, 0x00, sizeof(buffer));
-        wsabuf.len = sizeof(buffer);
+        Clear(BUFFER_SIZE);
+    }
+
+    void Clear(size_t _size)
+    {
+        memset(buffer, 0x00, _size);
+        wsabuf.len = _size;
         wsabuf.buf = buffer;
     }
 
 
-
     void SetBuffer(const std::vector<uint8_t>& _sendBuffer, UINT _start, UINT _end)
     {
-        Clear();
 
-        wsabuf.buf = buffer;
-        wsabuf.len = BUFFER_SIZE;
-        
         // 데이터 범위 체크 
         assert(_start < _end);
         assert((_end - _start) <= BUFFER_SIZE);
         assert(_end <= _sendBuffer.size());
 
+        Clear(_end - _start);
         std::copy(_sendBuffer.begin() + _start, _sendBuffer.begin() + _end, buffer);
     }
 };

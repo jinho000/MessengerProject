@@ -21,6 +21,7 @@
 NetworkManager* NetworkManager::pInst = nullptr;
 
 NetworkManager::NetworkManager()
+	: m_packetSize(0)
 {
 	// 소켓라이브러리 시작
 	ServerHelper::WSAStart();
@@ -89,11 +90,12 @@ void NetworkManager::ListenThread()
 	while (true)
 	{
 		std::vector<uint8_t> buffer;
-		buffer.resize(RECV_BUFFER_SIZE);
+		buffer.resize(SERVER_BUFFER_SIZE);
 
-		int result = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
+		int transferredBytes = recv(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 
-		if (result == -1)
+		// 소켓 종료처리
+		if (transferredBytes == -1)
 		{
 			// 클라이언트의 종료 10053(WSAECONNABORTED)
 			// 서버가 종료된 경우 10054(WSAECONNRESET)
@@ -113,18 +115,42 @@ void NetworkManager::ListenThread()
 		}
 
 		// 데이터가 여러번 나눠서 올경우 처리
+		// TCP의 데이터는 경계가 존재하지 않음
+		// 데이터가 패킷의 사이즈만큼 왔는지 확인하기
+		// 들어온 데이터 개수만큼 리시브 버퍼 뒤에 저장
+		m_recvBuffer.insert(m_recvBuffer.end(), buffer.begin(), buffer.begin() + transferredBytes);
 
-		// 패킷처리
-		std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
-		auto iter = m_packetHandler.find(pPacket->GetPacketType());
-		assert(iter != m_packetHandler.end());
+		// 리시브버퍼에 패킷헤더의 데이터가 들어왔는지 확인
+		if (PacketBase::SIZEOF_PACKET_HEADER < m_recvBuffer.size())
+		{
+			m_packetSize = *reinterpret_cast<int*>(m_recvBuffer.data() + sizeof(PACKET_TYPE));
+		}
 
-		const ClientPacketDispatchFunction& dispatchFunction = iter->second;
+		// 리시브버퍼에 전체 패킷데이터가 들어왔는지 확인
+		if (m_packetSize <= m_recvBuffer.size())
+		{
+			// m_recvBuffer에서 패킷크기만큼 데이터를 가져와 버퍼에 채움
+			std::vector<uint8_t> buffer;
+			buffer.assign(m_recvBuffer.begin(), m_recvBuffer.begin() + m_packetSize);
 
-		// lock?
-		m_packetHandlerLock.lock();
-		dispatchFunction(std::move(pPacket));
-		m_packetHandlerLock.unlock();
+			// 패킷처리
+			std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
+			auto iter = m_packetHandler.find(pPacket->GetPacketType());
+			assert(iter != m_packetHandler.end());
+
+			// lock?
+			const ClientPacketDispatchFunction& dispatchFunction = iter->second;
+			m_packetHandlerLock.lock();
+			dispatchFunction(std::move(pPacket));
+			m_packetHandlerLock.unlock();
+
+			// 패킷 처리 후 세팅
+			// 사용한 데이터를 지우고 나머지 데이터를 세팅
+			// 패킷 크기 초기화
+			m_recvBuffer.erase(m_recvBuffer.begin(), m_recvBuffer.begin() + m_packetSize);
+			m_packetSize = m_recvBuffer.size();
+		}
+
 	}
 }
 
