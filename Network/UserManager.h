@@ -28,6 +28,7 @@ public: // member Func
 	void AddUnreadChatting(const std::string& _recvUserID, std::unique_ptr<ChattingPacket> _sendPacket);
 	UnreadChattingList* GetUnreadMessageList(const std::string& _loginUserID_);
 
+	bool HasUser(const std::string& _userID);
 	TCPSession* FindUser(const std::string& _userID);
 
 };

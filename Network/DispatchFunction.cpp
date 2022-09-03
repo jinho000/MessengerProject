@@ -15,6 +15,16 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 {
 	std::unique_ptr<LoginPacket> pLoginPacket(static_cast<LoginPacket*>(_loginPacket.release()));
 
+	// 이미 접속중인 유저인지 확인
+	if (UserManager::GetInst()->HasUser(pLoginPacket->GetID()) == true)
+	{
+		// 이미 접속중이면 실패처리
+		LoginResultPacket resultPacket(RESULT_TYPE::FAIL);
+		_TCPSession->Send(&resultPacket);
+		return;
+	}
+
+
 	// 로그인 처리
 	LoginQuery loginQuery(pLoginPacket->GetID(), pLoginPacket->GetPW());
 	if (DBManager::GetInst()->DoQueryAndSetResult(loginQuery) == true 

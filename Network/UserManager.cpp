@@ -49,6 +49,12 @@ std::vector<ChatMessage>* UserManager::GetUnreadMessageList(const std::string& _
 }
 
 
+bool UserManager::HasUser(const std::string& _userID)
+{
+    auto iter = m_connectedUserTable.find(_userID);
+    return iter != m_connectedUserTable.end();
+}
+
 TCPSession* UserManager::FindUser(const std::string& _userID)
 {
     auto iter = m_connectedUserTable.find(_userID);
