@@ -5,15 +5,32 @@
     <ClCompile Include="Server.cpp">
       <Filter>Server</Filter>
     </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>tinyXML2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Server">
       <UniqueIdentifier>{db0ca292-325e-4a95-91e8-fd5302e3fc8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyXML2">
+      <UniqueIdentifier>{48aa499b-1564-4a13-be67-88542025aafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{8690f499-90f9-4795-8a99-5f77cce16aa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Server.h">
       <Filter>Server</Filter>
     </ClInclude>
+    <ClInclude Include="tinyxml2.h">
+      <Filter>tinyXML2</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="ServerConfig.xml">
+      <Filter>Config</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

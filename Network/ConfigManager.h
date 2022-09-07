@@ -30,8 +30,10 @@ private:
 	~ConfigManager();
 
 public:
-	void LoadConfig();
-
+	// SetConfig
+	void SetServerInfo(const std::string& _serverIP, int _serverPort, int _maxConnection);
+	void SetDBServerInfo(DBServerInfo _dbServerInfo);
+	
 
 	// Get Config
 	const std::string& GetServerIP() { return m_serverIP; }

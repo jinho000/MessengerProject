@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServerApp>
+	<ServerStart ServerIP ="127.0.0.1" Port="9900" MaxConnection = "10"/>
+	<DataBase Host="127.0.0.1" Port="3306" Name="messengerdb" User="root" PW="1234" />
+</ServerApp>

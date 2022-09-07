@@ -3,5 +3,7 @@
 namespace Server
 {
 	void StartServer();
-
+	bool SetServerConfig();
 }
+
+

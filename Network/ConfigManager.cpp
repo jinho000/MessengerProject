@@ -7,30 +7,35 @@ ConfigManager::ConfigManager()
 	, m_maxConnection()
 	, m_workerThreadCount()
 {
+	// CPU개수 * 2 - 1만큼 스레드 만들기
+	// 1개는 메인 스레드
+	SYSTEM_INFO sysinfo;
+	GetSystemInfo(&sysinfo);
+	m_workerThreadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
 }
 
 ConfigManager::~ConfigManager()
 {
 }
 
-void ConfigManager::LoadConfig()
+void ConfigManager::SetServerInfo(const std::string& _serverIP, int _serverPort, int _maxConnection)
 {
-	m_serverIP = "127.0.0.1";
-	m_serverPort = 9900;
-	m_maxConnection = 10;
+	m_serverIP = _serverIP;
+	m_serverPort = _serverPort;
+	m_maxConnection = _maxConnection;
 
-	// CPU개수 * 2 - 1만큼 스레드 만들기
-	// 1개는 메인 스레드
-	SYSTEM_INFO sysinfo;
-	GetSystemInfo(&sysinfo);
-	m_workerThreadCount = sysinfo.dwNumberOfProcessors * 2 - 1;
+	//m_serverIP = "127.0.0.1";
+	//m_serverPort = 9900;
+	//m_maxConnection = 10;
+}
 
+void ConfigManager::SetDBServerInfo(DBServerInfo _dbServerInfo)
+{
+	m_DBServerInfo = _dbServerInfo;
 
-	//  "127.0.0.1", "root", "1234", "userver2", 3306,
-	// DBServer 정보 세팅
-	m_DBServerInfo.Host = "127.0.0.1";
-	m_DBServerInfo.User = "root";
-	m_DBServerInfo.Password = "1234";
-	m_DBServerInfo.Schema = "messengerdb";
-	m_DBServerInfo.Port = 3306;
+	//m_DBServerInfo.Host = "127.0.0.1";
+	//m_DBServerInfo.User = "root";
+	//m_DBServerInfo.Password = "1234";
+	//m_DBServerInfo.Schema = "messengerdb";
+	//m_DBServerInfo.Port = 3306;
 }
