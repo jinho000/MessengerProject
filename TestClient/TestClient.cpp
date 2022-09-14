@@ -1,71 +1,97 @@
 ﻿#include <iostream>
+#include <PacketLibrary/PacketHeader.h>
+#include <Network/ServerHelper.h>
+#include <Network/ClientSocket.h>
+#include <thread>
 #include <Windows.h>
-#include <vector>
-#include <string>
 
 using namespace std;
 
-// lib
-#include <mysql/mysql.h>
-#pragma comment (lib, "libmysql.lib")
+constexpr int ClientCount = 8;
 
+struct ClientInfo
+{
+	string ID;
+	string PW;
+};
+
+ClientInfo clientInfoArry[ClientCount] =
+{
+	{"ID1", "1"},
+	{"ID2", "2"},
+	{"ID3", "3"},
+	{"ID4", "4"},
+	{"ID5", "5"},
+	{"ID6", "6"},
+	{"ID7", "7"},
+	{"ID8", "8"},
+};
+
+bool NetworkProcess(PacketBase& _packet, SOCKET _socket)
+{
+	Serializer serializer = _packet.Serialize();
+
+	std::vector<uint8_t> buffer = serializer.GetBuffer();
+	int r = send(_socket, reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
+
+	r = recv(_socket, (char*)buffer.data(), buffer.size(), 0);
+	cout << "result \n";
+
+	if (r != -1)
+		return true;
+
+	return false;
+}
+
+void ClientWork(int _clientID)
+{
+	// 서버 접속하기
+	ClientSocket socket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
+	
+	while (socket.ConnectServer() == false)
+	{
+		cout << "connect Fail reconnect after 1 second\n";
+		Sleep(1000);
+	}
+
+	bool bSuccess = true;
+	while (bSuccess == true)
+	{
+		// 서버에 로그인하기
+		LoginPacket loginPacket(clientInfoArry[_clientID].ID, clientInfoArry[_clientID].PW);
+		bSuccess = NetworkProcess(loginPacket, socket.GetSocket());
+		// 서버에서 로그아웃
+		LogoutPacket logoutPacket(clientInfoArry[_clientID].ID);
+		bSuccess = NetworkProcess(loginPacket, socket.GetSocket());
+		Sleep(100);
+
+		cout << "Network Test \n";
+	}
+
+}
 
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
+	ServerHelper::WSAStart();
+	
+	std::thread testThread[ClientCount];
 
-	cout << "Mysql Version: " << MYSQL_VERSION_ID << endl;
-	cout << "Mysql Server Version: " << MYSQL_SERVER_VERSION << endl;
-	cout << "Mysql Library Version: " << LIBMYSQL_VERSION << endl;
-
-	MYSQL* mysql = nullptr;
-
-	// 라이브러리 초기화
-	mysql = mysql_init(mysql);
-	if (nullptr == mysql)
+	for (int i = 0; i < ClientCount; ++i)
 	{
-		cout << "init fail" << endl;
-		return 0;
+		testThread[i] = std::thread(ClientWork, i);
 	}
 
-	// DB에 연결
-	MYSQL* Handle = mysql_real_connect(mysql, "127.0.0.1", "root", "1234", "userver2", 3306, nullptr, CLIENT_MULTI_RESULTS);
-	if (mysql != Handle)
+
+	for (int i = 0; i < ClientCount; ++i)
 	{
-		// 실패했을때 왜 실패했는지 알려줍니다.
-		const char* Error = mysql_error(Handle);
-		cout << "error: " << Error << endl;
-		return 0;
+		testThread[i].join();
 	}
 
-	// 쿼리 전송
-	std::vector<string> vecResult;
-	MYSQL_ROW row;
-	char sql[1024] = { "SELECT ID FROM userver2.userinfo where Idx = 15;"};
-	if (mysql_query(mysql, sql) == 0) {
+	Sleep(1000);
 
-		// 결과값 받아오기
-		MYSQL_RES* result = mysql_store_result(mysql);
-
-		// 결과값을 레코드하나씩 받아옴
-		while ((row = mysql_fetch_row(result)) != NULL) 
-		{
-			MYSQL_FIELD* pFields = result->fields;
-			vecResult.push_back(row[0]);
-			vecResult.push_back(row[1]);
-			vecResult.push_back(row[2]);
-			vecResult.push_back(row[3]);
-			vecResult.push_back(row[4]);
-		}
-
-		// 결과값 처리 해제
-		mysql_free_result(result);
-	}
-
-	// 라이브러리 종료
-	mysql_close(mysql);
-
-	mysql_library_end();
+	ServerHelper::WSAEnd();
 
 	return 0;
 }

@@ -24,11 +24,13 @@ size_t JoinPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_joinID, m_joinPW);
 }
 
-void JoinPacket::Serialize(Serializer& _serialize)
+Serializer JoinPacket::Serialize()
 {
-	PacketBase::Serialize(_serialize);
-	_serialize << m_joinID;
-	_serialize << m_joinPW;
+	Serializer serialize = PacketBase::Serialize();
+	serialize << m_joinID;
+	serialize << m_joinPW;
+
+	return serialize;
 }
 
 void JoinPacket::Deserialize(const Serializer& _serialize)

@@ -23,10 +23,12 @@ size_t JoinResultPacket::GetContentPacketSize()
     return PacketHelper::GetTypeSize(m_joinResult);
 }
 
-void JoinResultPacket::Serialize(Serializer& _serializer)
+Serializer JoinResultPacket::Serialize()
 {
-    PacketBase::Serialize(_serializer);
-    _serializer.WriteEnum<RESULT_TYPE>(m_joinResult);
+    Serializer serializer = PacketBase::Serialize();
+    serializer.WriteEnum<RESULT_TYPE>(m_joinResult);
+
+    return serializer;
 }
 
 void JoinResultPacket::Deserialize(const Serializer& _serializer)

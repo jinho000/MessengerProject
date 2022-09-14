@@ -16,6 +16,12 @@ Serializer::~Serializer()
 {
 }
 
+Serializer::Serializer(Serializer&& _other) noexcept
+{
+	m_buffer = std::move(_other.m_buffer);
+	m_offset = _other.m_offset;
+}
+
 void Serializer::Write(const void* _data, int _size)
 {
 	// 경계값 체크

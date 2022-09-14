@@ -24,11 +24,13 @@ size_t AddFriendResultPacket::GetContentPacketSize()
     return PacketHelper::GetTypeSize(m_friendID, m_addFriendResult);
 }
 
-void AddFriendResultPacket::Serialize(Serializer& _serializer)
+Serializer AddFriendResultPacket::Serialize()
 {
-    PacketBase::Serialize(_serializer);
-    _serializer << m_friendID;
-    _serializer.WriteEnum<RESULT_TYPE>(m_addFriendResult);
+    Serializer serializer = PacketBase::Serialize();
+    serializer << m_friendID;
+    serializer.WriteEnum<RESULT_TYPE>(m_addFriendResult);
+
+    return serializer;
 }
 
 void AddFriendResultPacket::Deserialize(const Serializer& _serializer)

@@ -81,7 +81,7 @@ void JoinWindow::UpdateWindow()
 			}
 			else
 			{
-				NetworkManager::GetInst()->Send(&packet);
+				NetworkManager::GetInst()->Send(packet);
 				m_JoinResult = "";
 			}
 		}
@@ -97,7 +97,7 @@ void JoinWindow::UpdateWindow()
 			if (m_bCheckID == true)
 			{
 				JoinPacket packet(m_IDBuffer, m_PWBuffer);
-				NetworkManager::GetInst()->Send(&packet);
+				NetworkManager::GetInst()->Send(packet);
 			}
 			else
 			{

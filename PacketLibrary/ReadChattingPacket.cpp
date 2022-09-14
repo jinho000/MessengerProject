@@ -25,12 +25,14 @@ size_t ReadChattingPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_sendUserID, m_recvUserID, m_readCount);
 }
 
-void ReadChattingPacket::Serialize(Serializer& _serializer)
+Serializer ReadChattingPacket::Serialize()
 {
-	PacketBase::Serialize(_serializer);
-	_serializer << m_sendUserID;
-	_serializer << m_recvUserID;
-	_serializer << m_readCount;
+	Serializer serializer = PacketBase::Serialize();
+	serializer << m_sendUserID;
+	serializer << m_recvUserID;
+	serializer << m_readCount;
+
+	return serializer;
 }
 
 void ReadChattingPacket::Deserialize(const Serializer& _serializer)

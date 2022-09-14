@@ -15,7 +15,7 @@ protected:
 	virtual size_t GetContentPacketSize() override;
 
 public:
-	void Serialize(Serializer& _serializer) override;
+	Serializer Serialize() override;
 	void Deserialize(const Serializer& _serializer) override;
 
 	const std::string& GetLogoutID() { return m_logoutID; }

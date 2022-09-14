@@ -13,6 +13,7 @@ private: // member var
 
 	IOCompletionCallback	m_IOCompletionCallback;
 	
+	std::mutex				m_recvBufferLock;
 	std::vector<uint8_t>	m_recvBuffer;
 	size_t					m_packetSize;
 
@@ -36,5 +37,5 @@ public: // member Func
 	void SetClientAddress();
 	void RegistIOCP();
 	void RequestRecv();
-	void Send(PacketBase* _packet);
+	void Send(PacketBase& _packet);
 };

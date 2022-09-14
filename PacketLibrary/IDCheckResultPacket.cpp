@@ -24,10 +24,12 @@ size_t IDCheckResultPacket::GetContentPacketSize()
     return PacketHelper::GetTypeSize(m_IDCheckResult);
 }
 
-void IDCheckResultPacket::Serialize(Serializer& _serializer)
+Serializer IDCheckResultPacket::Serialize()
 {
-    PacketBase::Serialize(_serializer);
-    _serializer.WriteEnum<RESULT_TYPE>(m_IDCheckResult);
+    Serializer serializer = PacketBase::Serialize();
+    serializer.WriteEnum<RESULT_TYPE>(m_IDCheckResult);
+
+    return serializer;
 }
 
 void IDCheckResultPacket::Deserialize(const Serializer& _serializer)

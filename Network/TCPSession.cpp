@@ -52,6 +52,9 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// TCP의 데이터는 경계가 존재하지 않음
 		// 데이터가 패킷의 사이즈만큼 왔는지 확인하기
 		// 들어온 데이터 개수만큼 리시브 버퍼 뒤에 저장
+
+		//std::lock_guard<std::mutex> lock(m_recvBufferLock);
+
 		m_recvBuffer.insert(m_recvBuffer.end(), m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + _transferredBytes);
 
 		// 리시브버퍼에 패킷헤더의 데이터가 들어왔는지 확인
@@ -63,20 +66,17 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// 리시브버퍼에 전체 패킷데이터가 들어왔는지 확인
 		if (m_packetSize <= m_recvBuffer.size())
 		{
-			// m_recvBuffer에서 패킷크기만큼 데이터를 가져와 버퍼에 채움
+			// 버퍼에 패킷 정보 채우기
 			std::vector<uint8_t> buffer;
 			buffer.assign(m_recvBuffer.begin(), m_recvBuffer.begin() + m_packetSize);
+			m_recvBuffer.erase(m_recvBuffer.begin(), m_recvBuffer.begin() + m_packetSize);
+			m_packetSize = m_recvBuffer.size();
 	
 			// 들어온 패킷 처리
 			std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
 			assert(pPacket != nullptr);
+
 			PacketHandler::GetInst()->DispatchPacket(this, std::move(pPacket));
-
-			// 사용한 데이터를 지우고 나머지 데이터를 세팅
-			m_recvBuffer.erase(m_recvBuffer.begin(), m_recvBuffer.begin() + m_packetSize);
-
-			// 패킷 크기 초기화
-			m_packetSize = m_recvBuffer.size();
 		}
 
 		// recv 다시 요청
@@ -212,11 +212,10 @@ void TCPSession::RequestRecv()
 }
 
 
-void TCPSession::Send(PacketBase* _packet)
+void TCPSession::Send(PacketBase& _packet)
 {
 	// Serializer 객체에 데이터 직렬화
-	Serializer serializer;
-	_packet->Serialize(serializer);
+	Serializer serializer = _packet.Serialize();
 	const std::vector<uint8_t>& buffer = serializer.GetBuffer();
 	assert(buffer.empty() == false);
 

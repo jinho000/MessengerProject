@@ -62,7 +62,7 @@ void ChatWindow::ShowInputMessage()
 
         // 서버로 전송
         ChattingPacket packet(*pChatMessage);
-        NetworkManager::GetInst()->Send(&packet);
+        NetworkManager::GetInst()->Send(packet);
 
         m_ScrollToBottom = true;
         m_reclaimFocus = true;
@@ -90,7 +90,7 @@ void ChatWindow::AddRecvMessage(ChatMessage* _chatMessage)
 void ChatWindow::SendReadMessage()
 {
     ReadChattingPacket packet(m_friendID, m_userID, m_recvMessage.size());
-    NetworkManager::GetInst()->Send(&packet);
+    NetworkManager::GetInst()->Send(packet);
 
     m_recvMessage.clear();
 }

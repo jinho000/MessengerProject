@@ -32,11 +32,13 @@ size_t LoginResultPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_result, m_userInfo.ID, m_userInfo.PW, m_userInfo.FriendList, m_userInfo.UnreadMessage);
 }
 
-void LoginResultPacket::Serialize(Serializer& _serializer)
+Serializer LoginResultPacket::Serialize()
 {
-	PacketBase::Serialize(_serializer);
-	_serializer.WriteEnum<RESULT_TYPE>(m_result);
-	_serializer << m_userInfo;
+	Serializer serializer = PacketBase::Serialize();
+	serializer.WriteEnum<RESULT_TYPE>(m_result);
+	serializer << m_userInfo;
+
+	return serializer;
 }
 
 void LoginResultPacket::Deserialize(const Serializer& _serializer)

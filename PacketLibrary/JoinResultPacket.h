@@ -16,7 +16,7 @@ protected:
 	virtual size_t GetContentPacketSize() override;
 
 public:
-	void Serialize(Serializer& _serialize) override;
+	Serializer Serialize() override;
 	void Deserialize(const Serializer& _serialize) override;
 
 public:

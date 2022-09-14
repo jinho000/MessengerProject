@@ -17,7 +17,7 @@ protected:
 	virtual size_t GetContentPacketSize() override;
 
 public:
-	void Serialize(Serializer& _serializer) override;
+	Serializer Serialize() override;
 	void Deserialize(const Serializer& _serializer) override;
 
 	const std::string& GetSendUserID() { return m_sendUserID; }

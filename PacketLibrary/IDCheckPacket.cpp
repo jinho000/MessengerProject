@@ -22,10 +22,12 @@ size_t IDCheckPacket::GetContentPacketSize()
     return PacketHelper::GetTypeSize(m_ID);
 }
 
-void IDCheckPacket::Serialize(Serializer& _serialize)
+Serializer IDCheckPacket::Serialize()
 {
-    PacketBase::Serialize(_serialize);
-    _serialize << m_ID;
+    Serializer serialize = PacketBase::Serialize();
+    serialize << m_ID;
+
+    return serialize;
 }
 
 void IDCheckPacket::Deserialize(const Serializer& _serialize)

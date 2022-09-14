@@ -57,7 +57,7 @@ void LoginWindow::UpdateWindow()
 		LoginPacket loginPacket(m_IDBuffer, m_PWBuffer);
 		if (loginPacket.GetID().empty() == false)
 		{
-			NetworkManager::GetInst()->Send(&loginPacket);
+			NetworkManager::GetInst()->Send(loginPacket);
 			m_loginResult.clear();
 		}
 		else

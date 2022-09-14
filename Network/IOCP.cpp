@@ -65,12 +65,15 @@ void IOCP::IOWorkThread()
 		assert(completionKey != 0);
 		assert(overlapped != nullptr);
 
-		m_logicThreadPool.AddWork([&completionKey, &overlapped, &transferredBytes]() {
-			IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
-			IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
-			(*pIOCallback)(transferredBytes, ioCompletionData);
-		});
+		//m_logicThreadPool.AddWork([&completionKey, &overlapped, &transferredBytes]() {
+		//	IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+		//	IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
+		//	(*pIOCallback)(transferredBytes, ioCompletionData);
+		//});
 
+		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+		IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
+		(*pIOCallback)(transferredBytes, ioCompletionData);
 	}
 }
 

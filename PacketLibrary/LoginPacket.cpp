@@ -24,11 +24,13 @@ size_t LoginPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_ID, m_password);
 }
 
-void LoginPacket::Serialize(Serializer& _serialize)
+Serializer LoginPacket::Serialize()
 {
-	PacketBase::Serialize(_serialize);
-	_serialize << m_ID;
-	_serialize << m_password;
+	Serializer serialize = PacketBase::Serialize();
+	serialize << m_ID;
+	serialize << m_password;
+
+	return serialize;
 }
 
 void LoginPacket::Deserialize(const Serializer& _serialize)

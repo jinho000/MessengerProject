@@ -16,7 +16,8 @@ public:
 	~Serializer();
 
 	Serializer(const Serializer& _other) = delete;
-	Serializer(Serializer&& _other) = delete;
+	Serializer(Serializer&& _other) noexcept;
+
 	Serializer& operator=(const Serializer& _other) = delete;
 	Serializer& operator=(const Serializer&& _other) = delete;
 

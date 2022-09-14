@@ -48,6 +48,8 @@ bool DBManager::DoQueryAndSetResult(Query& _query)
 	std::queue<std::string> queryResult;
 
 	// 쿼리 전송
+	std::lock_guard<std::mutex> lock(m_dbMutex);
+
 	if (mysql_query(m_mysqlLib, _query.GetQuery().c_str()) == 0) {
 
 		// 결과값 받아오기

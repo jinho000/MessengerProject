@@ -154,10 +154,9 @@ void NetworkManager::ListenThread()
 	}
 }
 
-void NetworkManager::Send(PacketBase* _packet)
+void NetworkManager::Send(PacketBase& _packet)
 {
-	Serializer serializer;
-	_packet->Serialize(serializer);
+	Serializer serializer = _packet.Serialize();
 	std::vector<uint8_t> buffer = serializer.GetBuffer();
 	int result = send(m_clientSocket->GetSocket(), reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 }

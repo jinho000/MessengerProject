@@ -12,7 +12,8 @@ class PacketHandler : public Singleton<PacketHandler>
 	friend class Singleton;
 
 private:
-	std::unordered_map<PACKET_TYPE, ServerPacketDispatchFunction>	m_serverDispatchFuncion;
+	//std::unordered_map<PACKET_TYPE, ServerPacketDispatchFunction>	m_serverDispatchFuncion;
+	std::vector<ServerPacketDispatchFunction> m_serverDispatchFuncion;
 
 private:
 	PacketHandler();

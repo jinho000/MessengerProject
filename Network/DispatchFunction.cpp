@@ -20,7 +20,7 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 	{
 		// 이미 접속중이면 실패처리
 		LoginResultPacket resultPacket(RESULT_TYPE::FAIL);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 		return;
 	}
 
@@ -53,14 +53,14 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 
 		// 결과 전송
 		LoginResultPacket resultPacket(RESULT_TYPE::SUCCESS, userInfo);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 
 		return;
 	}
 
 	// 결과 전송
 	LoginResultPacket resultPacket(RESULT_TYPE::FAIL);
-	_TCPSession->Send(&resultPacket);
+	_TCPSession->Send(resultPacket);
 }
 
 void DispatchJoinPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _joinPacket)
@@ -73,12 +73,12 @@ void DispatchJoinPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _jo
 	{
 		// 쿼리 실행에 성공한경우
 		JoinResultPacket resultPacket(RESULT_TYPE::SUCCESS);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 	}
 	else
 	{
 		JoinResultPacket resultPacket(RESULT_TYPE::FAIL);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 	}
 }
 
@@ -92,13 +92,13 @@ void DispatchIDCheckPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> 
 	{
 		// ID가 없어 ID찾기에 실패한 경우 성공처리
 		IDCheckResultPacket resultPacket(RESULT_TYPE::SUCCESS);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 	}
 	else
 	{
 		// 쿼리 실패
 		IDCheckResultPacket resultPacket(RESULT_TYPE::FAIL);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 	}
 }
 
@@ -118,14 +118,14 @@ void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase
 		DBManager::GetInst()->DoQueryAndSetResult(addFriendQuery);
 
 		AddFriendResultPacket resultPacket(friendID, RESULT_TYPE::SUCCESS);
-		_TCPSession->Send(&resultPacket);
+		_TCPSession->Send(resultPacket);
 
 		return;
 	}
 
 	
 	AddFriendResultPacket resultPacket(friendID, RESULT_TYPE::FAIL);
-	_TCPSession->Send(&resultPacket);
+	_TCPSession->Send(resultPacket);
 }
 
 void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket)
@@ -145,7 +145,7 @@ void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketB
 	}
 
 	ChattingPacket recvPacket(pSendChattingPacket->GetChattingMessage());
-	pRecvUserSession->Send(&recvPacket);
+	pRecvUserSession->Send(recvPacket);
 }
 
 void DispatchLogoutPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _logoutPacket)
@@ -167,6 +167,6 @@ void DispatchReadChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketB
 		return;
 	}
 
-	pRecvUserSession->Send(pReadChattingPacket.get());
+	pRecvUserSession->Send(*pReadChattingPacket);
 }
 

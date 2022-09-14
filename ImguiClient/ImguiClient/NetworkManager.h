@@ -56,7 +56,7 @@ private:
 	void AddDispatchFunction();
 
 public:
-	void Send(PacketBase* _packet);
+	void Send(PacketBase& _packet);
 	bool ConnectServer();
 	bool ReConnectServer();
 };

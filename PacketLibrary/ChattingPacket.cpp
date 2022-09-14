@@ -22,10 +22,12 @@ size_t ChattingPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_chatMessage.sendUserID, m_chatMessage.recvUserID, m_chatMessage.message, m_chatMessage.bRead);
 }
 
-void ChattingPacket::Serialize(Serializer& _serializer)
+Serializer ChattingPacket::Serialize()
 {
-	PacketBase::Serialize(_serializer);
-	_serializer << m_chatMessage;
+	Serializer serializer = PacketBase::Serialize();
+	serializer << m_chatMessage;
+
+	return serializer;
 }
 
 void ChattingPacket::Deserialize(const Serializer& _serializer)

@@ -23,10 +23,12 @@ size_t LogoutPacket::GetContentPacketSize()
 	return PacketHelper::GetTypeSize(m_logoutID);
 }
 
-void LogoutPacket::Serialize(Serializer& _serializer)
+Serializer LogoutPacket::Serialize()
 {
-	PacketBase::Serialize(_serializer);
-	_serializer << m_logoutID;
+	Serializer serializer = PacketBase::Serialize();
+	serializer << m_logoutID;
+
+	return serializer;
 }
 
 void LogoutPacket::Deserialize(const Serializer& _serializer)

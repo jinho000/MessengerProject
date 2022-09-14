@@ -48,11 +48,6 @@ Socket::Socket()
 	}
 }
 
-Socket::~Socket()
-{
-	CloseSocket();
-}
-
 void Socket::CloseSocket()
 {
 	if (NULL != m_socket)

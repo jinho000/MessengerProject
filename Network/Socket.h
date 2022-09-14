@@ -12,7 +12,10 @@ protected:
 public:
 	Socket(int port, std::string _IP, IPPROTO _protocol);
 	Socket(); // session socket에서 사용
-	virtual ~Socket() = 0;
+	virtual ~Socket() = 0
+	{
+		CloseSocket();
+	}
 
 	Socket(const Socket& _other) = delete;
 	Socket(Socket&& _other) = delete;

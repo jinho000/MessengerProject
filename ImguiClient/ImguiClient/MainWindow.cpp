@@ -23,7 +23,7 @@ MainWindow::~MainWindow()
 	{
 		// 로그아웃 패킷 전달
 		LogoutPacket packet(m_pLoginUser->GetUserID());
-		NetworkManager::GetInst()->Send(&packet);
+		NetworkManager::GetInst()->Send(packet);
 
 		delete m_pLoginUser;
 		m_pLoginUser = nullptr;
@@ -166,7 +166,7 @@ void MainWindow::UpdateAddFriendPopup()
 			{
 				// 서버로 아이디 전송
 				AddFriendPacket packet(m_pLoginUser->GetUserID(), m_addFriendID);
-				NetworkManager::GetInst()->Send(&packet);
+				NetworkManager::GetInst()->Send(packet);
 			}
 			else
 			{
@@ -189,7 +189,7 @@ void MainWindow::UpdateAddFriendPopup()
 		{
 			// 서버에 아이디 전송
 			AddFriendPacket packet(m_pLoginUser->GetUserID(), m_addFriendID);
-			NetworkManager::GetInst()->Send(&packet);
+			NetworkManager::GetInst()->Send(packet);
 			
 			m_bPopupInputFocus = true;
 		}
@@ -267,7 +267,7 @@ void MainWindow::LogoutUser()
 {
 	// 로그아웃 패킷 전달
 	LogoutPacket packet(m_pLoginUser->GetUserID());
-	NetworkManager::GetInst()->Send(&packet);
+	NetworkManager::GetInst()->Send(packet);
 
 	MoveLoginWindow();
 }

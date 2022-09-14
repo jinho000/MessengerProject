@@ -2,11 +2,5 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="TestClient.cpp" />
-    <ClCompile Include="DBManager.cpp" />
-    <ClCompile Include="QueryResult.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="DBManager.h" />
-    <ClInclude Include="QueryResult.h" />
   </ItemGroup>
 </Project>
