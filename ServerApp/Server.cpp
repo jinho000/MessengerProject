@@ -106,13 +106,15 @@ bool Server::SetServerConfig()
     }
     
 
-    // 서버정보가져오기
+    // 서버정보 세팅
     {
         tinyxml2::XMLElement* ServerStart = Root->FirstChildElement("ServerStart");
         int serverPort = nullptr != ServerStart->FindAttribute("Port") ? std::stoi(ServerStart->FindAttribute("Port")->Value()) : -1;
         int maxConnection = nullptr != ServerStart->FindAttribute("MaxConnection") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
         std::string serverIP = nullptr != ServerStart->FindAttribute("ServerIP") ? ServerStart->FindAttribute("ServerIP")->Value() : "";
+        int logicThreadCount = nullptr != ServerStart->FindAttribute("LogicThreadCount") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
     
+        ConfigManager::GetInst()->SetLogicThreadCount(logicThreadCount);
         ConfigManager::GetInst()->SetServerInfo(serverIP, serverPort, maxConnection);
     }
 

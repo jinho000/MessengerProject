@@ -80,65 +80,13 @@ void MainWindow::UpdateWindow()
 
 	ImGui::Separator();
 
-	// 유저 정보 출력
-	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
-	if (ImGui::BeginTabBar("TabBar", tab_bar_flags))
-	{
-		const std::vector<std::string>& chatFriendList = m_pLoginUser->GetChatFriendList();
-
-		// 친구목록
-		if (ImGui::BeginTabItem("Friend List"))
-		{
-			int selected = -1;
-			for (size_t i = 0; i < chatFriendList.size(); i++)
-			{
-				std::string friendName(chatFriendList[i]);
-				friendName += '\n';
-
-				if (ImGui::Selectable(friendName.c_str(), selected == i))
-					selected = (int)i;
-
-				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-				{
-					CreateChatWindow(friendName.substr(0, friendName.length() - 1));
-				}
-
-				ImGui::Separator();
-			}
-
-			ImGui::EndTabItem();
-		}
-
-		// 채팅목록
-		if (ImGui::BeginTabItem("Chatting List"))
-		{
-			int selected = -1;
-			for (size_t i = 0; i < m_chatWindowList.size(); i++)
-			{
-				std::string print(m_chatWindowList[i]->GetFriendID());
-				print += '\n';
-				print += m_chatWindowList[i]->GetFirstMessage();
-
-				if (ImGui::Selectable(print.c_str(), selected == i))
-					selected = (int)i;
-
-				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-				{
-					m_chatWindowList[i]->SetActive(true);
-				}
-
-				ImGui::Separator();
-			}
-
-			ImGui::EndTabItem();
-		}
-
-		ImGui::EndTabBar();
-	}
+	// 유저정보, 메세지 리스트
+	ShowUserInfoOrMessageList();
 
 
 	// 친구추가 팝업 업데이트
 	UpdateAddFriendPopup();
+
 
 	// 로그아웃 함수 실행
 	if (m_bLogout == true)
@@ -253,6 +201,67 @@ void MainWindow::UpdateAddFriendPopup()
 		ImGui::EndPopup();
 	}
 }
+
+void MainWindow::ShowUserInfoOrMessageList()
+{
+	// 유저 정보 출력
+	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+	if (ImGui::BeginTabBar("TabBar", tab_bar_flags))
+	{
+		const std::vector<std::string>& chatFriendList = m_pLoginUser->GetChatFriendList();
+
+		// 친구목록
+		if (ImGui::BeginTabItem("Friend List"))
+		{
+			int selected = -1;
+			for (size_t i = 0; i < chatFriendList.size(); i++)
+			{
+				std::string friendName(chatFriendList[i]);
+				friendName += '\n';
+
+				if (ImGui::Selectable(friendName.c_str(), selected == i))
+					selected = (int)i;
+
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				{
+					CreateChatWindow(friendName.substr(0, friendName.length() - 1));
+				}
+
+				ImGui::Separator();
+			}
+
+			ImGui::EndTabItem();
+		}
+
+		// 채팅목록
+		if (ImGui::BeginTabItem("Chatting List"))
+		{
+			int selected = -1;
+			for (size_t i = 0; i < m_chatWindowList.size(); i++)
+			{
+				std::string print(m_chatWindowList[i]->GetFriendID());
+				print += '\n';
+				print += m_chatWindowList[i]->GetFirstMessage();
+
+				if (ImGui::Selectable(print.c_str(), selected == i))
+					selected = (int)i;
+
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				{
+					m_chatWindowList[i]->SetActive(true);
+				}
+
+				ImGui::Separator();
+			}
+
+			ImGui::EndTabItem();
+		}
+
+		ImGui::EndTabBar();
+	}
+
+}
+
 
 void MainWindow::LogoutUser()
 {

@@ -70,6 +70,9 @@
     <ClCompile Include="AddFriendQuery.cpp">
       <Filter>DBManager\AddFriendQuery</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>IOCP\ThreadPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -150,6 +153,9 @@
     <Filter Include="DBManager\FriendListQuery">
       <UniqueIdentifier>{764bd80c-e971-4804-ace3-ef8ce7471e4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCP\ThreadPool">
+      <UniqueIdentifier>{afa59250-47cf-4070-b7cc-0075e0ee7953}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -229,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="AddFriendQuery.h">
       <Filter>DBManager\AddFriendQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>IOCP\ThreadPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

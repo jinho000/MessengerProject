@@ -5,10 +5,12 @@
 #include "ConfigManager.h"
 
 IOCP::IOCP()
-	: m_threadCount(ConfigManager::GetInst()->GetWorkerThreadCount())
+	: m_logicThreadCount(ConfigManager::GetInst()->GetLogicThreadCount())
 	, m_completionPort(NULL)
+	, m_logicThreadPool(m_logicThreadCount)
 {
-	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, m_threadCount);
+	int coreCount = std::thread::hardware_concurrency();
+	m_completionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, coreCount);
 
 	if (m_completionPort == NULL)
 	{
@@ -17,29 +19,28 @@ IOCP::IOCP()
 	}
 
 	// 지정된 개수만큼 스레드 만들기
-	for (int i = 0; i < m_threadCount; ++i)
+	for (int i = 0; i < coreCount; ++i)
 	{
-		std::thread worker(std::bind(&IOCP::WorkThread, this));
-		m_workerThreadArry.push_back(std::move(worker));
+		m_IOThreadPool.push_back(std::thread(&IOCP::IOWorkThread, this));
 	}
 }
 
 IOCP::~IOCP()
 {
 	// 비동기 완료작업 종료 요청
-	for (size_t i = 0; i < m_workerThreadArry.size(); i++)
+	for (size_t i = 0; i < m_IOThreadPool.size(); i++)
 	{
 		// 스레드를 종료할때만 PostQueued 작업 요청
 		PostQueuedCompletionStatus(m_completionPort, THREAD_EXIT_CODE, THREAD_EXIT_CODE, nullptr);
 	}
 
-	for (size_t i = 0; i < m_workerThreadArry.size(); i++)
+	for (size_t i = 0; i < m_IOThreadPool.size(); i++)
 	{
-		m_workerThreadArry[i].join();
+		m_IOThreadPool[i].join();
 	}
 }
 
-void IOCP::WorkThread()
+void IOCP::IOWorkThread()
 {
 	while (true)
 	{
@@ -64,9 +65,11 @@ void IOCP::WorkThread()
 		assert(completionKey != 0);
 		assert(overlapped != nullptr);
 
-		IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
-		IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
-		(*pIOCallback)(transferredBytes, ioCompletionData);
+		m_logicThreadPool.AddWork([&completionKey, &overlapped, &transferredBytes]() {
+			IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
+			IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
+			(*pIOCallback)(transferredBytes, ioCompletionData);
+		});
 
 	}
 }

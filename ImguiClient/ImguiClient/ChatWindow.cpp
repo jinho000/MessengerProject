@@ -161,6 +161,7 @@ void ChatWindow::DispatchReadMessagePacket(std::unique_ptr<PacketBase> _packet)
 
 void ChatWindow::UpdateWindow()
 {
+
 	if (m_bActive == false)
 		return;
 

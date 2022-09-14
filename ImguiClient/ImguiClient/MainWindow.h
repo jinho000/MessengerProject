@@ -1,11 +1,11 @@
 #pragma once
-#include "ImguiWindow.h"
-#include "User.h"
-#include "ChatWindow.h"
-
 #include <PacketLibrary/PacketBase.h>
 #include <vector>
 #include <unordered_map>
+
+#include "ImguiWindow.h"
+#include "User.h"
+#include "ChatWindow.h"
 
 
 enum class MAIN_UI_TYPE
@@ -29,6 +29,7 @@ private: // member var
 	bool		m_bPopupInputFocus;
 	bool		m_bLogout;
 
+
 public: // default
 	MainWindow();
 	~MainWindow();
@@ -39,7 +40,10 @@ public:
 private:
 	void ShowAddFriendPopup();
 	void UpdateAddFriendPopup();
-	
+
+	void ShowUserInfoOrMessageList();
+
+
 	void LogoutUser();
 	void DestroyChatWindow();
 

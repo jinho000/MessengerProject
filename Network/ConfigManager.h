@@ -20,7 +20,7 @@ private: // member var
 	std::string		m_serverIP;
 	int				m_serverPort;
 	int				m_maxConnection;
-	int				m_workerThreadCount;
+	int				m_LogicThreadCount;
 
 	DBServerInfo	m_DBServerInfo;
 
@@ -31,6 +31,8 @@ private:
 
 public:
 	// SetConfig
+	void SetLogicThreadCount(UINT _count) { m_LogicThreadCount = _count; }
+	
 	void SetServerInfo(const std::string& _serverIP, int _serverPort, int _maxConnection);
 	void SetDBServerInfo(DBServerInfo _dbServerInfo);
 	
@@ -39,7 +41,7 @@ public:
 	const std::string& GetServerIP() { return m_serverIP; }
 	int GetServerPort() { return m_serverPort; }
 	int GetMaxConnection() { return m_maxConnection; }
-	int GetWorkerThreadCount() { return m_workerThreadCount; }
+	int GetLogicThreadCount() { return m_LogicThreadCount; }
 	const DBServerInfo& GetDBServerInfo() { return m_DBServerInfo; }
 };
 

@@ -225,6 +225,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="UserManager.cpp">
       <SubType>
       </SubType>
@@ -302,6 +303,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="UserManager.h">
       <SubType>
       </SubType>

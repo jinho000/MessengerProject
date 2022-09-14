@@ -31,6 +31,9 @@
     <Filter Include="ImguiWindow\ServerConnectModal">
       <UniqueIdentifier>{616afd93-826c-4075-ae58-b5575aeecda2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImguiWindow\MainWindow\WindowStack">
+      <UniqueIdentifier>{45e23da3-d9a7-427c-873d-f62b60769334}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImguiClient.cpp" />
