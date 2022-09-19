@@ -15,11 +15,7 @@ public:
 	Serializer(const std::vector<uint8_t>& _buffer);
 	~Serializer();
 
-	Serializer(const Serializer& _other) = delete;
 	Serializer(Serializer&& _other) noexcept;
-
-	Serializer& operator=(const Serializer& _other) = delete;
-	Serializer& operator=(const Serializer&& _other) = delete;
 
 public: 
 	// Write

@@ -7,6 +7,7 @@
 
 using namespace std;
 
+constexpr int threadCount = 8;
 constexpr int ClientCount = 8;
 
 struct ClientInfo
@@ -35,7 +36,7 @@ bool NetworkProcess(PacketBase& _packet, SOCKET _socket)
 	int r = send(_socket, reinterpret_cast<char*>(buffer.data()), buffer.size(), 0);
 
 	r = recv(_socket, (char*)buffer.data(), buffer.size(), 0);
-	cout << "result \n";
+	//cout << "result \n";
 
 	if (r != -1)
 		return true;
@@ -63,33 +64,46 @@ void ClientWork(int _clientID)
 		// 서버에서 로그아웃
 		LogoutPacket logoutPacket(clientInfoArry[_clientID].ID);
 		bSuccess = NetworkProcess(loginPacket, socket.GetSocket());
-		Sleep(100);
-
-		cout << "Network Test \n";
 	}
 
 }
+
+
 
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	
 	ServerHelper::WSAStart();
-	
-	std::thread testThread[ClientCount];
 
-	for (int i = 0; i < ClientCount; ++i)
+	std::thread threadArray[threadCount];
+	for (int i = 0; i < threadCount; ++i)
 	{
-		testThread[i] = std::thread(ClientWork, i);
+		threadArray[i] = std::thread(&ClientWork, i);
 	}
 
-
-	for (int i = 0; i < ClientCount; ++i)
+	for (int i = 0; i < threadCount; ++i)
 	{
-		testThread[i].join();
+		threadArray[i].join();
 	}
 
-	Sleep(1000);
+	//ClientSocket socket(80, "223.130.195.95", IPPROTO::IPPROTO_TCP);
+	//socket.ConnectServer();
+
+	//while (true)
+	//{	
+	//	char buff[2048] = {};
+	//	
+	//	int res = recv(socket.GetSocket(), buff, 2048, 0);
+
+	//	if (res == 0)
+	//	{
+	//		cout << "close" << endl;
+	//		break;
+	//	}
+
+	//	cout << buff << endl;
+	//}
 
 	ServerHelper::WSAEnd();
 

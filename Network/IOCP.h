@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "ThreadPool.h"	
+#include "IOCPThreadPool.h"
 
 class IOCP : public Singleton<IOCP>
 {
@@ -11,11 +11,11 @@ private:
 	~IOCP();
 
 private:
-	int							m_logicThreadCount;
 	HANDLE						m_completionPort;
-	std::vector<std::thread>	m_IOThreadPool;
+	std::vector<std::thread>	m_IOThreadArray;
 
-	ThreadPool					m_logicThreadPool;
+	int							m_coreCountHalf;
+	IOCPThreadPool				m_logicThreadPool;
 
 	enum
 	{

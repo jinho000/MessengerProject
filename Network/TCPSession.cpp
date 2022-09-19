@@ -52,10 +52,8 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// TCP의 데이터는 경계가 존재하지 않음
 		// 데이터가 패킷의 사이즈만큼 왔는지 확인하기
 		// 들어온 데이터 개수만큼 리시브 버퍼 뒤에 저장
-
-		//std::lock_guard<std::mutex> lock(m_recvBufferLock);
-
-		m_recvBuffer.insert(m_recvBuffer.end(), m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + _transferredBytes);
+		m_recvBuffer.insert(m_recvBuffer.end()
+			, m_IOCompletionRecv.buffer, m_IOCompletionRecv.buffer + _transferredBytes);
 
 		// 리시브버퍼에 패킷헤더의 데이터가 들어왔는지 확인
 		if (PacketBase::SIZEOF_PACKET_HEADER < m_recvBuffer.size())
@@ -107,6 +105,7 @@ void TCPSession::SendIOCompletion()
 {
 	DWORD byteSize = 0;
 	DWORD flag = 0;
+
 	int result = WSASend(m_sessionSocket.GetSocket()
 		, &m_IOCompletionSend.wsabuf
 		, 1
@@ -193,14 +192,17 @@ void TCPSession::RequestRecv()
 	// 리시브 요청을 할 때마다 IOCompletionData 정리
 	m_IOCompletionRecv.Clear();
 
-	if (SOCKET_ERROR == WSARecv(
+	int result = WSARecv(
 		m_sessionSocket.GetSocket()
 		, &m_IOCompletionRecv.wsabuf
 		, 1
 		, &recvByte
 		, &dwFlags
 		, &m_IOCompletionRecv.overlapped
-		, nullptr))
+		, nullptr);
+
+
+	if (SOCKET_ERROR == result)
 	{
 		int Error = WSAGetLastError();
 		if (WSA_IO_PENDING != Error)

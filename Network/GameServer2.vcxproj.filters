@@ -70,8 +70,8 @@
     <ClCompile Include="AddFriendQuery.cpp">
       <Filter>DBManager\AddFriendQuery</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
-      <Filter>IOCP\ThreadPool</Filter>
+    <ClCompile Include="IOCPThreadPool.cpp">
+      <Filter>IOCP\IOCPThreadPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +153,7 @@
     <Filter Include="DBManager\FriendListQuery">
       <UniqueIdentifier>{764bd80c-e971-4804-ace3-ef8ce7471e4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCP\ThreadPool">
+    <Filter Include="IOCP\IOCPThreadPool">
       <UniqueIdentifier>{afa59250-47cf-4070-b7cc-0075e0ee7953}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -236,8 +236,8 @@
     <ClInclude Include="AddFriendQuery.h">
       <Filter>DBManager\AddFriendQuery</Filter>
     </ClInclude>
-    <ClInclude Include="ThreadPool.h">
-      <Filter>IOCP\ThreadPool</Filter>
+    <ClInclude Include="IOCPThreadPool.h">
+      <Filter>IOCP\IOCPThreadPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

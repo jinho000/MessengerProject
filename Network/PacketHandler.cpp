@@ -14,14 +14,6 @@ PacketHandler::PacketHandler()
 
 void PacketHandler::AddDispatchFunction()
 {
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGIN, DispatchLoginPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::JOIN, DispatchJoinPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::IDCHECK, DispatchIDCheckPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND, DispatchAddFriendPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::CHATTING, DispatchSendChattingPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::LOGOUT, DispatchLogoutPacket));
-	//m_serverDispatchFuncion.insert(std::make_pair(PACKET_TYPE::READ_CHATTING, DispatchReadChattingPacket));
-
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::LOGIN)] = DispatchLoginPacket;
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::JOIN)] = DispatchJoinPacket;
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::IDCHECK)] = DispatchIDCheckPacket;
@@ -33,7 +25,6 @@ void PacketHandler::AddDispatchFunction()
 
 void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, std::unique_ptr<PacketBase> _packet)
 {
-	//const ServerPacketDispatchFunction& dispatchFunction = m_serverDispatchFuncion.find(_packet->GetPacketType())->second;
 	const ServerPacketDispatchFunction& dispatchFunction = m_serverDispatchFuncion[static_cast<int>(_packet->GetPacketType())];
 	dispatchFunction(_pTCPSession, std::move(_packet));
 }

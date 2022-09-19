@@ -24,7 +24,6 @@ void DispatchLoginPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _l
 		return;
 	}
 
-
 	// 로그인 처리
 	LoginQuery loginQuery(pLoginPacket->GetID(), pLoginPacket->GetPW());
 	if (DBManager::GetInst()->DoQueryAndSetResult(loginQuery) == true 
@@ -123,7 +122,6 @@ void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase
 		return;
 	}
 
-	
 	AddFriendResultPacket resultPacket(friendID, RESULT_TYPE::FAIL);
 	_TCPSession->Send(resultPacket);
 }

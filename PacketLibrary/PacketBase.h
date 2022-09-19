@@ -10,7 +10,7 @@ protected:
 
 public: // default
 	PacketBase(PACKET_TYPE _packetType);
-	virtual ~PacketBase();
+	virtual ~PacketBase() = 0;
 
 	PacketBase(const PacketBase& _other) = delete;
 	PacketBase(PacketBase&& _other) = delete;
