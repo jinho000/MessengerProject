@@ -52,6 +52,9 @@
     <Filter Include="Packet\ReadChatting">
       <UniqueIdentifier>{f0a8fd61-c54d-4974-a51c-a2cc4b300e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Packet\ClientExit">
+      <UniqueIdentifier>{08bc2cc3-94f9-48fe-af3d-fe102dce753d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -98,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="ReadChattingPacket.cpp">
       <Filter>Packet\ReadChatting</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientExitPacket.cpp">
+      <Filter>Packet\ClientExit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="ReadChattingPacket.h">
       <Filter>Packet\ReadChatting</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientExitPacket.h">
+      <Filter>Packet\ClientExit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-
+#include "ObjectPool.h"
 
 class TCPSession;
 class TCPSessionPool : public Singleton<TCPSessionPool>
@@ -9,6 +9,7 @@ class TCPSessionPool : public Singleton<TCPSessionPool>
 
 private: // member var
 	std::unordered_map<TCPSession*, TCPSession*>	m_TCPSessionPool;
+	ObjectPool<TCPSession>							m_TCPSessionObjPool;
 	std::mutex										m_lock;
 
 private:

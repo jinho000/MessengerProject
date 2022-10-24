@@ -45,6 +45,9 @@ std::unique_ptr<PacketBase> PacketHelper::ConvertToPacket(const std::vector<uint
 	case PACKET_TYPE::READ_CHATTING:
 		pPacket = std::make_unique<ReadChattingPacket>();
 		break;
+	case PACKET_TYPE::CLIENT_EXIT:
+		pPacket = std::make_unique<ClientExitPacket>();
+		break;
 	default:
 		break;
 	}

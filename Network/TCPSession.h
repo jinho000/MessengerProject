@@ -38,4 +38,6 @@ public: // member Func
 	void RegistIOCP();
 	void RequestRecv();
 	void Send(PacketBase& _packet);
+
+	const SessionSocket& GetSessionSocket() { return m_sessionSocket; }
 };

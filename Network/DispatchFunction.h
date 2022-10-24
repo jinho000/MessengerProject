@@ -11,3 +11,4 @@ void DispatchAddFriendPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase
 void DispatchSendChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket);
 void DispatchLogoutPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket);
 void DispatchReadChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _sendChattingPacket);
+void DispatchClientExitPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _clientExitPacket);

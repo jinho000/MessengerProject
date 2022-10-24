@@ -36,6 +36,7 @@ public: // default
 
 public:
 	static void DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _packet);
+	static void DispatchClientExitPacket(std::unique_ptr<PacketBase> _packet);
 
 private:
 	void ShowAddFriendPopup();

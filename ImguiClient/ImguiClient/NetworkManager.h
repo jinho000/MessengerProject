@@ -34,6 +34,7 @@ private:
 	
 	std::vector<uint8_t>	m_recvBuffer;
 	size_t					m_packetSize;
+	std::atomic<bool>		m_bExit;
 
 private: 
 	NetworkManager();
@@ -59,5 +60,7 @@ public:
 	void Send(PacketBase& _packet);
 	bool ConnectServer();
 	bool ReConnectServer();
+	void SetClientExit();
+
 };
 

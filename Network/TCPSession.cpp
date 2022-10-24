@@ -5,6 +5,7 @@
 #include "TCPSessionPool.h"
 #include "SessionManager.h"
 #include "PacketHandler.h"
+#include "Logger.h"
 
 #include <PacketLibrary/PacketBase.h>
 #include <PacketLibrary/Serializer.h>
@@ -34,6 +35,12 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 		// client 접속 종료 처리
 		if (_transferredBytes == 0)
 		{
+			std::string log;
+			log += "Disconnect Client\n";
+			log += "Client IP: " + m_sessionSocket.GetClientIP() + "\n";
+			log += "Client Port: " + std::to_string(m_sessionSocket.GetClientPort()) + "\n";
+			Logger::GetInst()->Log(log);
+
 			// 소켓 종료
 			BOOL bResult = TransmitFile(m_sessionSocket.GetSocket(), 0, 0, 0
 				, &m_IOCompletionDisconnect.overlapped
@@ -74,6 +81,9 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 			std::unique_ptr<PacketBase> pPacket = PacketHelper::ConvertToPacket(buffer);
 			assert(pPacket != nullptr);
 
+			std::string log = "Recv Packet\n";
+			Logger::GetInst()->Log(log);
+
 			PacketHandler::GetInst()->DispatchPacket(this, std::move(pPacket));
 		}
 
@@ -88,6 +98,8 @@ void TCPSession::IOCompletionCallback(DWORD _transferredBytes, IOCompletionData*
 	}
 	case IOTYPE::DISCONNECT:
 	{
+
+
 		// 세션 매니저에서 꺼내기
 		SessionManager::GetInst()->PopTCPSession(this);
 
@@ -162,7 +174,7 @@ void TCPSession::SetClientAddress()
 
 	int localLen = 0;
 	int RemoteLen = 0;
-	GetAcceptExSockaddrs(m_IOCompletionRecv.buffer,
+	GetAcceptExSockaddrs(m_IOCompletionAccept.buffer,
 		0,
 		sizeof(sockaddr_in) + 16,
 		sizeof(sockaddr_in) + 16,
@@ -216,6 +228,8 @@ void TCPSession::RequestRecv()
 
 void TCPSession::Send(PacketBase& _packet)
 {
+	Logger::GetInst()->Log("Send Packet\n");
+
 	// Serializer 객체에 데이터 직렬화
 	Serializer serializer = _packet.Serialize();
 	const std::vector<uint8_t>& buffer = serializer.GetBuffer();

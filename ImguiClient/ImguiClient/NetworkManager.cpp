@@ -22,6 +22,7 @@ NetworkManager* NetworkManager::pInst = nullptr;
 
 NetworkManager::NetworkManager()
 	: m_packetSize(0)
+	, m_bExit(false)
 {
 	// 소켓라이브러리 시작
 	ServerHelper::WSAStart();
@@ -35,6 +36,11 @@ NetworkManager::NetworkManager()
 
 NetworkManager::~NetworkManager()
 {
+	while (m_bExit.load() == false)
+	{
+		Sleep(10);
+	}
+
 	delete m_clientSocket;
 	m_clientSocket = nullptr;
 
@@ -71,6 +77,7 @@ void NetworkManager::AddDispatchFunction()
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::ADD_FRIEND_RESULT, MainWindow::DispatchAddFriendResultPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::CHATTING, ChatWindow::DispatchRecvChattingPacket));
 	m_packetHandler.insert(std::make_pair(PACKET_TYPE::READ_CHATTING, ChatWindow::DispatchReadMessagePacket));
+	m_packetHandler.insert(std::make_pair(PACKET_TYPE::CLIENT_EXIT, MainWindow::DispatchClientExitPacket));
 
 
 }
@@ -138,7 +145,6 @@ void NetworkManager::ListenThread()
 			auto iter = m_packetHandler.find(pPacket->GetPacketType());
 			assert(iter != m_packetHandler.end());
 
-			// lock?
 			const ClientPacketDispatchFunction& dispatchFunction = iter->second;
 			m_packetHandlerLock.lock();
 			dispatchFunction(std::move(pPacket));
@@ -186,4 +192,9 @@ bool NetworkManager::ReConnectServer()
 	m_clientSocket = new ClientSocket(9900, "127.0.0.1", IPPROTO::IPPROTO_TCP);
 
 	return ConnectServer();
+}
+
+void NetworkManager::SetClientExit()
+{
+	m_bExit.store(true);
 }

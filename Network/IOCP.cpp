@@ -65,10 +65,6 @@ void IOCP::IOWorkThread()
 		assert(completionKey != 0);
 		assert(overlapped != nullptr);
 
-		//IOCompletionCallback* pIOCallback = reinterpret_cast<IOCompletionCallback*>(completionKey);
-		//IOCompletionData* ioCompletionData = reinterpret_cast<IOCompletionData*>(overlapped);
-		//(*pIOCallback)(transferredBytes, ioCompletionData);
-
 		// 생산자 소비자 모델
 		// IOCP에서 입출력 데이터를 받아 m_logicThreadPool에 전달 하여 처리
 		// 입출력을 받아오는 생산자 스레드와 입출력을 처리하는 소비자 스레드를 만들어 따로 처리

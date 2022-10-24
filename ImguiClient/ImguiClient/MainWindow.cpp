@@ -7,6 +7,7 @@
 #include <PacketLibrary/AddFriendPacket.h>
 #include <PacketLibrary/AddFriendResultPacket.h>
 #include <PacketLibrary/LogoutPacket.h>
+#include <PacketLibrary/ClientExitPacket.h>
 
 MainWindow::MainWindow()
 	: m_pLoginUser(nullptr)
@@ -24,6 +25,10 @@ MainWindow::~MainWindow()
 		// 로그아웃 패킷 전달
 		LogoutPacket packet(m_pLoginUser->GetUserID());
 		NetworkManager::GetInst()->Send(packet);
+
+		// 종료패킷 전달
+		ClientExitPacket exitPacket;
+		NetworkManager::GetInst()->Send(exitPacket);
 
 		delete m_pLoginUser;
 		m_pLoginUser = nullptr;
@@ -50,6 +55,11 @@ void MainWindow::DispatchAddFriendResultPacket(std::unique_ptr<PacketBase> _pack
 	{
 		pMainWindow->m_addFriendResult = "Add Fail";
 	}
+}
+
+void MainWindow::DispatchClientExitPacket(std::unique_ptr<PacketBase> _packet)
+{
+	NetworkManager::GetInst()->SetClientExit();
 }
 
 

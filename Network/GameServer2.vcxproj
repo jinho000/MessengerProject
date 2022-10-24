@@ -81,11 +81,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\;..\</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+    <IncludePath>$(SolutionDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameServer2\</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+    <IncludePath>$(SolutionDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,6 +158,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CircularQueue.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="ConfigManager.cpp">
       <SubType>
@@ -186,10 +189,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LoginQuery.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MemoryPool.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PacketHandler.cpp">
       <SubType>
       </SubType>
@@ -239,6 +248,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CircularQueue.h" />
     <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="ConfigManager.h">
       <SubType>
@@ -269,10 +279,16 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DispatchFunction.h" />
+    <ClInclude Include="Logger.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="LoginQuery.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MemoryPool.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketHandler.h">
       <SubType>
       </SubType>

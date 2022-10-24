@@ -5,6 +5,7 @@
 #include "SessionManager.h"
 #include "TCPSessionPool.h"
 #include "TCPSession.h"
+#include "Logger.h"
 
 TCPListener::TCPListener()
 	: m_listenSocket(ConfigManager::GetInst()->GetServerPort(), ConfigManager::GetInst()->GetServerIP())
@@ -24,6 +25,13 @@ void TCPListener::ListenCompleteCallback(DWORD _transferredBytes, IOCompletionDa
 	rfTcpSession.SetClientAddress();
 	rfTcpSession.RegistIOCP();
 	rfTcpSession.RequestRecv();
+
+	const SessionSocket& sessionSocket = rfTcpSession.GetSessionSocket();
+	std::string log;
+	log += "Connect Client\n";
+	log += "Client IP: " + sessionSocket.GetClientIP() + "\n";
+	log += "Client Port: " + std::to_string(sessionSocket.GetClientPort()) + "\n";
+	Logger::GetInst()->Log(log);
 
 	// 세션풀에서 꺼내기
 	TCPSessionPool::GetInst()->PopTCPSession(&rfTcpSession);

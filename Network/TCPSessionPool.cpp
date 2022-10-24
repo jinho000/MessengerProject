@@ -4,6 +4,7 @@
 #include "ConfigManager.h" 
 
 TCPSessionPool::TCPSessionPool()
+    : m_TCPSessionObjPool(ConfigManager::GetInst()->GetMaxConnection())
 {
     // 리스너가 먼저 만들어진 후 세션풀이 만들어져야함
     // TCPSession을 생성 후 accept 호출

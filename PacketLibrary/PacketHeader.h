@@ -10,3 +10,4 @@
 #include "ChattingPacket.h"
 #include "LogoutPacket.h"
 #include "ReadChattingPacket.h"
+#include "ClientExitPacket.h"

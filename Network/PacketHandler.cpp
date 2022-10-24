@@ -21,6 +21,7 @@ void PacketHandler::AddDispatchFunction()
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::CHATTING)] = DispatchSendChattingPacket;
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::LOGOUT)] = DispatchLogoutPacket;
 	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::READ_CHATTING)] = DispatchReadChattingPacket;
+	m_serverDispatchFuncion[static_cast<int>(PACKET_TYPE::CLIENT_EXIT)] = DispatchClientExitPacket;
 }
 
 void PacketHandler::DispatchPacket(TCPSession* _pTCPSession, std::unique_ptr<PacketBase> _packet)

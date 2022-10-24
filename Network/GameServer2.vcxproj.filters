@@ -73,6 +73,18 @@
     <ClCompile Include="IOCPThreadPool.cpp">
       <Filter>IOCP\IOCPThreadPool</Filter>
     </ClCompile>
+    <ClCompile Include="MemoryPool.cpp">
+      <Filter>Network\TCPSessionPool\MemPool</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularQueue.cpp">
+      <Filter>Network\TCPSessionPool\MemPool</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Network\TCPSessionPool\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="pch">
@@ -156,6 +168,15 @@
     <Filter Include="IOCP\IOCPThreadPool">
       <UniqueIdentifier>{afa59250-47cf-4070-b7cc-0075e0ee7953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network\TCPSessionPool\MemPool">
+      <UniqueIdentifier>{cb25c859-2f8f-4b2a-9c92-ef2f4a026618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\TCPSessionPool\ObjectPool">
+      <UniqueIdentifier>{66043712-8f16-4e9d-baaa-4fa2f7d7da92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{f698746e-94df-4837-a747-49eb6a484328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -238,6 +259,18 @@
     </ClInclude>
     <ClInclude Include="IOCPThreadPool.h">
       <Filter>IOCP\IOCPThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Network\TCPSessionPool\MemPool</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularQueue.h">
+      <Filter>Network\TCPSessionPool\MemPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Network\TCPSessionPool\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Logger</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

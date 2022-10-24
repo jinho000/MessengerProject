@@ -10,6 +10,7 @@
 #include <Network/PacketHandler.h>
 #include <Network/UserManager.h>
 #include <Network/DBManager.h>
+#include <Network/Logger.h>
 #include "tinyxml2.h"
 
 void Server::StartServer()
@@ -75,6 +76,7 @@ bool Server::SetServerConfig()
     //std::string currPath = std::filesystem::current_path().string();
     //std::cout << currPath << std::endl;
 
+    std::string log;
     tinyxml2::XMLDocument doc;
     doc.LoadFile("ServerConfig.xml");
     if (doc.Error())
@@ -91,6 +93,22 @@ bool Server::SetServerConfig()
         return false;
     }
 
+    
+    // 서버정보 세팅
+    {
+        tinyxml2::XMLElement* ServerStart = Root->FirstChildElement("ServerStart");
+        int serverPort = nullptr != ServerStart->FindAttribute("Port") ? std::stoi(ServerStart->FindAttribute("Port")->Value()) : -1;
+        int maxConnection = nullptr != ServerStart->FindAttribute("MaxConnection") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
+        std::string serverIP = nullptr != ServerStart->FindAttribute("ServerIP") ? ServerStart->FindAttribute("ServerIP")->Value() : "";
+        int logicThreadCount = nullptr != ServerStart->FindAttribute("LogicThreadCount") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
+
+        ConfigManager::GetInst()->SetLogicThreadCount(logicThreadCount);
+        ConfigManager::GetInst()->SetServerInfo(serverIP, serverPort, maxConnection);
+
+        log += "Server IP Address: " + serverIP + "\n";
+        log += "Server Port: " + std::to_string(serverPort) + "\n";
+    }
+
 
     // DB정보 세팅
     {
@@ -103,20 +121,15 @@ bool Server::SetServerConfig()
         dbInfo.Port = nullptr != database->FindAttribute("Port")->Value() ? std::stoi(database->FindAttribute("Port")->Value()) : -1;
 
         ConfigManager::GetInst()->SetDBServerInfo(dbInfo);
-    }
-    
 
-    // 서버정보 세팅
-    {
-        tinyxml2::XMLElement* ServerStart = Root->FirstChildElement("ServerStart");
-        int serverPort = nullptr != ServerStart->FindAttribute("Port") ? std::stoi(ServerStart->FindAttribute("Port")->Value()) : -1;
-        int maxConnection = nullptr != ServerStart->FindAttribute("MaxConnection") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
-        std::string serverIP = nullptr != ServerStart->FindAttribute("ServerIP") ? ServerStart->FindAttribute("ServerIP")->Value() : "";
-        int logicThreadCount = nullptr != ServerStart->FindAttribute("LogicThreadCount") ? std::stoi(ServerStart->FindAttribute("MaxConnection")->Value()) : -1;
-    
-        ConfigManager::GetInst()->SetLogicThreadCount(logicThreadCount);
-        ConfigManager::GetInst()->SetServerInfo(serverIP, serverPort, maxConnection);
+        log += "DB Host: " + dbInfo.Host + "\n";
+        log += "DB User: " + dbInfo.User+ "\n";
+        log += "DB PW: " + dbInfo.Password+ "\n";
+        log += "DB Schema: " + dbInfo.Schema+ "\n";
+        log += "DB Port: " + std::to_string(dbInfo.Port)+ "\n";
     }
+
+    Logger::GetInst()->Log(log);
 
     return true;
 }
