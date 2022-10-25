@@ -26,13 +26,13 @@ MainWindow::~MainWindow()
 		LogoutPacket packet(m_pLoginUser->GetUserID());
 		NetworkManager::GetInst()->Send(packet);
 
-		// 종료패킷 전달
-		ClientExitPacket exitPacket;
-		NetworkManager::GetInst()->Send(exitPacket);
-
 		delete m_pLoginUser;
 		m_pLoginUser = nullptr;
 	}
+
+	// 종료패킷 전달
+	ClientExitPacket exitPacket;
+	NetworkManager::GetInst()->Send(exitPacket);
 
 	DestroyChatWindow();
 }

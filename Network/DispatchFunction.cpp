@@ -272,5 +272,7 @@ void DispatchReadChattingPacket(TCPSession* _TCPSession, std::unique_ptr<PacketB
 void DispatchClientExitPacket(TCPSession* _TCPSession, std::unique_ptr<PacketBase> _clientExitPacket)
 {
 	Sleep(1);
+	Logger::GetInst()->Log("ClientExitPacket\n");
+
 	_TCPSession->Send(*_clientExitPacket);
 }

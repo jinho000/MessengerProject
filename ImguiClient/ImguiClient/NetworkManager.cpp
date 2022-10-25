@@ -23,6 +23,7 @@ NetworkManager* NetworkManager::pInst = nullptr;
 NetworkManager::NetworkManager()
 	: m_packetSize(0)
 	, m_bExit(false)
+	, m_bConnected(false)
 {
 	// 소켓라이브러리 시작
 	ServerHelper::WSAStart();
@@ -36,9 +37,12 @@ NetworkManager::NetworkManager()
 
 NetworkManager::~NetworkManager()
 {
-	while (m_bExit.load() == false)
+	if (m_bConnected == true)
 	{
-		Sleep(10);
+		while (m_bExit.load() == false)
+		{
+			Sleep(10);
+		}
 	}
 
 	delete m_clientSocket;
@@ -169,11 +173,13 @@ void NetworkManager::Send(PacketBase& _packet)
 
 bool NetworkManager::ConnectServer()
 {
-	if (m_clientSocket->ConnectServer() == false)
+	m_bConnected = m_clientSocket->ConnectServer();
+	if (m_bConnected == false)
 	{
 		return false;
 	}
 
+	
 	// RecvThread 시작
 	StartRecvThread();
 
